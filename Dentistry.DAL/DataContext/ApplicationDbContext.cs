@@ -12,7 +12,20 @@ namespace Dentistry.DAL.DataContext
         #region DbSets
 
         public DbSet<User> Users { get; set; }
+        public DbSet<Doctor> Doctors { get; set; }
 
         #endregion
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            modelBuilder.Entity<Doctor>().OwnsOne(x => x.Specialties);
+            modelBuilder.Entity<Doctor>().OwnsOne(x => x.PlacesOfWork);
+            modelBuilder.Entity<Doctor>().OwnsOne(x => x.Education);
+            modelBuilder.Entity<Doctor>().OwnsOne(x => x.Achievements);
+            modelBuilder.Entity<Doctor>().OwnsOne(x => x.Certificates);
+            modelBuilder.Entity<Doctor>().OwnsOne(x => x.Reviews);
+        }
     }
 }

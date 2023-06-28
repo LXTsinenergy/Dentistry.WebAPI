@@ -17,7 +17,7 @@ namespace Dentistry.Domain.Models
         [Required]
         public List<Specialties> Specialties { get; set; }
 
-        public List<Achievement> Achievements { get; set; }
+        public List<Achievement>? Achievements { get; set; }
 
         [Required]
         public List<string> Certificates { get; set; }
