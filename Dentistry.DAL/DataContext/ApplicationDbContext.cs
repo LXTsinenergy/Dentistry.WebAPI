@@ -20,12 +20,16 @@ namespace Dentistry.DAL.DataContext
         {
             base.OnModelCreating(modelBuilder);
 
+            #region Doctor Table
+
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Specialties);
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.PlacesOfWork);
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Education);
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Achievements);
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Certificates);
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Reviews);
+
+            #endregion
         }
     }
 }
