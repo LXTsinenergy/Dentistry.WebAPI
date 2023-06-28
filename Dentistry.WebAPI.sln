@@ -5,11 +5,11 @@ VisualStudioVersion = 17.6.33815.320
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dentistry.API", "Dentistry.API\Dentistry.API.csproj", "{0D5509DE-C4A3-4243-B090-5E3D1D9E2661}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.BLL", "Dentistry.BLL\Dentistry.BLL.csproj", "{E1EF692F-E2EA-41A2-A42D-5FCC40C11B17}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dentistry.BLL", "Dentistry.BLL\Dentistry.BLL.csproj", "{E1EF692F-E2EA-41A2-A42D-5FCC40C11B17}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.DAL", "Dentistry.DAL\Dentistry.DAL.csproj", "{5DF1B88E-2D0F-4968-964F-FAF4B2A7EB75}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dentistry.DAL", "Dentistry.DAL\Dentistry.DAL.csproj", "{5DF1B88E-2D0F-4968-964F-FAF4B2A7EB75}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dentistry.Domain", "Dentistry.Domain\Dentistry.Domain.csproj", "{4D8ABBFC-D4F5-4285-B36C-B2F9A786C189}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Dentistry.Domain", "Dentistry.Domain\Dentistry.Domain.csproj", "{4D8ABBFC-D4F5-4285-B36C-B2F9A786C189}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

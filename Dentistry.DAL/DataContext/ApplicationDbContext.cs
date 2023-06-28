@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Dentistry.Domain.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.DAL.DataContext
 {
@@ -6,5 +7,12 @@ namespace Dentistry.DAL.DataContext
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options) { }
+
+
+        #region DbSets
+
+        public DbSet<User> Users { get; set; }
+
+        #endregion
     }
 }
