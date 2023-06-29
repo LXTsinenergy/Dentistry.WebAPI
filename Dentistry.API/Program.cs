@@ -1,4 +1,6 @@
+using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
+using Dentistry.DAL.Repositories.UserRepository;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,8 +14,22 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<ApplicationDbContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
+builder.Services.AddAutoMapper(typeof(Program).Assembly);
 
+#region Repositories
+
+builder.Services.AddScoped<IUserRepository, UserRepository>();
+
+#endregion
+
+
+#region Services
+
+builder.Services.AddScoped<IUserService, UserService>();
+
+#endregion
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

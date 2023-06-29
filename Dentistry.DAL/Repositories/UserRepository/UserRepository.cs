@@ -13,7 +13,7 @@ namespace Dentistry.DAL.Repositories.UserRepository
             _context = context;
         }
 
-        public async Task Add(User user)
+        public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
             await _context.SaveChangesAsync();

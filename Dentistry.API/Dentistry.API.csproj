@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dentistry.BLL\Dentistry.BLL.csproj" />
     <ProjectReference Include="..\Dentistry.DAL\Dentistry.DAL.csproj" />
   </ItemGroup>
 
