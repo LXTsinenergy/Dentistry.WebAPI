@@ -12,11 +12,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Dentistry.DAL\Dentistry.DAL.csproj" />
     <ProjectReference Include="..\Dentistry.Domain\Dentistry.Domain.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="MappingProfiles\" />
   </ItemGroup>
 
 </Project>

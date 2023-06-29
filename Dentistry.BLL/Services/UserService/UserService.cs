@@ -18,7 +18,7 @@ namespace Dentistry.BLL.Services.UserService
 
         public async Task<User> AddAsync(UserDTO userDTO)
         {
-            User user = _mapper.Map<UserDTO, User>(userDTO);
+            User user = _mapper.Map<User>(userDTO);
             
             await _userRepository.AddAsync(user);
 

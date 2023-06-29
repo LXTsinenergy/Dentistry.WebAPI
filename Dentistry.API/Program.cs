@@ -1,3 +1,4 @@
+using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.UserRepository;
@@ -12,9 +13,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+
+#region Other Services
+
 builder.Services.AddDbContext<ApplicationDbContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-builder.Services.AddAutoMapper(typeof(Program).Assembly);
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+
+#endregion
+
 
 #region Repositories
 
