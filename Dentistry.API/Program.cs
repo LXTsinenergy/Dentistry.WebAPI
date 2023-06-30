@@ -20,6 +20,13 @@ builder.Services.AddDbContext<ApplicationDbContext>(
     o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
 builder.Services.AddAutoMapper(typeof(MappingProfile));
 
+builder.Services.Configure<RouteOptions>(o =>
+    {
+        o.LowercaseUrls = true;
+        o.LowercaseQueryStrings = true;
+        o.AppendTrailingSlash = true;
+    });
+
 #endregion
 
 
@@ -35,6 +42,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 
 #endregion
+
 var app = builder.Build();
 
 

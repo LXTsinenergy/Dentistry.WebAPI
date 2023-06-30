@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("/admin")]
+    [Route("[controller]/[action]")]
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
