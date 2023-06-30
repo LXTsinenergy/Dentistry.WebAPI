@@ -2,11 +2,7 @@ using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.UserRepository;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.IdentityModel.Tokens;
-using Microsoft.OpenApi.Models;
-using System.Text;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -47,12 +43,6 @@ builder.Services.AddScoped<IUserService, UserService>();
 
 #endregion
 
-
-#region Authorization and Authentication
-
-
-
-#endregion
 
 var app = builder.Build();
 
