@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Services.UserService;
+﻿using Dentistry.BLL.Services.ClaimsService;
+using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -11,10 +12,12 @@ namespace Dentistry.API.Controllers
     public class LoginController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IClaimsService _claimsService;
 
-        public LoginController(IUserService userService)
+        public LoginController(IUserService userService, IClaimsService claimsService)
         {
             _userService = userService;
+            _claimsService = claimsService;
         }
 
         [HttpPost]
@@ -24,14 +27,7 @@ namespace Dentistry.API.Controllers
 
             if (user == null) return NotFound();
 
-            var claims = new List<Claim>
-            {
-                new Claim(ClaimsIdentity.DefaultNameClaimType, user.Email),
-                new Claim(ClaimsIdentity.DefaultRoleClaimType, user.Role.Name)
-            };
-
-            var claimsIdentity = new ClaimsIdentity(claims, "Cookies");
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            var claimsPrincipal = _claimsService.CreateClaimsPrincipal(user);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
             
             return Ok(loginDTO);

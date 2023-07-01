@@ -1,10 +1,10 @@
 using Dentistry.BLL.Mapping;
+using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,6 +54,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 #region Services
 
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IClaimsService, ClaimsService>();
 
 #endregion
 
