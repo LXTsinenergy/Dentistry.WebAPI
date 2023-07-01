@@ -2,6 +2,9 @@ using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.UserRepository;
+using Dentistry.Domain.Models;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -12,6 +15,9 @@ builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+var adminRole = new Role("admin");
+var userRole = new Role("user");
 
 
 #region Other Services
@@ -26,6 +32,14 @@ builder.Services.Configure<RouteOptions>(o =>
     o.LowercaseQueryStrings = true;
     o.AppendTrailingSlash = true;
 });
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/login";
+        options.AccessDeniedPath = "/accessdenied";
+    });
+builder.Services.AddAuthorization();
 
 #endregion
 
@@ -54,8 +68,11 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.Map("/admin", [Authorize(Roles = "admin")] () => "Admin Panel");
+
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

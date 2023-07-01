@@ -29,6 +29,7 @@ namespace Dentistry.DAL.DataContext
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Certificates);
             modelBuilder.Entity<Doctor>().OwnsOne(x => x.Reviews);
 
+            modelBuilder.Entity<User>().OwnsOne(x => x.Role);
             #endregion
         }
     }
