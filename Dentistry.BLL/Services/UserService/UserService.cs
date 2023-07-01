@@ -31,5 +31,11 @@ namespace Dentistry.BLL.Services.UserService
 
             return users;
         }
+
+        public async Task<User> GetUserByEmailAsync(string email)
+        {
+            var user = await _userRepository.GetUserByEmailAsync(email);
+            return user;
+        }
     }
 }

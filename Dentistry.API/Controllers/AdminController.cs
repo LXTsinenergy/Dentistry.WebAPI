@@ -1,10 +1,12 @@
 ﻿using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize(Roles = "admin")]
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
