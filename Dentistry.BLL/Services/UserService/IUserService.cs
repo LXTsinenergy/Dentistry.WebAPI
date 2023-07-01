@@ -7,5 +7,6 @@ namespace Dentistry.BLL.Services.UserService
     {
         Task<User> AddAsync(UserDTO userDTO);
         Task<IEnumerable<User>> GetAllAsync();
+        Task<User> GetUserByEmailAsync(string email);
     }
 }

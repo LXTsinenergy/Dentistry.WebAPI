@@ -68,8 +68,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.Map("/admin", [Authorize(Roles = "admin")] () => "Admin Panel");
-
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
