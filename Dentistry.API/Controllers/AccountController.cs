@@ -43,9 +43,18 @@ namespace Dentistry.API.Controllers
             if (registerDTO.Password == registerDTO.ConfirmedPassword)
             {
                 var newUser = await _userService.RegisterNewUser(registerDTO);
+                await Login(new LoginDTO { Email = registerDTO.Email, Password = registerDTO.Password });
+
                 return Ok(newUser);
             }
             else return BadRequest(registerDTO);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            return Ok();
         }
     }
 }
