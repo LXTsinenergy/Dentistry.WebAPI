@@ -3,13 +3,10 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.Domain.Models
 {
-    public class Doctor
+    public class Doctor : User
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
-        public string FullName { get; set; }
+        public string Surname { get ;set; }
 
         [Required]
         public int Experience { get; set; }
