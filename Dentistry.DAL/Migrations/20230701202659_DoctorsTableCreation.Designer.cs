@@ -11,8 +11,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentistry.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20230701184635_DoctorInheritanceFromUser")]
-    partial class DoctorInheritanceFromUser
+    [Migration("20230701202659_DoctorsTableCreation")]
+    partial class DoctorsTableCreation
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,7 +24,7 @@ namespace Dentistry.DAL.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Dentistry.Domain.Models.User", b =>
+            modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -32,9 +32,25 @@ namespace Dentistry.DAL.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Discriminator")
+                    b.Property<int>("Experience")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Fullname")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Doctors");
+                });
+
+            modelBuilder.Entity("Dentistry.Domain.Models.User", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -58,24 +74,6 @@ namespace Dentistry.DAL.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Users");
-
-                    b.HasDiscriminator<string>("Discriminator").HasValue("User");
-
-                    b.UseTphMappingStrategy();
-                });
-
-            modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
-                {
-                    b.HasBaseType("Dentistry.Domain.Models.User");
-
-                    b.Property<int>("Experience")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Surname")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasDiscriminator().HasValue("Doctor");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
@@ -90,7 +88,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
@@ -106,7 +104,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
@@ -122,7 +120,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
@@ -138,7 +136,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
@@ -154,7 +152,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
@@ -170,7 +168,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Users");
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
