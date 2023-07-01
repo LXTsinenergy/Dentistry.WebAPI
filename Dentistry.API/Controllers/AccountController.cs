@@ -9,12 +9,12 @@ using System.Security.Claims;
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
-    public class LoginController : Controller
+    public class AccountController : Controller
     {
         private readonly IUserService _userService;
         private readonly IClaimsService _claimsService;
 
-        public LoginController(IUserService userService, IClaimsService claimsService)
+        public AccountController(IUserService userService, IClaimsService claimsService)
         {
             _userService = userService;
             _claimsService = claimsService;
@@ -31,6 +31,21 @@ namespace Dentistry.API.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
             
             return Ok(loginDTO);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterDTO registerDTO)
+        {
+            var possibleUser = await _userService.GetUserByEmailAsync(registerDTO.Email);
+
+            if (possibleUser != null) return BadRequest(registerDTO);
+
+            if (registerDTO.Password == registerDTO.ConfirmedPassword)
+            {
+                var newUser = await _userService.RegisterNewUser(registerDTO);
+                return Ok(newUser);
+            }
+            else return BadRequest(registerDTO);
         }
     }
 }

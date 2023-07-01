@@ -21,29 +21,17 @@ namespace Dentistry.API.Controllers
         {
             var users = await _userService.GetAllAsync();
 
-            if (users != null)
-            {
-                return Ok(users);
-            }
-            else
-            {
-                return BadRequest();
-            }
+            if (users != null) return Ok(users);
+            return BadRequest();
         }
 
         [HttpPost]
         public async Task<IActionResult> AddUser(UserDTO userDTO)
         {
-            var user = await _userService.AddAsync(userDTO);
+            var user = await _userService.AddNewUser(userDTO);
 
-            if (user != null)
-            {
-                return Ok(user);
-            }
-            else
-            {
-                return BadRequest(userDTO);
-            }
+            if (user != null) return Ok(user);
+            return BadRequest(userDTO);
         }
     }
 }

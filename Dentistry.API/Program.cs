@@ -16,9 +16,6 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var adminRole = new Role("admin");
-var userRole = new Role("user");
-
 
 #region Other Services
 
@@ -36,8 +33,8 @@ builder.Services.Configure<RouteOptions>(o =>
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
     {
-        options.LoginPath = "/login";
-        options.AccessDeniedPath = "/accessdenied";
+        options.LoginPath = "/login/login";
+        options.AccessDeniedPath = "/user";
     });
 builder.Services.AddAuthorization();
 

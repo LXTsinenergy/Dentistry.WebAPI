@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Dentistry.Domain.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.Domain.Models
 {

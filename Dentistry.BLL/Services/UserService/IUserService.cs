@@ -5,7 +5,8 @@ namespace Dentistry.BLL.Services.UserService
 {
     public interface IUserService
     {
-        Task<User> AddAsync(UserDTO userDTO);
+        Task<User> RegisterNewUser(RegisterDTO registerDTO);
+        Task<User> AddNewUser(UserDTO userDTO);
         Task<IEnumerable<User>> GetAllAsync();
         Task<User> GetUserByEmailAsync(string email);
     }
