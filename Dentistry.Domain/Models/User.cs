@@ -18,5 +18,7 @@ namespace Dentistry.Domain.Models
 
         [Required]
         public string PhoneNumber { get; set; }
+
+        public Role Role { get; set; }
     }
 }
