@@ -6,7 +6,7 @@ namespace Dentistry.Domain.DTO
     {
         [Required]
         [EmailAddress]
-        [RegularExpression("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$")]
+        [RegularExpression("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", ErrorMessage = "Введите действительный Email-адрес")]
         public string Email { get; set; }
 
         [Required]
