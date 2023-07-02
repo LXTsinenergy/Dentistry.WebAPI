@@ -20,6 +20,7 @@ namespace Dentistry.Domain.Models
         public string Password { get; set; }
         public byte[] Salt { get; set; }
 
+        [Required]
         [Phone]
         [RegularExpression("^[\\+]?[(]?[0-9]{3}[)]?[-\\s\\.]?[0-9]{3}[-\\s\\.]?[0-9]{4,6}$", ErrorMessage = "Введите действительный номер телефона")]
         public string PhoneNumber { get; set; }

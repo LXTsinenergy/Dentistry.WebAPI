@@ -1,25 +1,21 @@
 ﻿using Dentistry.Domain.Enums;
+using Dentistry.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.Domain.Models
+namespace Dentistry.Domain.DTO
 {
-    public class Doctor
+    public class DoctorDTO
     {
-        [Key]
-        public int Id { get; set; }
-
         [Required]
         public string Fullname { get; set; }
 
         [Required]
         public int Experience { get; set; }
 
-        public List<DoctorsNote> Notes { get; set; } = new();
-
         [Required]
         public List<Specialties> Specialties { get; set; }
 
-        public List<Achievement>? Achievements { get; set; } 
+        public List<Achievement>? Achievements { get; set; }
         public List<string> Certificates { get; set; }
         public List<string> Education { get; set; }
         public List<string> PlacesOfWork { get; set; }
@@ -37,8 +33,5 @@ namespace Dentistry.Domain.Models
 
         [Required]
         public string Password { get; set; }
-        public byte[] Salt { get; set; }
-
-        public Role Role { get; set; }
     }
 }
