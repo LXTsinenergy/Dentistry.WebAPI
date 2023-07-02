@@ -23,5 +23,15 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
         {
             return await _context.Doctors.ToListAsync();
         }
+
+        public async Task<Doctor?> GetDoctorByEmailAsync(string email)
+        {
+            return await _context.Doctors.FirstOrDefaultAsync(d => d.Email == email);
+        }
+
+        public async Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber)
+        {
+            return await _context.Doctors.FirstOrDefaultAsync(d => d.PhoneNumber == phoneNumber);
+        }
     }
 }

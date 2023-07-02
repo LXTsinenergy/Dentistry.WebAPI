@@ -36,10 +36,7 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(UserDTO userDTO)
         {
-            var possibleUserByPhone = await _userService.GetUserByEmailAsync(userDTO.Email);
-            var possibleUserByEmail = await _userService.GetUserByPhoneNumberAsync(userDTO.PhoneNumber);
-
-            if (possibleUserByEmail != null || possibleUserByPhone != null) return BadRequest(userDTO); 
+            if (await UserIsExists(userDTO)) return BadRequest(userDTO); 
 
             var salt = _passwordService.GenerateSalt();
             userDTO.Password = _passwordService.HashPassword(userDTO.Password, salt);
@@ -61,12 +58,32 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDoctor(DoctorDTO doctorDTO)
         {
+            if (await DoctorIsExists(doctorDTO)) return BadRequest(doctorDTO);
+
             var salt = _passwordService.GenerateSalt();
             doctorDTO.Password = _passwordService.HashPassword(doctorDTO.Password, salt);
 
             var doctor = await _doctorService.AddNewDoctorAsync(doctorDTO, salt);
 
             return Ok(doctor);
+        }
+
+        private async Task<bool> UserIsExists(UserDTO userDTO)
+        {
+            var possibleUserByPhone = await _userService.GetUserByEmailAsync(userDTO.Email);
+            var possibleUserByEmail = await _userService.GetUserByPhoneNumberAsync(userDTO.PhoneNumber);
+
+            if (possibleUserByPhone != null || possibleUserByEmail != null) return true;
+            return false;
+        }
+
+        private async Task<bool> DoctorIsExists(DoctorDTO doctorDTO)
+        {
+            var possibleDoctorByPhone = await _doctorService.GetDoctorByEmailAsync(doctorDTO.Email);
+            var possibleDoctorrByEmail = await _doctorService.GetDoctorPhoneNumberAsync(doctorDTO.PhoneNumber);
+
+            if (possibleDoctorrByEmail != null || possibleDoctorByPhone != null) return true;
+            return false;
         }
     }
 }

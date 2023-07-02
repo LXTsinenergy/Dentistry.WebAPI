@@ -34,5 +34,17 @@ namespace Dentistry.BLL.Services.DoctorService
 
             return doctors;
         }
+
+        public async Task<Doctor?> GetDoctorByEmailAsync(string email)
+        {
+            var doctor = await _doctorRepository.GetDoctorByEmailAsync(email);
+            return doctor;
+        }
+
+        public async Task<Doctor?> GetDoctorPhoneNumberAsync(string phoneNumber)
+        {
+            var doctor = await _doctorRepository.GetDoctorByPhoneNumberAsync(phoneNumber);
+            return doctor;
+        }
     }
 }

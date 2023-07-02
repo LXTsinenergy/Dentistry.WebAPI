@@ -7,5 +7,7 @@ namespace Dentistry.BLL.Services.DoctorService
     {
         Task<Doctor> AddNewDoctorAsync(DoctorDTO doctorDTO, byte[] passwordSalt);
         Task<IEnumerable<Doctor>> GetAllAsync();
+        Task<Doctor?> GetDoctorByEmailAsync(string email);
+        Task<Doctor?> GetDoctorPhoneNumberAsync(string phoneNumber);
     }
 }
