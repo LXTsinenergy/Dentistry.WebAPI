@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Services.UserService;
+﻿using Dentistry.BLL.Services.PasswordService;
+using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -10,10 +11,13 @@ namespace Dentistry.API.Controllers
     public class AdminController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IPasswordService _passwordService;
 
-        public AdminController(IUserService userService)
+        public AdminController(IUserService userService,
+            IPasswordService passwordService)
         {
             _userService = userService;
+            _passwordService = passwordService;
         }
 
         [HttpGet]
@@ -28,10 +32,12 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(UserDTO userDTO)
         {
-            var user = await _userService.AddNewUser(userDTO);
+            var salt = _passwordService.GenerateSalt();
+            userDTO.Password = _passwordService.HashPassword(userDTO.Password, salt);
 
-            if (user != null) return Ok(user);
-            return BadRequest(userDTO);
+            var user = await _userService.AddNewUser(userDTO, salt);
+
+            return Ok(user);
         }
     }
 }

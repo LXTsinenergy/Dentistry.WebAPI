@@ -1,5 +1,6 @@
 using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.ClaimsService;
+using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.UserRepository;
@@ -52,6 +53,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
+builder.Services.AddScoped<IPasswordService, PasswordService>();
 
 #endregion
 

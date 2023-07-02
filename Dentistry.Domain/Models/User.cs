@@ -17,7 +17,7 @@ namespace Dentistry.Domain.Models
         public string Email { get; set; }
 
         [Required]
-        public byte[] Password { get; set; }
+        public string Password { get; set; }
         public byte[] Salt { get; set; }
 
         [Phone]

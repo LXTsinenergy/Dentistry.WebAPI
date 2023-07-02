@@ -2,6 +2,7 @@
 {
     public interface IPasswordService
     {
-        byte[] HashPassword(string password, byte[] salt);
+        string HashPassword(string password, byte[] salt);
+        byte[] GenerateSalt();
     }
 }
