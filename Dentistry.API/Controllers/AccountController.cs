@@ -55,7 +55,7 @@ namespace Dentistry.API.Controllers
                 var pass = _passwordService.HashPassword(registerDTO.Password, salt);
                 registerDTO.Password = pass;
 
-                var newUser = await _userService.RegisterNewUser(registerDTO, salt);
+                var newUser = await _userService.RegisterNewUsersAsync(registerDTO, salt);
                 await Login(new LoginDTO { Email = registerDTO.Email, Password = registerDTO.Password });
 
                 return Ok(newUser);

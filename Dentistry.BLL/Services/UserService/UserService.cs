@@ -1,5 +1,4 @@
 ﻿using AutoMapper;
-using Dentistry.BLL.Services.PasswordService;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.DTO;
 using Dentistry.Domain.Enums;
@@ -18,7 +17,7 @@ namespace Dentistry.BLL.Services.UserService
             _mapper = mapper;
         }
 
-        public async Task<User> RegisterNewUser(RegisterDTO registerDTO, byte[] passwordSalt)
+        public async Task<User> RegisterNewUsersAsync(RegisterDTO registerDTO, byte[] passwordSalt)
         {
             User user = _mapper.Map<User>(registerDTO);
             user.Role = Role.user;
@@ -36,13 +35,19 @@ namespace Dentistry.BLL.Services.UserService
             return users;
         }
 
-        public async Task<User> GetUserByEmailAsync(string email)
+        public async Task<User?> GetUserByEmailAsync(string email)
         {
             var user = await _userRepository.GetUserByEmailAsync(email);
             return user;
         }
 
-        public async Task<User> AddNewUser(UserDTO userDTO, byte[] passwordSalt)
+        public async Task<User?> GetUserByPhoneNumberAsync(string phoneNumber)
+        {
+            var user = await _userRepository.GetUserByPhoneNumberAsync(phoneNumber);
+            return user;
+        }
+
+        public async Task<User> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt)
         {
             User user = _mapper.Map<User>(userDTO);
             user.Salt = passwordSalt;

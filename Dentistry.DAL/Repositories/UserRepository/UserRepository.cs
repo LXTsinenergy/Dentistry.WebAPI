@@ -29,5 +29,11 @@ namespace Dentistry.DAL.Repositories.UserRepository
             var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
             return user;
         }
+
+        public async Task<User?> GetUserByPhoneNumberAsync(string phoneNumber)
+        {
+            var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
+            return user;
+        }
     }
 }

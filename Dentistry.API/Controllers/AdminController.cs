@@ -35,7 +35,7 @@ namespace Dentistry.API.Controllers
             var salt = _passwordService.GenerateSalt();
             userDTO.Password = _passwordService.HashPassword(userDTO.Password, salt);
 
-            var user = await _userService.AddNewUser(userDTO, salt);
+            var user = await _userService.AddNewUserAsync(userDTO, salt);
 
             return Ok(user);
         }

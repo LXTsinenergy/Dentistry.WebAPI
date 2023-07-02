@@ -8,5 +8,6 @@ namespace Dentistry.DAL.Repositories.UserRepository
         Task<IEnumerable<User>> GetAllAsync();
         Task AddAsync(User user);
         Task<User?> GetUserByEmailAsync(string email);
+        Task<User?> GetUserByPhoneNumberAsync(string phoneNumber);
     }
 }
