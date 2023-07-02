@@ -51,6 +51,7 @@ namespace Dentistry.BLL.Services.UserService
         {
             User user = _mapper.Map<User>(userDTO);
             user.Salt = passwordSalt;
+            user.Role = Role.user;
 
             await _userRepository.AddAsync(user);
 
