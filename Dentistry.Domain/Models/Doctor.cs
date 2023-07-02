@@ -14,6 +14,8 @@ namespace Dentistry.Domain.Models
         [Required]
         public int Experience { get; set; }
 
+        public List<DoctorsNote> Notes { get; set; }
+
         [Required]
         public List<Specialties> Specialties { get; set; }
 

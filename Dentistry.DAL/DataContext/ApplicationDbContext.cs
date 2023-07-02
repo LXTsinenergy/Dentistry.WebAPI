@@ -13,6 +13,7 @@ namespace Dentistry.DAL.DataContext
 
         public DbSet<User> Users { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
+        public DbSet<DoctorsNote> DoctorsNotes { get; set; }
 
         #endregion
 
