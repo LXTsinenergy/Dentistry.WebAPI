@@ -24,6 +24,7 @@ namespace Dentistry.API.Controllers
             _passwordService = passwordService;
         }
 
+        #region User
         [HttpGet]
         public async Task<IActionResult> GetAllUsersAsync()
         {
@@ -36,7 +37,7 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(UserDTO userDTO)
         {
-            if (await UserIsExists(userDTO)) return BadRequest(userDTO); 
+            if (await UserIsExists(userDTO)) return BadRequest(userDTO);
 
             var salt = _passwordService.GenerateSalt();
             userDTO.Password = _passwordService.HashPassword(userDTO.Password, salt);
@@ -46,6 +47,17 @@ namespace Dentistry.API.Controllers
             return Ok(user);
         }
 
+        private async Task<bool> UserIsExists(UserDTO userDTO)
+        {
+            var possibleUserByPhone = await _userService.GetUserByEmailAsync(userDTO.Email);
+            var possibleUserByEmail = await _userService.GetUserByPhoneNumberAsync(userDTO.PhoneNumber);
+
+            if (possibleUserByPhone != null || possibleUserByEmail != null) return true;
+            return false;
+        }
+        #endregion
+
+        #region Doctor
         [HttpGet]
         public async Task<IActionResult> GetAllDoctorsAsync()
         {
@@ -68,15 +80,6 @@ namespace Dentistry.API.Controllers
             return Ok(doctor);
         }
 
-        private async Task<bool> UserIsExists(UserDTO userDTO)
-        {
-            var possibleUserByPhone = await _userService.GetUserByEmailAsync(userDTO.Email);
-            var possibleUserByEmail = await _userService.GetUserByPhoneNumberAsync(userDTO.PhoneNumber);
-
-            if (possibleUserByPhone != null || possibleUserByEmail != null) return true;
-            return false;
-        }
-
         private async Task<bool> DoctorIsExists(DoctorDTO doctorDTO)
         {
             var possibleDoctorByPhone = await _doctorService.GetDoctorByEmailAsync(doctorDTO.Email);
@@ -85,5 +88,6 @@ namespace Dentistry.API.Controllers
             if (possibleDoctorrByEmail != null || possibleDoctorByPhone != null) return true;
             return false;
         }
+        #endregion
     }
 }

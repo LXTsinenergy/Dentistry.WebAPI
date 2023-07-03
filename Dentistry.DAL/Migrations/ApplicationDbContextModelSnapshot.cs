@@ -58,7 +58,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.DoctorsNote", b =>
@@ -86,7 +86,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("DoctorsNotes");
+                    b.ToTable("DoctorsNotes", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.User", b =>
@@ -122,12 +122,12 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
                 {
-                    b.OwnsOne("System.Collections.Generic.List<string>", "Certificates", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Achievements#System.Collections.Generic.List<Dentistry.Domain.Models.Achievement>", "Achievements", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -137,13 +137,13 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
                         });
 
-                    b.OwnsOne("System.Collections.Generic.List<string>", "Education", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Certificates#System.Collections.Generic.List<string>", "Certificates", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -153,13 +153,13 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
                         });
 
-                    b.OwnsOne("Dentistry.Domain.Models.Doctor.PlacesOfWork#List", "PlacesOfWork", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Education#System.Collections.Generic.List<string>", "Education", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -169,13 +169,13 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
                         });
 
-                    b.OwnsOne("System.Collections.Generic.List<string>", "Reviews", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.PlacesOfWork#Dentistry.Domain.Models.Doctor.PlacesOfWork#List", "PlacesOfWork", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -185,13 +185,13 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
                         });
 
-                    b.OwnsOne("System.Collections.Generic.List<Dentistry.Domain.Enums.Specialties>", "Specialties", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Reviews#System.Collections.Generic.List<string>", "Reviews", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -201,13 +201,13 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
                         });
 
-                    b.OwnsOne("System.Collections.Generic.List<Dentistry.Domain.Models.Achievement>", "Achievements", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Specialties#System.Collections.Generic.List<Dentistry.Domain.Enums.Specialties>", "Specialties", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -217,7 +217,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");
