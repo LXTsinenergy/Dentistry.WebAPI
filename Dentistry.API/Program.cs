@@ -49,8 +49,8 @@ builder.Services.AddAuthorization();
 #region Repositories
 
 builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-builder.Services.AddScoped<IDoctorsNoteRepository, DoctorsNoteRepository>();
+//builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
+//builder.Services.AddScoped<IDoctorsNoteRepository, DoctorsNoteRepository>();
 
 #endregion
 
@@ -60,8 +60,8 @@ builder.Services.AddScoped<IDoctorsNoteRepository, DoctorsNoteRepository>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
-builder.Services.AddScoped<IDoctorService, DoctorService>();
-builder.Services.AddScoped<IDoctorsNoteService, DoctorsNoteService>();
+//builder.Services.AddScoped<IDoctorService, DoctorService>();
+//builder.Services.AddScoped<IDoctorsNoteService, DoctorsNoteService>();
 
 #endregion
 

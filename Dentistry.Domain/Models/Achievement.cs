@@ -1,11 +1,7 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace Dentistry.Domain.Models
+﻿namespace Dentistry.Domain.Models
 {
-    public class Achievement
+    public class Achievement : DoctorData
     {
-        [Required]
-        public string Name { get; set; }
-        public DateOnly? AchievementDate { get; set; }
+        public DateTime? AchievementDate { get; set; }
     }
 }

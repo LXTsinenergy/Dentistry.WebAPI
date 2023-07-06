@@ -17,13 +17,13 @@ namespace Dentistry.Domain.Models
         public List<DoctorsNote> Notes { get; set; } = new();
 
         [Required]
-        public List<Specialties> Specialties { get; set; }
+        public List<Speciality> Specialties { get; set; }
 
-        public List<Achievement>? Achievements { get; set; } 
-        public List<string> Certificates { get; set; }
-        public List<string> Education { get; set; }
-        public List<string> PlacesOfWork { get; set; }
-        public List<string> Reviews { get; set; }
+        public List<Achievement> Achievements { get; set; }
+        public List<Certificate> Certificates { get; set; }
+        public List<Education> Educations { get; set; }
+        public List<PlaceOfWork> PlacesOfWork { get; set; }
+        public List<Review> Reviews { get; set; }
 
         [Required]
         [EmailAddress]

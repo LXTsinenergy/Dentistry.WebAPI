@@ -13,7 +13,7 @@ namespace Dentistry.Domain.DTO
         public int Experience { get; set; }
 
         [Required]
-        public List<Specialties> Specialties { get; set; }
+        public List<Speciality> Specialties { get; set; }
 
         public List<Achievement>? Achievements { get; set; }
         public List<string> Certificates { get; set; }

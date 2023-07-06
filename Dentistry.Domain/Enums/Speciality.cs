@@ -1,6 +1,6 @@
 ﻿namespace Dentistry.Domain.Enums
 {
-    public enum Specialties
+    public enum Speciality
     {
         DentistTherapist,
         DentistOrthodontist,
