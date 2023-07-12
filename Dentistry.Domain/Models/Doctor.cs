@@ -14,16 +14,16 @@ namespace Dentistry.Domain.Models
         [Required]
         public int Experience { get; set; }
 
-        public List<DoctorsNote> Notes { get; set; } = new();
+        public ICollection<DoctorsNote> Notes { get; set; }
 
         [Required]
         public List<Speciality> Specialties { get; set; }
 
-        public List<Achievement> Achievements { get; set; }
-        public List<Certificate> Certificates { get; set; }
-        public List<Education> Educations { get; set; }
-        public List<PlaceOfWork> PlacesOfWork { get; set; }
-        public List<Review> Reviews { get; set; }
+        public ICollection<Achievement> Achievements { get; set; }
+        public ICollection<Certificate> Certificates { get; set; }
+        public ICollection<Education> Educations { get; set; }
+        public ICollection<PlaceOfWork> PlacesOfWork { get; set; }
+        public ICollection<Review> Reviews { get; set; }
 
         [Required]
         [EmailAddress]
@@ -40,5 +40,15 @@ namespace Dentistry.Domain.Models
         public byte[] Salt { get; set; }
 
         public Role Role { get; set; }
+
+        public Doctor()
+        {
+            Notes = new List<DoctorsNote>();
+            Achievements = new List<Achievement>();
+            Certificates = new List<Certificate>();
+            Educations = new List<Education>();
+            PlacesOfWork = new List<PlaceOfWork>();
+            Reviews = new List<Review>();
+        }
     }
 }

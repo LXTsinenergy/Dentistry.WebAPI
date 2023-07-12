@@ -4,6 +4,7 @@ using Dentistry.DAL.DataContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Dentistry.DAL.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230708102407_NotNullableDoctorId")]
+    partial class NotNullableDoctorId
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -44,7 +47,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Achievements", (string)null);
+                    b.ToTable("Achievements");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Certificate", b =>
@@ -69,7 +72,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Certificates", (string)null);
+                    b.ToTable("Certificates");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
@@ -108,7 +111,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors", (string)null);
+                    b.ToTable("Doctors");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.DoctorsNote", b =>
@@ -136,7 +139,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Notes", (string)null);
+                    b.ToTable("Notes");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Education", b =>
@@ -161,7 +164,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Educations", (string)null);
+                    b.ToTable("Educations");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.PlaceOfWork", b =>
@@ -186,7 +189,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("PlacesOfWork", (string)null);
+                    b.ToTable("PlacesOfWork");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Review", b =>
@@ -211,7 +214,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Reviews", (string)null);
+                    b.ToTable("Reviews");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.User", b =>
@@ -247,7 +250,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users", (string)null);
+                    b.ToTable("Users");
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Achievement", b =>
@@ -274,7 +277,7 @@ namespace Dentistry.DAL.Migrations
 
             modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
                 {
-                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Specialties#System.Collections.Generic.List<Dentistry.Domain.Enums.Speciality>", "Specialties", b1 =>
+                    b.OwnsOne("System.Collections.Generic.List<Dentistry.Domain.Enums.Speciality>", "Specialties", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -284,7 +287,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors", (string)null);
+                            b1.ToTable("Doctors");
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");

@@ -1,5 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Dentistry.Domain.Models
 {
@@ -11,7 +11,8 @@ namespace Dentistry.Domain.Models
         [Required]
         public string Name { get; set; }
 
-        public int DoctorId { get; set; }
-        public Doctor? Doctor { get; set; }
+        public int? DoctorId { get; set; }
+        [JsonIgnore]
+        public Doctor Doctor { get; set; }
     }
 }
