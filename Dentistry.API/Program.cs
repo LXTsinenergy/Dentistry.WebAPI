@@ -8,7 +8,6 @@ using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.DoctorsNoteRepository;
 using Dentistry.DAL.Repositories.UserRepository;
-using Dentistry.Domain.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 

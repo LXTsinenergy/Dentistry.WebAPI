@@ -1,5 +1,4 @@
 ﻿using Dentistry.Domain.Enums;
-using Dentistry.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.Domain.DTO
@@ -15,11 +14,11 @@ namespace Dentistry.Domain.DTO
         [Required]
         public List<Speciality> Specialties { get; set; }
 
-        public List<Achievement>? Achievements { get; set; }
-        public List<string> Certificates { get; set; }
-        public List<string> Education { get; set; }
-        public List<string> PlacesOfWork { get; set; }
-        public List<string> Reviews { get; set; }
+        public List<AchievementDTO>? Achievements { get; set; }
+        public List<CertificateDTO> Certificates { get; set; }
+        public List<EducationDTO> Educations { get; set; }
+        public List<PlaceOfWorkDTO> PlacesOfWork { get; set; }
+        public List<ReviewDTO> Reviews { get; set; }
 
         [Required]
         [EmailAddress]

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.Domain.Models
+namespace Dentistry.Domain.DTO
 {
-    public class Review : DoctorData
+    public class ReviewDTO : DoctorDataDTO
     {
         [Required]
         public string Text { get; set; }
