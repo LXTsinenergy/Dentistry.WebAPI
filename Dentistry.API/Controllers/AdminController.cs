@@ -71,7 +71,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDoctorAsync([FromBody]DoctorDTO doctorDTO)
+        public async Task<IActionResult> AddDoctorAsync(DoctorDTO doctorDTO)
         {
             if (await DoctorIsExists(doctorDTO)) return BadRequest(doctorDTO);
 
