@@ -19,19 +19,22 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Doctor>> GetAllAsync()
+        public async Task DeleteAsync(Doctor doctor)
         {
-            return await _context.Doctors.ToListAsync();
+            _context.Doctors.Remove(doctor);
+            await _context.SaveChangesAsync();
         }
 
-        public async Task<Doctor?> GetDoctorByEmailAsync(string email)
-        {
-            return await _context.Doctors.FirstOrDefaultAsync(d => d.Email == email);
-        }
+        public async Task<IEnumerable<Doctor>> GetAllAsync() => 
+            await _context.Doctors.ToListAsync();
 
-        public async Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber)
-        {
-            return await _context.Doctors.FirstOrDefaultAsync(d => d.PhoneNumber == phoneNumber);
-        }
+        public async Task<Doctor?> GetDoctorByEmailAsync(string email) => 
+            await _context.Doctors.FirstOrDefaultAsync(d => d.Email == email);
+
+        public async Task<Doctor?> GetDoctorByIdAsync(int id) => 
+            await _context.Doctors.FirstOrDefaultAsync(d => d.Id == id);
+
+        public async Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber) => 
+            await _context.Doctors.FirstOrDefaultAsync(d => d.PhoneNumber == phoneNumber);
     }
 }

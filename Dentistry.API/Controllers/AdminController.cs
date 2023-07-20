@@ -73,23 +73,29 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddDoctorAsync(DoctorDTO doctorDTO)
         {
-            if (await DoctorIsExists(doctorDTO)) return BadRequest(doctorDTO);
+            if (await _doctorService.DoctorIsExists(doctorDTO))
+            {
+                return BadRequest(doctorDTO);
+            }
 
             var salt = _passwordService.GenerateSalt();
             doctorDTO.Password = _passwordService.HashPassword(doctorDTO.Password, salt);
 
             var doctor = await _doctorService.AddNewDoctorAsync(doctorDTO, salt);
-            
             return Ok(doctor);
         }
 
-        private async Task<bool> DoctorIsExists(DoctorDTO doctorDTO)
+        [HttpPost]
+        public async Task<IActionResult> DeleteDoctorAsync(int id)
         {
-            var possibleDoctorByPhone = await _doctorService.GetDoctorByEmailAsync(doctorDTO.Email);
-            var possibleDoctorrByEmail = await _doctorService.GetDoctorPhoneNumberAsync(doctorDTO.PhoneNumber);
+            var doctor = await _doctorService.GetDoctorByIdAsync(id);
 
-            if (possibleDoctorrByEmail != null || possibleDoctorByPhone != null) return true;
-            return false;
+            if (await _doctorService.DoctorIsExists(doctor))
+            {
+                await _doctorService.DeleteDoctorAsync(doctor);
+                return Ok();
+            }
+            return BadRequest(id);
         }
         #endregion
     }

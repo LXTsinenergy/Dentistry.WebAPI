@@ -17,34 +17,134 @@ namespace Dentistry.BLL.Services.DoctorService
             _mapper = mapper;
         }
 
-        public async Task<Doctor> AddNewDoctorAsync(DoctorDTO doctorDTO, byte[] passwordSalt)
+        public async Task<bool> AddNewDoctorAsync(DoctorDTO doctorDTO, byte[] passwordSalt)
         {
             Doctor doctor = _mapper.Map<Doctor>(doctorDTO);
             doctor.Salt = passwordSalt;
             doctor.Role = Role.doctor;
 
-            await _doctorRepository.AddAsync(doctor);
+            try
+            {
+                await _doctorRepository.AddAsync(doctor);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-            return doctor;
+        public async Task<bool> DeleteDoctorAsync(Doctor doctor)
+        {
+            try
+            {
+                await _doctorRepository.DeleteAsync(doctor);
+                return true;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> DoctorIsExists(DoctorDTO doctorDTO)
+        {
+            try
+            {
+                var doctorByPhone = await _doctorRepository.GetDoctorByPhoneNumberAsync(doctorDTO.PhoneNumber);
+                var doctorByEmail = await _doctorRepository.GetDoctorByEmailAsync(doctorDTO.Email);
+
+                if (doctorByPhone != null || doctorByEmail != null) return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> DoctorIsExists(int id)
+        {
+            try
+            {
+                var doctor = await _doctorRepository.GetDoctorByIdAsync(id);
+
+                if (doctor != null) return true;
+                return false;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> DoctorIsExists(Doctor doctor)
+        {
+            try
+            {
+                if (doctor == null) return false;
+
+                var possibleDoctor = await _doctorRepository.GetDoctorByIdAsync(doctor.Id);
+
+                if (possibleDoctor != null) return true;
+                return false;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<IEnumerable<Doctor>> GetAllAsync()
         {
-            var doctors = await _doctorRepository.GetAllAsync();
-
-            return doctors;
+            try
+            {
+                var doctors = await _doctorRepository.GetAllAsync();
+                return doctors;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Doctor?> GetDoctorByEmailAsync(string email)
         {
-            var doctor = await _doctorRepository.GetDoctorByEmailAsync(email);
-            return doctor;
+            try
+            {
+                var doctor = await _doctorRepository.GetDoctorByEmailAsync(email);
+                return doctor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<Doctor?> GetDoctorByIdAsync(int id)
+        {
+            try
+            {
+                var doctor = await _doctorRepository.GetDoctorByIdAsync(id);
+                return doctor;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<Doctor?> GetDoctorPhoneNumberAsync(string phoneNumber)
         {
-            var doctor = await _doctorRepository.GetDoctorByPhoneNumberAsync(phoneNumber);
-            return doctor;
+            try
+            {
+                var doctor = await _doctorRepository.GetDoctorByPhoneNumberAsync(phoneNumber);
+                return doctor;
+            }
+            catch( Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
