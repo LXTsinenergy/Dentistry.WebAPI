@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Dentistry.DAL.Repositories.UserRepository;
-using Dentistry.Domain.DTO;
+using Dentistry.Domain.DTO.User;
+using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
 
@@ -17,7 +18,7 @@ namespace Dentistry.BLL.Services.UserService
             _mapper = mapper;
         }
 
-        public async Task<User> RegisterNewUsersAsync(RegisterDTO registerDTO, byte[] passwordSalt)
+        public async Task<User> RegisterNewUsersAsync(RegisterUserDTO registerDTO, byte[] passwordSalt)
         {
             User user = _mapper.Map<User>(registerDTO);
             user.Role = Role.user;

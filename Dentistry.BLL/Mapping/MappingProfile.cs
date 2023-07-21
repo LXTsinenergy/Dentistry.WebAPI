@@ -1,5 +1,7 @@
 ﻿using AutoMapper;
-using Dentistry.Domain.DTO;
+using Dentistry.Domain.DTO.DoctorDTO;
+using Dentistry.Domain.DTO.User;
+using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Mapping
@@ -8,12 +10,12 @@ namespace Dentistry.BLL.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<RegisterDTO, User>();
+            CreateMap<RegisterUserDTO, User>();
             CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
 
-            CreateMap<Doctor, DoctorDTO>();
-            CreateMap<DoctorDTO, Doctor>();
+            CreateMap<Doctor, DoctorCreationDTO>();
+            CreateMap<DoctorCreationDTO, Doctor>();
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.Domain.DTO
+namespace Dentistry.Domain.DTO.UserDTO.UserDTO
 {
-    public class LoginDTO
+    public class LoginUserDTO
     {
         [Required]
         [EmailAddress]

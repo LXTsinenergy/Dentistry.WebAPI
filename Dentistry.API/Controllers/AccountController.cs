@@ -1,11 +1,10 @@
 ﻿using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
-using Dentistry.Domain.DTO;
+using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
 namespace Dentistry.API.Controllers
 {
@@ -26,7 +25,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginDTO loginDTO)
+        public async Task<IActionResult> Login(LoginUserDTO loginDTO)
         {
             var user = await _userService.GetUserByEmailAsync(loginDTO.Email);
 
@@ -43,7 +42,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDTO registerDTO)
+        public async Task<IActionResult> Register(RegisterUserDTO registerDTO)
         {
             var possibleUser = await _userService.GetUserByEmailAsync(registerDTO.Email);
 
@@ -56,7 +55,7 @@ namespace Dentistry.API.Controllers
                 registerDTO.Password = pass;
 
                 var newUser = await _userService.RegisterNewUsersAsync(registerDTO, salt);
-                await Login(new LoginDTO { Email = registerDTO.Email, Password = registerDTO.Password });
+                await Login(new LoginUserDTO { Email = registerDTO.Email, Password = registerDTO.Password });
 
                 return Ok(newUser);
             }

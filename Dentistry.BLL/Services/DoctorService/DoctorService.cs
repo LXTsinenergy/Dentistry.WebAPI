@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Dentistry.DAL.Repositories.DoctorRepository;
-using Dentistry.Domain.DTO;
+using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
 
@@ -17,7 +17,7 @@ namespace Dentistry.BLL.Services.DoctorService
             _mapper = mapper;
         }
 
-        public async Task<bool> AddNewDoctorAsync(DoctorDTO doctorDTO, byte[] passwordSalt)
+        public async Task<bool> AddNewDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt)
         {
             Doctor doctor = _mapper.Map<Doctor>(doctorDTO);
             doctor.Salt = passwordSalt;
@@ -47,7 +47,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
         }
 
-        public async Task<bool> DoctorIsExists(DoctorDTO doctorDTO)
+        public async Task<bool> DoctorIsExists(DoctorCreationDTO doctorDTO)
         {
             try
             {

@@ -1,7 +1,6 @@
-﻿using Dentistry.Domain.Enums;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.Domain.DTO
+namespace Dentistry.Domain.DTO.User
 {
     public class UserDTO
     {

@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.Domain.DTO
+namespace Dentistry.Domain.DTO.UserDTO.UserDTO
 {
-    public class RegisterDTO
+    public class RegisterUserDTO
     {
         [Required]
         public string Name { get; set; }

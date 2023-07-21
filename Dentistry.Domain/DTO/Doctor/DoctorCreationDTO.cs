@@ -1,9 +1,9 @@
 ﻿using Dentistry.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.Domain.DTO
+namespace Dentistry.Domain.DTO.DoctorDTO
 {
-    public class DoctorDTO
+    public class DoctorCreationDTO
     {
         [Required]
         public string Fullname { get; set; }

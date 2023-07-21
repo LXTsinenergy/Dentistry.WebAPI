@@ -1,11 +1,10 @@
 ﻿using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
-using Dentistry.Domain.DTO;
-using Dentistry.Domain.Models;
+using Dentistry.Domain.DTO.DoctorDTO;
+using Dentistry.Domain.DTO.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Text;
 
 namespace Dentistry.API.Controllers
 {
@@ -71,7 +70,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDoctorAsync(DoctorDTO doctorDTO)
+        public async Task<IActionResult> AddDoctorAsync(DoctorCreationDTO doctorDTO)
         {
             if (await _doctorService.DoctorIsExists(doctorDTO))
             {
@@ -83,6 +82,12 @@ namespace Dentistry.API.Controllers
 
             var doctor = await _doctorService.AddNewDoctorAsync(doctorDTO, salt);
             return Ok(doctor);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateDoctor()
+        {
+            return null;
         }
 
         [HttpPost]
