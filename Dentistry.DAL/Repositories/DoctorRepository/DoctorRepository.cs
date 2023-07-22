@@ -25,6 +25,12 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
             await _context.SaveChangesAsync();
         }
 
+        public async Task UpdateAsync(Doctor doctor)
+        {
+            _context.Doctors.Update(doctor);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task<IEnumerable<Doctor>> GetAllAsync() => 
             await _context.Doctors.ToListAsync();
 

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Dentistry.DAL.Repositories.DoctorRepository;
+using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
@@ -47,14 +48,53 @@ namespace Dentistry.BLL.Services.DoctorService
             }
         }
 
-        public async Task<bool> DoctorIsExists(DoctorCreationDTO doctorDTO)
+        public async Task<bool> UpdateDoctorAsync(Doctor doctor, DoctorUpdateDTO updateDTO)
         {
             try
             {
-                var doctorByPhone = await _doctorRepository.GetDoctorByPhoneNumberAsync(doctorDTO.PhoneNumber);
-                var doctorByEmail = await _doctorRepository.GetDoctorByEmailAsync(doctorDTO.Email);
+                doctor = MapDoctorUpdateData(doctor, updateDTO);
+                await _doctorRepository.UpdateAsync(doctor);
+                return true;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
 
-                if (doctorByPhone != null || doctorByEmail != null) return true;
+        private Doctor MapDoctorUpdateData(Doctor doctor, DoctorUpdateDTO updateDTO)
+        {
+            if (updateDTO.Fullname != null) doctor.Fullname = updateDTO.Fullname;
+            if (updateDTO.Experience != 0) doctor.Experience = updateDTO.Experience;
+            if (updateDTO.Specialties != null) doctor.Specialties = updateDTO.Specialties;
+            if (updateDTO.Email != null) doctor.Email = updateDTO.Email;
+            if (updateDTO.PhoneNumber != null) doctor.PhoneNumber = updateDTO.PhoneNumber;
+
+            return doctor;
+        }
+
+        public async Task<bool> PhoneIsRegistered(string phoneNumber)
+        {
+            try
+            {
+                var doctor = await _doctorRepository.GetDoctorByPhoneNumberAsync(phoneNumber);
+
+                if (doctor != null) return true;
+                return false;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
+        public async Task<bool> EmailIsRegistered(string email)
+        {
+            try
+            {
+                var doctor = await _doctorRepository.GetDoctorByEmailAsync(email);
+
+                if (doctor != null) return true;
                 return false;
             }
             catch (Exception ex)

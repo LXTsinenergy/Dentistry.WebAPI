@@ -1,6 +1,7 @@
 ﻿using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
+using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.DTO.User;
 using Microsoft.AspNetCore.Authorization;
@@ -70,27 +71,42 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddDoctorAsync(DoctorCreationDTO doctorDTO)
+        public async Task<IActionResult> AddDoctorAsync(DoctorCreationDTO creationDTO)
         {
-            if (await _doctorService.DoctorIsExists(doctorDTO))
+            if (await _doctorService.PhoneIsRegistered(creationDTO.PhoneNumber) ||  await _doctorService.EmailIsRegistered(creationDTO.Email))
             {
-                return BadRequest(doctorDTO);
+                return BadRequest(creationDTO);
             }
 
             var salt = _passwordService.GenerateSalt();
-            doctorDTO.Password = _passwordService.HashPassword(doctorDTO.Password, salt);
+            creationDTO.Password = _passwordService.HashPassword(creationDTO.Password, salt);
 
-            var doctor = await _doctorService.AddNewDoctorAsync(doctorDTO, salt);
+            var doctor = await _doctorService.AddNewDoctorAsync(creationDTO, salt);
             return Ok(doctor);
         }
 
-        [HttpPost]
-        public async Task<IActionResult> UpdateDoctor()
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateDoctor(int id, DoctorUpdateDTO updateDTO)
         {
-            return null;
+            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+
+            if (await _doctorService.DoctorIsExists(doctor))
+            {
+                if (await _doctorService.EmailIsRegistered(updateDTO.Email))
+                {
+                    return BadRequest(updateDTO.Email);
+                }
+                if (await _doctorService.PhoneIsRegistered(updateDTO.PhoneNumber))
+                {
+                    return BadRequest(updateDTO.PhoneNumber);
+                }
+                await _doctorService.UpdateDoctorAsync(doctor, updateDTO);
+                return Ok(doctor);
+            }
+            return BadRequest(id);
         }
 
-        [HttpPost]
+        [HttpDelete]
         public async Task<IActionResult> DeleteDoctorAsync(int id)
         {
             var doctor = await _doctorService.GetDoctorByIdAsync(id);

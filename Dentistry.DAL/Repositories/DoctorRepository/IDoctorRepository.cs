@@ -7,6 +7,7 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
         Task<IEnumerable<Doctor>> GetAllAsync();
         Task AddAsync(Doctor doctor);
         Task DeleteAsync(Doctor doctor);
+        Task UpdateAsync(Doctor doctor);
         Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber);
         Task<Doctor?> GetDoctorByEmailAsync(string email);
         Task<Doctor?> GetDoctorByIdAsync(int id);

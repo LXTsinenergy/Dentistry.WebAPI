@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.DTO.User;
 using Dentistry.Domain.DTO.UserDTO.UserDTO;
@@ -14,7 +15,6 @@ namespace Dentistry.BLL.Mapping
             CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
 
-            CreateMap<Doctor, DoctorCreationDTO>();
             CreateMap<DoctorCreationDTO, Doctor>();
         }
     }
