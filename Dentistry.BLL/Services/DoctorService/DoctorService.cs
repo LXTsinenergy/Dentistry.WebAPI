@@ -31,7 +31,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
 
@@ -44,7 +44,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
 
@@ -58,7 +58,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return false;
             }
         }
 
@@ -84,7 +84,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return true;
             }
         }
 
@@ -99,7 +99,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
+                return true;
             }
         }
 
@@ -114,7 +114,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return true;
             }
         }
 
@@ -131,7 +131,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
+                return true;
             }
         }
 
@@ -144,20 +144,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch(Exception ex)
             {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async Task<Doctor?> GetDoctorByEmailAsync(string email)
-        {
-            try
-            {
-                var doctor = await _doctorRepository.GetDoctorByEmailAsync(email);
-                return doctor;
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message);
+                return Enumerable.Empty<Doctor>();
             }
         }
 
@@ -170,20 +157,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch (Exception ex)
             {
-                throw new Exception(ex.Message);
-            }
-        }
-
-        public async Task<Doctor?> GetDoctorPhoneNumberAsync(string phoneNumber)
-        {
-            try
-            {
-                var doctor = await _doctorRepository.GetDoctorByPhoneNumberAsync(phoneNumber);
-                return doctor;
-            }
-            catch( Exception ex)
-            {
-                throw new Exception(ex.Message);
+                return null;
             }
         }
     }

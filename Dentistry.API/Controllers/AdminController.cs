@@ -81,8 +81,10 @@ namespace Dentistry.API.Controllers
             var salt = _passwordService.GenerateSalt();
             creationDTO.Password = _passwordService.HashPassword(creationDTO.Password, salt);
 
-            var doctor = await _doctorService.AddNewDoctorAsync(creationDTO, salt);
-            return Ok(doctor);
+            var result = await _doctorService.AddNewDoctorAsync(creationDTO, salt);
+
+            if (result) return Ok(result);
+            return BadRequest(result);
         }
 
         [HttpPut("{id}")]
@@ -100,8 +102,10 @@ namespace Dentistry.API.Controllers
                 {
                     return BadRequest(updateDTO.PhoneNumber);
                 }
-                await _doctorService.UpdateDoctorAsync(doctor, updateDTO);
-                return Ok(doctor);
+                var result = await _doctorService.UpdateDoctorAsync(doctor, updateDTO);
+                
+                if (result) return Ok(result);
+                return BadRequest(result);
             }
             return BadRequest(id);
         }
@@ -113,8 +117,9 @@ namespace Dentistry.API.Controllers
 
             if (await _doctorService.DoctorIsExists(doctor))
             {
-                await _doctorService.DeleteDoctorAsync(doctor);
-                return Ok();
+                var result = await _doctorService.DeleteDoctorAsync(doctor);
+                if (result) return Ok(result);
+                return BadRequest(false);
             }
             return BadRequest(id);
         }

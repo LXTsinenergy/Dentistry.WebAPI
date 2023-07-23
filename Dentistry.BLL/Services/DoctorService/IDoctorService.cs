@@ -11,8 +11,6 @@ namespace Dentistry.BLL.Services.DoctorService
         Task<bool> UpdateDoctorAsync(Doctor doctor, DoctorUpdateDTO updateDTO);
 
         Task<IEnumerable<Doctor>> GetAllAsync();
-        Task<Doctor?> GetDoctorByEmailAsync(string email);
-        Task<Doctor?> GetDoctorPhoneNumberAsync(string phoneNumber);
         Task<Doctor?> GetDoctorByIdAsync(int id);
 
         Task<bool> PhoneIsRegistered(string phoneNumber);

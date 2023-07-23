@@ -24,28 +24,54 @@ namespace Dentistry.BLL.Services.UserService
             user.Role = Role.user;
             user.Salt = passwordSalt;
             
-            await _userRepository.AddAsync(user);
-
-            return user;
+            try
+            {
+                await _userRepository.AddAsync(user);
+                return user;
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
-            var users = await _userRepository.GetAllAsync();
-
-            return users;
+            try
+            {
+                var users = await _userRepository.GetAllAsync();
+                return users;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<User?> GetUserByEmailAsync(string email)
         {
-            var user = await _userRepository.GetUserByEmailAsync(email);
-            return user;
+            try
+            {
+                var user = await _userRepository.GetUserByEmailAsync(email);
+                return user;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<User?> GetUserByPhoneNumberAsync(string phoneNumber)
         {
-            var user = await _userRepository.GetUserByPhoneNumberAsync(phoneNumber);
-            return user;
+            try
+            {
+                var user = await _userRepository.GetUserByPhoneNumberAsync(phoneNumber);
+                return user;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
         public async Task<User> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt)
@@ -54,9 +80,15 @@ namespace Dentistry.BLL.Services.UserService
             user.Salt = passwordSalt;
             user.Role = Role.user;
 
-            await _userRepository.AddAsync(user);
-
-            return user;
+            try
+            {
+                await _userRepository.AddAsync(user);
+                return user;
+            }
+            catch(Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
     }
 }
