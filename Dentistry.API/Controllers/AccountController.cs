@@ -38,7 +38,7 @@ namespace Dentistry.API.Controllers
             var claimsPrincipal = _claimsService.CreateClaimsPrincipal(user);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
             
-            return Ok(loginDTO);
+            return Ok();
         }
 
         [HttpPost]
@@ -57,9 +57,9 @@ namespace Dentistry.API.Controllers
                 var newUser = await _userService.RegisterNewUsersAsync(registerDTO, salt);
                 await Login(new LoginUserDTO { Email = registerDTO.Email, Password = registerDTO.Password });
 
-                return Ok(newUser);
+                return Ok();
             }
-            else return BadRequest(registerDTO);
+            return BadRequest();
         }
 
         [HttpPost]

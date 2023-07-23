@@ -40,23 +40,18 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> AddUser(UserDTO userDTO)
         {
-            if (await UserIsExists(userDTO)) return BadRequest(userDTO);
+            if (await _userService.EmailIsRegistered(userDTO.Email) || await _userService.PhoneIsRegistered(userDTO.PhoneNumber))
+            {
+                return BadRequest(userDTO);
+            }
 
             var salt = _passwordService.GenerateSalt();
             userDTO.Password = _passwordService.HashPassword(userDTO.Password, salt);
 
-            var user = await _userService.AddNewUserAsync(userDTO, salt);
+            var result = await _userService.AddNewUserAsync(userDTO, salt);
 
-            return Ok(user);
-        }
-
-        private async Task<bool> UserIsExists(UserDTO userDTO)
-        {
-            var possibleUserByPhone = await _userService.GetUserByEmailAsync(userDTO.Email);
-            var possibleUserByEmail = await _userService.GetUserByPhoneNumberAsync(userDTO.PhoneNumber);
-
-            if (possibleUserByPhone != null || possibleUserByEmail != null) return true;
-            return false;
+            if (result) return Ok(result);
+            return BadRequest(result);
         }
         #endregion
 

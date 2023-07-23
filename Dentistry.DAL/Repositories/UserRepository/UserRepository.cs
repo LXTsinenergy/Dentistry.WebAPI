@@ -19,21 +19,13 @@ namespace Dentistry.DAL.Repositories.UserRepository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<User>> GetAllAsync()
-        {
-            return await _context.Users.ToListAsync();
-        }
+        public async Task<IEnumerable<User>> GetAllAsync() => 
+            await _context.Users.ToListAsync();
 
-        public async Task<User?> GetUserByEmailAsync(string email)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
-            return user;
-        }
+        public async Task<User?> GetUserByEmailAsync(string email) =>
+            await _context.Users.FirstOrDefaultAsync(x => x.Email == email);
 
-        public async Task<User?> GetUserByPhoneNumberAsync(string phoneNumber)
-        {
-            var user = await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
-            return user;
-        }
+        public async Task<User?> GetUserByPhoneNumberAsync(string phoneNumber) => 
+            await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
     }
 }

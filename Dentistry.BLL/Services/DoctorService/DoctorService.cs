@@ -29,7 +29,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 await _doctorRepository.AddAsync(doctor);
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }
@@ -42,7 +42,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 await _doctorRepository.DeleteAsync(doctor);
                 return true;
             }
-            catch(Exception ex)
+            catch
             {
                 return false;
             }
@@ -56,7 +56,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 await _doctorRepository.UpdateAsync(doctor);
                 return true;
             }
-            catch (Exception ex)
+            catch
             {
                 return false;
             }
@@ -82,7 +82,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 if (doctor != null) return true;
                 return false;
             }
-            catch (Exception ex)
+            catch
             {
                 return true;
             }
@@ -97,7 +97,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 if (doctor != null) return true;
                 return false;
             }
-            catch (Exception ex)
+            catch
             {
                 return true;
             }
@@ -112,7 +112,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 if (doctor != null) return true;
                 return false;
             }
-            catch(Exception ex)
+            catch
             {
                 return true;
             }
@@ -129,7 +129,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 if (possibleDoctor != null) return true;
                 return false;
             }
-            catch(Exception ex)
+            catch
             {
                 return true;
             }
@@ -142,7 +142,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 var doctors = await _doctorRepository.GetAllAsync();
                 return doctors;
             }
-            catch(Exception ex)
+            catch
             {
                 return Enumerable.Empty<Doctor>();
             }
@@ -155,7 +155,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 var doctor = await _doctorRepository.GetDoctorByIdAsync(id);
                 return doctor;
             }
-            catch (Exception ex)
+            catch
             {
                 return null;
             }

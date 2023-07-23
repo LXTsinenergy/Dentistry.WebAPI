@@ -6,11 +6,13 @@ namespace Dentistry.BLL.Services.UserService
 {
     public interface IUserService
     {
-        Task<User> RegisterNewUsersAsync(RegisterUserDTO registerDTO, byte[] passwordSalt);
-        Task<User> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt);
+        Task<bool> RegisterNewUsersAsync(RegisterUserDTO registerDTO, byte[] passwordSalt);
+        Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt);
         Task<IEnumerable<User>> GetAllAsync();
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> GetUserByPhoneNumberAsync(string phoneNumber);
 
+        Task<bool> EmailIsRegistered(string email);
+        Task<bool> PhoneIsRegistered(string phone);
     }
 }
