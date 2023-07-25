@@ -6,9 +6,9 @@ namespace Dentistry.BLL.Services.UserService
 {
     public interface IUserService
     {
-        Task<bool> RegisterNewUserAsync(RegisterUserDTO registerDTO, byte[] passwordSalt);
         Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt);
         Task<bool> UpdateUserAsync(User user, UserUpdateDTO updateDTO);
+        Task<bool> DeleteUserAsync(User user);
 
         Task<IEnumerable<User>> GetAllAsync();
         Task<User?> GetUserByIdAsync(int id);

@@ -19,12 +19,12 @@ namespace Dentistry.BLL.Services.UserService
             _mapper = mapper;
         }
 
-        public async Task<bool> RegisterNewUserAsync(RegisterUserDTO registerDTO, byte[] passwordSalt)
+        public async Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt)
         {
-            User user = _mapper.Map<User>(registerDTO);
-            user.Role = Role.user;
+            User user = _mapper.Map<User>(userDTO);
             user.Salt = passwordSalt;
-            
+            user.Role = Role.user;
+
             try
             {
                 await _userRepository.AddAsync(user);
@@ -35,6 +35,59 @@ namespace Dentistry.BLL.Services.UserService
                 return false;
             }
         }
+
+        public async Task<bool> UpdateUserAsync(User user, UserUpdateDTO updateDTO)
+        {
+            try
+            {
+                user = MapUserUpdateData(user, updateDTO);
+                await _userRepository.UpdateAsync(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private User MapUserUpdateData(User user, UserUpdateDTO updateDTO)
+        {
+            if (updateDTO.Name != null) user.Name = updateDTO.Name;
+            if (updateDTO.Email != null) user.Email = updateDTO.Email;
+            if (updateDTO.PhoneNumber != null) user.PhoneNumber = updateDTO.PhoneNumber;
+
+            return user;
+        }
+
+        public async Task<bool> DeleteUserAsync(User user)
+        {
+            try
+            {
+                await _userRepository.DeleteAsync(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        //public async Task<bool> RegisterNewUserAsync(RegisterUserDTO registerDTO, byte[] passwordSalt)
+        //{
+        //    User user = _mapper.Map<User>(registerDTO);
+        //    user.Role = Role.user;
+        //    user.Salt = passwordSalt;
+            
+        //    try
+        //    {
+        //        await _userRepository.AddAsync(user);
+        //        return true;
+        //    }
+        //    catch
+        //    {
+        //        return false;
+        //    }
+        //}
 
         public async Task<IEnumerable<User>> GetAllAsync()
         {
@@ -75,23 +128,6 @@ namespace Dentistry.BLL.Services.UserService
             }
         }
 
-        public async Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt)
-        {
-            User user = _mapper.Map<User>(userDTO);
-            user.Salt = passwordSalt;
-            user.Role = Role.user;
-
-            try
-            {
-                await _userRepository.AddAsync(user);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         public async Task<bool> EmailIsRegistered(string email)
         {
             try
@@ -120,29 +156,6 @@ namespace Dentistry.BLL.Services.UserService
             {
                 return true;
             }
-        }
-
-        public async Task<bool> UpdateUserAsync(User user, UserUpdateDTO updateDTO)
-        {
-            try
-            {
-                user = MapUserUpdateData(user, updateDTO);
-                await _userRepository.UpdateAsync(user);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        public User MapUserUpdateData(User user, UserUpdateDTO updateDTO)
-        {
-            if (updateDTO.Name != null) user.Name = updateDTO.Name;
-            if (updateDTO.Email != null) user.Email = updateDTO.Email;
-            if (updateDTO.PhoneNumber != null) user.PhoneNumber = updateDTO.PhoneNumber;
-
-            return user;
         }
 
         public async Task<User?> GetUserByIdAsync(int id)

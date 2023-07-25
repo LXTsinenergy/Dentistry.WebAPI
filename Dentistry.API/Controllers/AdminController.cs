@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Services.DoctorService;
+﻿using Dentistry.BLL.Services.AccountService;
+using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.Doctor;
@@ -73,6 +74,20 @@ namespace Dentistry.API.Controllers
 
                 if (result) return Ok(result);
                 return BadRequest(result);
+            }
+            return BadRequest(id);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteUserAsync(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (await _userService.UserIsExists(user))
+            {
+                var result = await _userService.DeleteUserAsync(user);
+                if (result) return Ok(result);
+                return BadRequest(false);
             }
             return BadRequest(id);
         }

@@ -1,4 +1,5 @@
 using Dentistry.BLL.Mapping;
+using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
@@ -58,6 +59,7 @@ builder.Services.AddScoped<IDoctorsNoteRepository, DoctorsNoteRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
+builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorsNoteService, DoctorsNoteService>();

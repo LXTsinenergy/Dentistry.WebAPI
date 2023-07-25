@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Services.ClaimsService;
+﻿using Dentistry.BLL.Services.AccountService;
+using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.UserDTO.UserDTO;
@@ -12,6 +13,7 @@ namespace Dentistry.API.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IAccountService _accountService;
         private readonly IClaimsService _claimsService;
         private readonly IPasswordService _passwordService;
 
@@ -51,10 +53,10 @@ namespace Dentistry.API.Controllers
             if (registerDTO.Password == registerDTO.ConfirmedPassword)
             {
                 var salt = _passwordService.GenerateSalt();
-                var pass = _passwordService.HashPassword(registerDTO.Password, salt);
-                registerDTO.Password = pass;
+                var password = _passwordService.HashPassword(registerDTO.Password, salt);
+                registerDTO.Password = password;
 
-                var newUser = await _userService.RegisterNewUserAsync(registerDTO, salt);
+                var newUser = await _accountService.RegisterNewUserAsync(registerDTO, salt);
                 await Login(new LoginUserDTO { Email = registerDTO.Email, Password = registerDTO.Password });
 
                 return Ok();

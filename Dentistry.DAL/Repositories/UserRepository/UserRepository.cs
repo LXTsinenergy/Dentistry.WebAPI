@@ -13,6 +13,18 @@ namespace Dentistry.DAL.Repositories.UserRepository
             _context = context;
         }
 
+        public async Task DeleteAsync(User user)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task UpdateAsync(User user)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync();
+        }
+
         public async Task AddAsync(User user)
         {
             await _context.Users.AddAsync(user);
@@ -30,11 +42,5 @@ namespace Dentistry.DAL.Repositories.UserRepository
 
         public async Task<User?> GetByPhoneNumberAsync(string phoneNumber) => 
             await _context.Users.FirstOrDefaultAsync(x => x.PhoneNumber == phoneNumber);
-
-        public async Task UpdateAsync(User user)
-        {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-        }
     }
 }
