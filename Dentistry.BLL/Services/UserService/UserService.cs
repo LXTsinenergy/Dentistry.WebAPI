@@ -19,6 +19,7 @@ namespace Dentistry.BLL.Services.UserService
             _mapper = mapper;
         }
 
+        #region CRUD
         public async Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt)
         {
             User user = _mapper.Map<User>(userDTO);
@@ -70,25 +71,10 @@ namespace Dentistry.BLL.Services.UserService
             {
                 return false;
             }
-        }
+        } 
+        #endregion
 
-        //public async Task<bool> RegisterNewUserAsync(RegisterUserDTO registerDTO, byte[] passwordSalt)
-        //{
-        //    User user = _mapper.Map<User>(registerDTO);
-        //    user.Role = Role.user;
-        //    user.Salt = passwordSalt;
-            
-        //    try
-        //    {
-        //        await _userRepository.AddAsync(user);
-        //        return true;
-        //    }
-        //    catch
-        //    {
-        //        return false;
-        //    }
-        //}
-
+        #region Get
         public async Task<IEnumerable<User>> GetAllAsync()
         {
             try
@@ -99,6 +85,19 @@ namespace Dentistry.BLL.Services.UserService
             catch
             {
                 return Enumerable.Empty<User>();
+            }
+        }
+
+        public async Task<User?> GetUserByIdAsync(int id)
+        {
+            try
+            {
+                var user = await _userRepository.GetByIdAsync(id);
+                return user;
+            }
+            catch
+            {
+                return null;
             }
         }
 
@@ -127,7 +126,9 @@ namespace Dentistry.BLL.Services.UserService
                 return null;
             }
         }
+        #endregion
 
+        #region Registered
         public async Task<bool> EmailIsRegistered(string email)
         {
             try
@@ -156,21 +157,10 @@ namespace Dentistry.BLL.Services.UserService
             {
                 return true;
             }
-        }
+        } 
+        #endregion
 
-        public async Task<User?> GetUserByIdAsync(int id)
-        {
-            try
-            {
-                var user = await _userRepository.GetByIdAsync(id);
-                return user;
-            }
-            catch
-            {
-                return null;
-            }
-        }
-
+        #region IsExists
         public async Task<bool> UserIsExists(User? user)
         {
             try
@@ -187,5 +177,21 @@ namespace Dentistry.BLL.Services.UserService
                 return true;
             }
         }
+
+        public async Task<bool> UserIsExists(int id)
+        {
+            try
+            {
+                var user = await _userRepository.GetByIdAsync(id);
+
+                if (user != null) return true;
+                return false;
+            }
+            catch
+            {
+                return true;
+            }
+        }
+        #endregion
     }
 }

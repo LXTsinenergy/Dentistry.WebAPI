@@ -91,6 +91,12 @@ namespace Dentistry.API.Controllers
             }
             return BadRequest(id);
         }
+
+        [HttpPut]
+        public async Task<IActionResult> ChangeUserPassword(int id, string password)
+        {
+            return null;
+        }
         #endregion
 
         #region Doctor

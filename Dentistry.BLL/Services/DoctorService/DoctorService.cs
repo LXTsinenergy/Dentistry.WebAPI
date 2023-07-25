@@ -18,6 +18,7 @@ namespace Dentistry.BLL.Services.DoctorService
             _mapper = mapper;
         }
 
+        #region CRUD
         public async Task<bool> AddNewDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt)
         {
             Doctor doctor = _mapper.Map<Doctor>(doctorDTO);
@@ -71,8 +72,10 @@ namespace Dentistry.BLL.Services.DoctorService
             if (updateDTO.PhoneNumber != null) doctor.PhoneNumber = updateDTO.PhoneNumber;
 
             return doctor;
-        }
+        } 
+        #endregion
 
+        #region Registered
         public async Task<bool> PhoneIsRegistered(string phoneNumber)
         {
             try
@@ -101,8 +104,10 @@ namespace Dentistry.BLL.Services.DoctorService
             {
                 return true;
             }
-        }
+        } 
+        #endregion
 
+        #region DoctorIsExists
         public async Task<bool> DoctorIsExists(int id)
         {
             try
@@ -134,7 +139,9 @@ namespace Dentistry.BLL.Services.DoctorService
                 return true;
             }
         }
+        #endregion
 
+        #region Get
         public async Task<IEnumerable<Doctor>> GetAllAsync()
         {
             try
@@ -159,6 +166,7 @@ namespace Dentistry.BLL.Services.DoctorService
             {
                 return null;
             }
-        }
+        } 
+        #endregion
     }
 }
