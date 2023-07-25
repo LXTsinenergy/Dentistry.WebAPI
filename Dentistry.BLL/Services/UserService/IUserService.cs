@@ -19,5 +19,7 @@ namespace Dentistry.BLL.Services.UserService
         Task<bool> PhoneIsRegistered(string phone);
         Task<bool> UserIsExists(User? user);
         Task<bool> UserIsExists(int id);
+
+        Task<bool> UpdateUserPasswordAsync(User user, string password);
     }
 }

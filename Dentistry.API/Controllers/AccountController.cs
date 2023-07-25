@@ -26,6 +26,7 @@ namespace Dentistry.API.Controllers
             _passwordService = passwordService;
         }
 
+        #region Login/Register/Logout
         [HttpPost]
         public async Task<IActionResult> Login(LoginUserDTO loginDTO)
         {
@@ -39,7 +40,7 @@ namespace Dentistry.API.Controllers
 
             var claimsPrincipal = _claimsService.CreateClaimsPrincipal(user);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-            
+
             return Ok();
         }
 
@@ -48,7 +49,7 @@ namespace Dentistry.API.Controllers
         {
             var possibleUser = await _userService.GetUserByEmailAsync(registerDTO.Email);
 
-            if (possibleUser != null) return BadRequest(registerDTO);
+            if (await _userService.UserIsExists(possibleUser)) return BadRequest(registerDTO);
 
             if (registerDTO.Password == registerDTO.ConfirmedPassword)
             {
@@ -69,6 +70,23 @@ namespace Dentistry.API.Controllers
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
+        }
+        #endregion
+
+        [HttpPut]
+        public async Task<IActionResult> ChangePasswordAsync(int id, string password)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (await _userService.UserIsExists(user))
+            {
+                var newPassword = _passwordService.HashPassword(password, user.Salt);
+                var result = await _userService.UpdateUserPasswordAsync(user, newPassword);
+
+                if (result) return Ok();
+                return StatusCode(500);
+            }
+            return NotFound(id);
         }
     }
 }

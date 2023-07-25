@@ -193,5 +193,20 @@ namespace Dentistry.BLL.Services.UserService
             }
         }
         #endregion
+
+        public async Task<bool> UpdateUserPasswordAsync(User user, string password)
+        {
+            user.Password = password;
+
+            try
+            {
+                await _userRepository.UpdateAsync(user);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
     }
 }

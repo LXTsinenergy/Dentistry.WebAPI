@@ -35,7 +35,7 @@ namespace Dentistry.API.Controllers
 
             if (users != null) return Ok(users);
 
-            return BadRequest();
+            return StatusCode(500);
         }
 
         [HttpPost]
@@ -75,7 +75,7 @@ namespace Dentistry.API.Controllers
                 if (result) return Ok(result);
                 return BadRequest(result);
             }
-            return BadRequest(id);
+            return NotFound(id);
         }
 
         [HttpDelete]
@@ -89,13 +89,7 @@ namespace Dentistry.API.Controllers
                 if (result) return Ok(result);
                 return BadRequest(false);
             }
-            return BadRequest(id);
-        }
-
-        [HttpPut]
-        public async Task<IActionResult> ChangeUserPassword(int id, string password)
-        {
-            return null;
+            return NotFound(id);
         }
         #endregion
 
@@ -106,7 +100,7 @@ namespace Dentistry.API.Controllers
             var doctors = await _doctorService.GetAllAsync();
 
             if (doctors != null) return Ok(doctors);
-            return BadRequest();
+            return StatusCode(500);
         }
 
         [HttpPost]
@@ -146,7 +140,7 @@ namespace Dentistry.API.Controllers
                 if (result) return Ok(result);
                 return BadRequest(result);
             }
-            return BadRequest(id);
+            return NotFound(id);
         }
 
         [HttpDelete]
@@ -160,7 +154,7 @@ namespace Dentistry.API.Controllers
                 if (result) return Ok(result);
                 return BadRequest(false);
             }
-            return BadRequest(id);
+            return NotFound(id);
         }
         #endregion
     }
