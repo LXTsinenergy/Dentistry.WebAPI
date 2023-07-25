@@ -28,7 +28,7 @@ namespace Dentistry.API.Controllers
 
         #region Login/Register/Logout
         [HttpPost]
-        public async Task<IActionResult> Login(LoginUserDTO loginDTO)
+        public async Task<IActionResult> LoginAsync(LoginUserDTO loginDTO)
         {
             var user = await _userService.GetUserByEmailAsync(loginDTO.Email);
 
@@ -45,7 +45,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterUserDTO registerDTO)
+        public async Task<IActionResult> RegisterAsync(RegisterUserDTO registerDTO)
         {
             var possibleUser = await _userService.GetUserByEmailAsync(registerDTO.Email);
 
@@ -58,7 +58,7 @@ namespace Dentistry.API.Controllers
                 registerDTO.Password = password;
 
                 var newUser = await _accountService.RegisterNewUserAsync(registerDTO, salt);
-                await Login(new LoginUserDTO { Email = registerDTO.Email, Password = registerDTO.Password });
+                await LoginAsync(new LoginUserDTO { Email = registerDTO.Email, Password = registerDTO.Password });
 
                 return Ok();
             }
@@ -66,27 +66,11 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Logout()
+        public async Task<IActionResult> LogoutAsync()
         {
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
             return Ok();
         }
         #endregion
-
-        [HttpPut]
-        public async Task<IActionResult> ChangePasswordAsync(int id, string password)
-        {
-            var user = await _userService.GetUserByIdAsync(id);
-
-            if (await _userService.UserIsExists(user))
-            {
-                var newPassword = _passwordService.HashPassword(password, user.Salt);
-                var result = await _userService.UpdateUserPasswordAsync(user, newPassword);
-
-                if (result) return Ok();
-                return StatusCode(500);
-            }
-            return NotFound(id);
-        }
     }
 }
