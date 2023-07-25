@@ -53,6 +53,29 @@ namespace Dentistry.API.Controllers
             if (result) return Ok(result);
             return BadRequest(result);
         }
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> UpdateUser(int id, UserUpdateDTO updateDTO)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (await _userService.UserIsExists(user))
+            {
+                if (await _userService.EmailIsRegistered(updateDTO.Email))
+                {
+                    return BadRequest(updateDTO.Email);
+                }
+                if (await _userService.PhoneIsRegistered(updateDTO.PhoneNumber))
+                {
+                    return BadRequest(updateDTO.PhoneNumber);
+                }
+                var result = await _userService.UpdateUserAsync(user, updateDTO);
+
+                if (result) return Ok(result);
+                return BadRequest(result);
+            }
+            return BadRequest(id);
+        }
         #endregion
 
         #region Doctor

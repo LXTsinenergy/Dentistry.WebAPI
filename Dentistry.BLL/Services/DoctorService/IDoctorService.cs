@@ -16,6 +16,6 @@ namespace Dentistry.BLL.Services.DoctorService
         Task<bool> PhoneIsRegistered(string phoneNumber);
         Task<bool> EmailIsRegistered(string email);
         Task<bool> DoctorIsExists(int id);
-        Task<bool> DoctorIsExists(Doctor doctor);
+        Task<bool> DoctorIsExists(Doctor? doctor);
     }
 }
