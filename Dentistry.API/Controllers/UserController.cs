@@ -1,5 +1,6 @@
 ﻿using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
+using Dentistry.Domain.DTO.User;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
@@ -21,7 +22,7 @@ namespace Dentistry.API.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (await _userService.UserIsExists(user))
+            if (user != null)
             {
                 var newPasswordHash = _passwordService.HashPassword(password, user.Salt);
 
@@ -38,15 +39,39 @@ namespace Dentistry.API.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (await _userService.UserIsExists(user))
+            if (user != null)
             {
                 var confirmationPasswordHash = _passwordService.HashPassword(confirmationPassword, user.Salt);
 
                 if (confirmationPasswordHash != user.Password) return BadRequest(confirmationPassword);
 
                 var result = await _userService.DeleteUserAsync(user);
+
                 if (result) return Ok(result);
                 return BadRequest(false);
+            }
+            return NotFound(id);
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> ChangeDataAsync(int id, UserUpdateDTO updateDTO)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (user != null)
+            {
+                if (await _userService.EmailIsRegistered(updateDTO.Email))
+                {
+                    return BadRequest(updateDTO.Email);
+                }
+                if (await _userService.PhoneIsRegistered(updateDTO.PhoneNumber))
+                {
+                    return BadRequest(updateDTO.PhoneNumber);
+                }
+                var result = await _userService.UpdateUserAsync(user, updateDTO);
+
+                if (result) return Ok(result);
+                return BadRequest(result);
             }
             return NotFound(id);
         }

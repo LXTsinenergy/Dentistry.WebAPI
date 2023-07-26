@@ -47,9 +47,9 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(RegisterUserDTO registerDTO)
         {
-            var possibleUser = await _userService.GetUserByEmailAsync(registerDTO.Email);
+            var user = await _userService.GetUserByEmailAsync(registerDTO.Email);
 
-            if (await _userService.UserIsExists(possibleUser)) return BadRequest(registerDTO);
+            if (user == null) return BadRequest(registerDTO);
 
             if (registerDTO.Password == registerDTO.ConfirmedPassword)
             {

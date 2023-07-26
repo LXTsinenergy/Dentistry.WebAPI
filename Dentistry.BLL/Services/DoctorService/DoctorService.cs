@@ -122,23 +122,6 @@ namespace Dentistry.BLL.Services.DoctorService
                 return true;
             }
         }
-
-        public async Task<bool> DoctorIsExists(Doctor doctor)
-        {
-            try
-            {
-                if (doctor == null) return false;
-
-                var possibleDoctor = await _doctorRepository.GetDoctorByIdAsync(doctor.Id);
-
-                if (possibleDoctor != null) return true;
-                return false;
-            }
-            catch
-            {
-                return true;
-            }
-        }
         #endregion
 
         #region Get

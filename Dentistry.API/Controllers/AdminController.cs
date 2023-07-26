@@ -38,6 +38,15 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            var user = await _userService.GetUserByIdAsync(id);
+
+            if (user != null) return Ok(user);
+            return NotFound(id);
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddUser(UserDTO userDTO)
         {
@@ -60,7 +69,7 @@ namespace Dentistry.API.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (await _userService.UserIsExists(user))
+            if (user != null)
             {
                 if (await _userService.EmailIsRegistered(updateDTO.Email))
                 {
@@ -83,7 +92,7 @@ namespace Dentistry.API.Controllers
         {
             var user = await _userService.GetUserByIdAsync(id);
 
-            if (await _userService.UserIsExists(user))
+            if (user != null)
             {
                 var result = await _userService.DeleteUserAsync(user);
                 if (result) return Ok(result);
@@ -101,6 +110,15 @@ namespace Dentistry.API.Controllers
 
             if (doctors != null) return Ok(doctors);
             return StatusCode(500);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDoctorById(int id)
+        {
+            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+
+            if (doctor != null) return Ok(doctor);
+            return NotFound(id);
         }
 
         [HttpPost]
@@ -125,7 +143,7 @@ namespace Dentistry.API.Controllers
         {
             var doctor = await _doctorService.GetDoctorByIdAsync(id);
 
-            if (await _doctorService.DoctorIsExists(doctor))
+            if (doctor != null)
             {
                 if (await _doctorService.EmailIsRegistered(updateDTO.Email))
                 {
@@ -148,7 +166,7 @@ namespace Dentistry.API.Controllers
         {
             var doctor = await _doctorService.GetDoctorByIdAsync(id);
 
-            if (await _doctorService.DoctorIsExists(doctor))
+            if (doctor != null)
             {
                 var result = await _doctorService.DeleteDoctorAsync(doctor);
                 if (result) return Ok(result);

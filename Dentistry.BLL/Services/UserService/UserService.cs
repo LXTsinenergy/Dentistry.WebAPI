@@ -161,23 +161,6 @@ namespace Dentistry.BLL.Services.UserService
         #endregion
 
         #region IsExists
-        public async Task<bool> UserIsExists(User? user)
-        {
-            try
-            {
-                if (user == null) return false;
-
-                var possibleUser = await _userRepository.GetByIdAsync(user.Id);
-
-                if (possibleUser != null) return true;
-                return false;
-            }
-            catch
-            {
-                return true;
-            }
-        }
-
         public async Task<bool> UserIsExists(int id)
         {
             try
