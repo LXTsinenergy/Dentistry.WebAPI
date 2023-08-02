@@ -26,5 +26,12 @@ namespace Dentistry.BLL.Services.PasswordService
 
             return salt;
         }
+
+        public string GenerateCode()
+        {
+            var random = new Random();
+            var code = random.Next(10000, 100000);
+            return code.ToString();
+        }
     }
 }

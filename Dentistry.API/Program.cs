@@ -3,12 +3,14 @@ using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
+using Dentistry.BLL.Services.MessageService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.DoctorsNoteRepository;
 using Dentistry.DAL.Repositories.UserRepository;
+using Dentistry.Domain.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
@@ -63,6 +65,9 @@ builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<IDoctorsNoteService, DoctorsNoteService>();
+builder.Services.AddScoped<IMessageService,  MessageService>();
+
+builder.Services.AddSingleton<CodeBuffer>();
 
 #endregion
 

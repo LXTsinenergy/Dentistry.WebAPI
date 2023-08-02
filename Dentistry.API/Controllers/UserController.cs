@@ -1,35 +1,70 @@
-﻿using Dentistry.BLL.Services.PasswordService;
+﻿using Dentistry.BLL.Services.MessageService;
+using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.User;
+using Dentistry.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [ApiController]
     public class UserController : Controller
     {
         private readonly IUserService _userService;
         private readonly IPasswordService _passwordService;
+        private readonly IMessageService _messageService;
+        private readonly CodeBuffer _buffer;
 
-        public UserController(IUserService userService, IPasswordService passwordService)
+        public UserController(
+            IUserService userService,
+            IPasswordService passwordService,
+            IMessageService messageService,
+            CodeBuffer buffer)
         {
             _userService = userService;
             _passwordService = passwordService;
+            _messageService = messageService;
+            _buffer = buffer;
         }
 
         [HttpPut]
-        public async Task<IActionResult> ChangePasswordAsync(int id, string password)
+        public async Task<IActionResult> ChangePasswordAsync(string code, int id, string password)
+        {
+            if (code == _buffer.PasswordResetCode)
+            {
+                var user = await _userService.GetUserByIdAsync(id);
+
+                if (user != null)
+                {
+                    var newPasswordHash = _passwordService.HashPassword(password, user.Salt);
+
+                    var result = await _userService.UpdateUserPasswordAsync(user, newPasswordHash);
+
+                    if (result)
+                    {
+                        _buffer.PasswordResetCode = string.Empty;
+                        return Ok();
+                    }
+                    return StatusCode(500);
+                }
+                return NotFound(id);
+            }
+            return BadRequest(code);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> SendResetCodeAsync(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
 
             if (user != null)
             {
-                var newPasswordHash = _passwordService.HashPassword(password, user.Salt);
+                var code = _passwordService.GenerateCode();
+                _buffer.PasswordResetCode = code;
 
-                var result = await _userService.UpdateUserPasswordAsync(user, newPasswordHash);
-
-                if (result) return Ok();
-                return StatusCode(500);
+                await _messageService.SendEmailAsync(user.Email, code);
+                return Ok(code);
             }
             return NotFound(id);
         }

@@ -4,5 +4,6 @@
     {
         string HashPassword(string password, byte[] salt);
         byte[] GenerateSalt();
+        string GenerateCode();
     }
 }
