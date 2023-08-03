@@ -44,7 +44,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Achievements");
+                    b.ToTable("Achievements", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Certificate", b =>
@@ -69,7 +69,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Certificates");
+                    b.ToTable("Certificates", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
@@ -108,7 +108,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Doctors");
+                    b.ToTable("Doctors", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.DoctorsNote", b =>
@@ -137,7 +137,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Notes");
+                    b.ToTable("Notes", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Education", b =>
@@ -162,7 +162,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Educations");
+                    b.ToTable("Educations", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.PlaceOfWork", b =>
@@ -187,7 +187,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("PlacesOfWork");
+                    b.ToTable("PlacesOfWork", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Review", b =>
@@ -216,7 +216,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasIndex("DoctorId");
 
-                    b.ToTable("Reviews");
+                    b.ToTable("Reviews", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.User", b =>
@@ -252,7 +252,7 @@ namespace Dentistry.DAL.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("Dentistry.Domain.Models.Achievement", b =>
@@ -275,7 +275,7 @@ namespace Dentistry.DAL.Migrations
 
             modelBuilder.Entity("Dentistry.Domain.Models.Doctor", b =>
                 {
-                    b.OwnsOne("System.Collections.Generic.List<Dentistry.Domain.Enums.Speciality>", "Specialties", b1 =>
+                    b.OwnsOne("Dentistry.Domain.Models.Doctor.Specialties#System.Collections.Generic.List<Dentistry.Domain.Enums.Speciality>", "Specialties", b1 =>
                         {
                             b1.Property<int>("DoctorId")
                                 .HasColumnType("int");
@@ -285,7 +285,7 @@ namespace Dentistry.DAL.Migrations
 
                             b1.HasKey("DoctorId");
 
-                            b1.ToTable("Doctors");
+                            b1.ToTable("Doctors", (string)null);
 
                             b1.WithOwner()
                                 .HasForeignKey("DoctorId");

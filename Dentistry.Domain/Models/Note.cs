@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Dentistry.Domain.Models
 {
-    public class DoctorsNote
+    public class Note
     {
         [Key]
         public int Id { get; set; }

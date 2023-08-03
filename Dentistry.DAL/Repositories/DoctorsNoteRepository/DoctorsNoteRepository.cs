@@ -13,10 +13,10 @@ namespace Dentistry.DAL.Repositories.DoctorsNoteRepository
             _context = context;
         }
 
-        public async Task<IEnumerable<DoctorsNote>> GetNotesAsync() =>
+        public async Task<IEnumerable<Note>> GetNotesAsync() =>
             await _context.Notes.ToListAsync();
 
-        public async Task<IEnumerable<DoctorsNote>> GetNotesByIdAsync(int id) => 
+        public async Task<IEnumerable<Note>> GetNotesByIdAsync(int id) => 
             await _context.Notes.Where(n => n.Id == id).ToListAsync();
     }
 }

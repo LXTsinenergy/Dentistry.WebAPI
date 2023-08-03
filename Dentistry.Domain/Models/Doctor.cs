@@ -14,7 +14,7 @@ namespace Dentistry.Domain.Models
         [Required]
         public int Experience { get; set; }
 
-        public ICollection<DoctorsNote> Notes { get; set; }
+        public ICollection<Note> Notes { get; set; }
 
         [Required]
         public List<Speciality> Specialties { get; set; }
@@ -42,7 +42,7 @@ namespace Dentistry.Domain.Models
 
         public Doctor()
         {
-            Notes = new List<DoctorsNote>();
+            Notes = new List<Note>();
             Achievements = new List<Achievement>();
             Certificates = new List<Certificate>();
             Educations = new List<Education>();

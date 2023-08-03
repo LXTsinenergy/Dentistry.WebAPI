@@ -13,7 +13,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             _noteRepository = noteRepository;
         }
 
-        public async Task<IEnumerable<DoctorsNote>> GetNotesAsync()
+        public async Task<IEnumerable<Note>> GetNotesAsync()
         {
             try
             {
@@ -22,11 +22,11 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
             catch
             {
-                return Enumerable.Empty<DoctorsNote>();
+                return Enumerable.Empty<Note>();
             }
         }
 
-        public async Task<IEnumerable<DoctorsNote>> GetNotesByIdAsync(int id)
+        public async Task<IEnumerable<Note>> GetNotesByIdAsync(int id)
         {
             try
             {

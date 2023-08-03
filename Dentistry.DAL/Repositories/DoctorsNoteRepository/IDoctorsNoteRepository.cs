@@ -4,7 +4,7 @@ namespace Dentistry.DAL.Repositories.DoctorsNoteRepository
 {
     public interface IDoctorsNoteRepository
     {
-        Task<IEnumerable<DoctorsNote>> GetNotesAsync();
-        Task<IEnumerable<DoctorsNote>> GetNotesByIdAsync(int id);
+        Task<IEnumerable<Note>> GetNotesAsync();
+        Task<IEnumerable<Note>> GetNotesByIdAsync(int id);
     }
 }
