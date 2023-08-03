@@ -1,5 +1,5 @@
-﻿using Dentistry.BLL.Services.AccountService;
-using Dentistry.BLL.Services.DoctorService;
+﻿using Dentistry.BLL.Services.DoctorService;
+using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.Doctor;
@@ -17,14 +17,17 @@ namespace Dentistry.API.Controllers
         private readonly IUserService _userService;
         private readonly IDoctorService _doctorService;
         private readonly IPasswordService _passwordService;
+        private readonly IDoctorsNoteService _notesService;
 
         public AdminController(IUserService userService,
             IDoctorService doctorService,
-            IPasswordService passwordService)
+            IPasswordService passwordService,
+            IDoctorsNoteService notesService)
         {
             _userService = userService;
             _doctorService = doctorService;
             _passwordService = passwordService;
+            _notesService = notesService;
         }
 
         #region User
@@ -34,7 +37,6 @@ namespace Dentistry.API.Controllers
             var users = await _userService.GetAllAsync();
 
             if (users != null) return Ok(users);
-
             return StatusCode(500);
         }
 
@@ -174,6 +176,17 @@ namespace Dentistry.API.Controllers
             }
             return NotFound(id);
         }
+        #endregion
+
+        #region Notes
+        [HttpGet]
+        public async Task<IActionResult> GetNotesAsync()
+        {
+            var notes = await _notesService.GetNotesAsync();
+
+            if (notes != null) return Ok(notes);
+            return StatusCode(500);
+        } 
         #endregion
     }
 }

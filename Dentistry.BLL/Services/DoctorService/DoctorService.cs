@@ -134,7 +134,7 @@ namespace Dentistry.BLL.Services.DoctorService
             }
             catch
             {
-                return Enumerable.Empty<Doctor>();
+                return null;
             }
         }
 

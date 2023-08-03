@@ -9,8 +9,7 @@ namespace Dentistry.Domain.Models
         public int Id { get; set; }
 
         public string Comment { get; set; }
-
-        public DateTime CreatedDate { get; set; }
+        public string PatientFullname { get; set; }
         public DateTime AppointmentTime { get; set; }
 
         public int DoctorId { get; set; }
