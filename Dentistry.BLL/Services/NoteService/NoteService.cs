@@ -1,14 +1,13 @@
-﻿using Dentistry.DAL.Repositories.DoctorRepository;
-using Dentistry.DAL.Repositories.DoctorsNoteRepository;
+﻿using Dentistry.DAL.Repositories.NoteRepository;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.DoctorsNoteService
 {
-    public class DoctorsNoteService : IDoctorsNoteService
+    public class NoteService : INoteService
     {
-        private readonly IDoctorsNoteRepository _noteRepository;
+        private readonly INoteRepository _noteRepository;
 
-        public DoctorsNoteService(IDoctorsNoteRepository noteRepository)
+        public NoteService(INoteRepository noteRepository)
         {
             _noteRepository = noteRepository;
         }

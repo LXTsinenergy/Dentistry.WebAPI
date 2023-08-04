@@ -6,9 +6,9 @@ namespace Dentistry.API.Controllers
     [Route("[controller]/[action]")]
     public class NotesController : Controller
     {
-        private readonly IDoctorsNoteService _notesService;
+        private readonly INoteService _notesService;
 
-        public NotesController(IDoctorsNoteService notesService)
+        public NotesController(INoteService notesService)
         {
             _notesService = notesService;
         }

@@ -2,13 +2,13 @@
 using Dentistry.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Dentistry.DAL.Repositories.DoctorsNoteRepository
+namespace Dentistry.DAL.Repositories.NoteRepository
 {
-    public class DoctorsNoteRepository : IDoctorsNoteRepository
+    public class NoteRepository : INoteRepository
     {
         private readonly ApplicationDbContext _context;
 
-        public DoctorsNoteRepository(ApplicationDbContext context)
+        public NoteRepository(ApplicationDbContext context)
         {
             _context = context;
         }

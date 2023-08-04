@@ -1,8 +1,8 @@
 ﻿using Dentistry.Domain.Models;
 
-namespace Dentistry.BLL.Services.DoctorsNoteService
+namespace Dentistry.DAL.Repositories.NoteRepository
 {
-    public interface IDoctorsNoteService
+    public interface INoteRepository
     {
         Task<IEnumerable<Note>> GetNotesAsync();
         Task<IEnumerable<Note>> GetNotesByIdAsync(int id);

@@ -17,12 +17,12 @@ namespace Dentistry.API.Controllers
         private readonly IUserService _userService;
         private readonly IDoctorService _doctorService;
         private readonly IPasswordService _passwordService;
-        private readonly IDoctorsNoteService _notesService;
+        private readonly INoteService _notesService;
 
         public AdminController(IUserService userService,
             IDoctorService doctorService,
             IPasswordService passwordService,
-            IDoctorsNoteService notesService)
+            INoteService notesService)
         {
             _userService = userService;
             _doctorService = doctorService;

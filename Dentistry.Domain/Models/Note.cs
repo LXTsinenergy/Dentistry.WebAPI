@@ -8,6 +8,8 @@ namespace Dentistry.Domain.Models
         [Key]
         public int Id { get; set; }
 
+        public bool IsTaken { get; set; } = false;
+
         public string Comment { get; set; }
         public string PatientFullname { get; set; }
         public DateTime AppointmentTime { get; set; }
