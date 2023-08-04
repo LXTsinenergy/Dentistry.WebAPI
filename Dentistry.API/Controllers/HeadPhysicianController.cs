@@ -1,5 +1,6 @@
 ﻿using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.PasswordService;
+using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Microsoft.AspNetCore.Mvc;
@@ -11,11 +12,16 @@ namespace Dentistry.API.Controllers
     {
         private readonly IDoctorService _doctorService;
         private readonly IPasswordService _passwordService;
+        private readonly IScheduleService _scheduleService;
 
-        public HeadPhysicianController(IDoctorService doctorService, IPasswordService passwordService)
+        public HeadPhysicianController(
+            IDoctorService doctorService,
+            IPasswordService passwordService,
+            IScheduleService scheduleService)
         {
             _doctorService = doctorService;
             _passwordService = passwordService;
+            _scheduleService = scheduleService;
         }
 
         #region Doctor
@@ -92,11 +98,12 @@ namespace Dentistry.API.Controllers
         }
         #endregion
 
-        #region Notes
+        #region Schedule
         [HttpPost]
-        public async Task<IActionResult> CreateDoctorScheduleAsync(int doctorId)
+        public async Task<IActionResult> GetGeneralScheduleAsync()
         {
-            throw new NotImplementedException();
+            var schedule = await _scheduleService.GetAllDays();
+            return Ok(schedule);
         }
         #endregion
     }
