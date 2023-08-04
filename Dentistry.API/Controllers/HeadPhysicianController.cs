@@ -1,6 +1,7 @@
 ﻿using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.ScheduleService;
+using Dentistry.Domain.DTO.Day;
 using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Microsoft.AspNetCore.Mvc;
@@ -99,11 +100,38 @@ namespace Dentistry.API.Controllers
         #endregion
 
         #region Schedule
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
-            var schedule = await _scheduleService.GetAllDays();
+            var schedule = await _scheduleService.GetAllDaysAsync();
             return Ok(schedule);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> AddNewWorkdayAsync(WorkdayCreationDTO creationDTO)
+        {
+            var coincidingDays = await _scheduleService.GetCoincidingDaysAsync(creationDTO.DayOfWeek);
+
+            if (coincidingDays.Count == 0)
+            {
+                var result = await _scheduleService.CreateNewDayAsync(creationDTO);
+                if (result) return Ok();
+            }
+            return BadRequest(creationDTO);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteWorkdayAsync(int id)
+        {
+            var day = await _scheduleService.GetDayByIdAsync(id);
+
+            if (day != null)
+            {
+                var result = await _scheduleService.DeleteDayAsync(day);
+
+                if (result) return Ok();
+            }
+            return BadRequest(id);
         }
         #endregion
     }

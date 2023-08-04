@@ -10,5 +10,10 @@ namespace Dentistry.Domain.Models
 
         public Day DayOfWeek { get; set; }
         public ICollection<Note> Schedule { get; set; }
+
+        public Workday()
+        {
+            Schedule = new List<Note>();
+        }
     }
 }

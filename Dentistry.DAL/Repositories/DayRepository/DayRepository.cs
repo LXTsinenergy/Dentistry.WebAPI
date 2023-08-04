@@ -13,7 +13,19 @@ namespace Dentistry.DAL.Repositories.DayRepository
             _context = context;
         }
 
-        public async Task<IEnumerable<Workday>> GetAllDays() =>
+        public async Task<IEnumerable<Workday>> GetAllDaysAsync() =>
             await _context.Days.ToListAsync();
+
+        public async Task AddNewDayAsync(Workday workday)
+        {
+            await _context.Days.AddAsync(workday);
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task DeleteDayAsync(Workday workday)
+        {
+            _context.Days.Remove(workday);
+            await _context.SaveChangesAsync();
+        }
     }
 }

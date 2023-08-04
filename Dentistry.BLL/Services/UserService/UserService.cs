@@ -177,6 +177,7 @@ namespace Dentistry.BLL.Services.UserService
         }
         #endregion
 
+        #region Password
         public async Task<bool> UpdateUserPasswordAsync(User user, string password)
         {
             user.Password = password;
@@ -190,6 +191,7 @@ namespace Dentistry.BLL.Services.UserService
             {
                 return false;
             }
-        }
+        } 
+        #endregion
     }
 }

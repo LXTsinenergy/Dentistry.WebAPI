@@ -4,6 +4,8 @@ namespace Dentistry.DAL.Repositories.DayRepository
 {
     public interface IDayRepository
     {
-        Task<IEnumerable<Workday>> GetAllDays();
+        Task<IEnumerable<Workday>> GetAllDaysAsync();
+        Task AddNewDayAsync(Workday workday);
+        Task DeleteDayAsync(Workday workday);
     }
 }
