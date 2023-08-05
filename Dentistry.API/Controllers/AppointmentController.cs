@@ -36,6 +36,7 @@ namespace Dentistry.API.Controllers
             {
                 if (!note.IsTaken)
                 {
+                    note.PatientFullname = user.Name;
                     note.IsTaken = true;
                     return Ok();
                 }
