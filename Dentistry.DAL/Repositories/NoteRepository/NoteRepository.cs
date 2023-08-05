@@ -24,5 +24,11 @@ namespace Dentistry.DAL.Repositories.NoteRepository
             await _context.Notes.AddAsync(note);
             await _context.SaveChangesAsync();
         }
+
+        public async Task UpdateNoteAsync(Note note)
+        {
+            _context.Notes.Update(note);
+            await _context.SaveChangesAsync();
+        }
     }
 }

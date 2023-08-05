@@ -59,6 +59,21 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
+        public async Task<IEnumerable<Note>> GetUnacceptedNotesAsync()
+        {
+            try
+            {
+                var notes = await _noteRepository.GetNotesAsync();
+                var unacceptedNotes = notes
+                    .Where(n => n.IsAccepted == false);
+                return unacceptedNotes;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public async Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
             try
@@ -71,6 +86,36 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
 
 
                 await _noteRepository.CreateNoteAsync(note);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> BookAnAppointmentAsync(Note note, string username)
+        {
+            try
+            {
+                note.PatientFullname = username;
+                note.IsTaken = true;
+
+                await _noteRepository.UpdateNoteAsync(note);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> ConfirmAppointmentNoteAsync(Note note)
+        {
+            try
+            {
+                note.IsAccepted = true;
+                await _noteRepository.UpdateNoteAsync(note);
                 return true;
             }
             catch

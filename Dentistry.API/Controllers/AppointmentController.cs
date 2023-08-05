@@ -11,9 +11,10 @@ namespace Dentistry.API.Controllers
         private readonly INoteService _noteService;
         private readonly IUserService _userService;
 
-        public AppointmentController(INoteService noteService)
+        public AppointmentController(INoteService noteService, IUserService userService)
         {
             _noteService = noteService;
+            _userService = userService;
         }
 
         [HttpGet]
@@ -36,9 +37,9 @@ namespace Dentistry.API.Controllers
             {
                 if (!note.IsTaken)
                 {
-                    note.PatientFullname = user.Name;
-                    note.IsTaken = true;
-                    return Ok();
+                    var result = await _noteService.BookAnAppointmentAsync(note, user.Name);
+
+                    if (result) return Ok();
                 }
                 return BadRequest(noteId);
             }

@@ -7,5 +7,6 @@ namespace Dentistry.DAL.Repositories.NoteRepository
         Task<IEnumerable<Note>> GetNotesAsync();
         Task<Note> GetNoteByIdAsync(int id);
         Task CreateNoteAsync(Note note);
+        Task UpdateNoteAsync(Note note);
     }
 }
