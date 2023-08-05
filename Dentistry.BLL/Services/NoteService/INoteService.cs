@@ -5,6 +5,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
     public interface INoteService
     {
         Task<IEnumerable<Note>> GetNotesAsync();
-        Task<IEnumerable<Note>> GetNotesByIdAsync(int id);
+        Task<Note> GetNoteByIdAsync(int id);
+        Task<IEnumerable<Note>> GetFreeNotesAsync();
     }
 }

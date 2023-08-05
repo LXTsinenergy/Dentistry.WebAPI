@@ -13,12 +13,12 @@ namespace Dentistry.API.Controllers
     {
         private readonly IDoctorService _doctorService;
         private readonly IPasswordService _passwordService;
-        private readonly IScheduleService _scheduleService;
+        private readonly IDayService _scheduleService;
 
         public HeadPhysicianController(
             IDoctorService doctorService,
             IPasswordService passwordService,
-            IScheduleService scheduleService)
+            IDayService scheduleService)
         {
             _doctorService = doctorService;
             _passwordService = passwordService;

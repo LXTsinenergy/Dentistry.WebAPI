@@ -4,7 +4,7 @@ using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.ScheduleService
 {
-    public interface IScheduleService
+    public interface IDayService
     {
         Task<IEnumerable<Workday>> GetAllDaysAsync();
         Task<Workday> GetDayByIdAsync(int id);

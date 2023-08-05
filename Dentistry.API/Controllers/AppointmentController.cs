@@ -17,15 +17,30 @@ namespace Dentistry.API.Controllers
             _noteService = noteService;
         }
 
+        [HttpGet]
+        public async Task<IActionResult> GetListOfFreeAppointmentsAsync()
+        {
+            var freeNotes = await _noteService.GetFreeNotesAsync();
+
+            if (freeNotes != null) return Ok(freeNotes);
+            return StatusCode(500);
+        }
+
+
         [HttpPost]
-        public async Task<IActionResult> SignUpForAppointmentAsync(int userId, int doctorId)
+        public async Task<IActionResult> SignUpForAppointmentAsync(int userId, int noteId)
         {
             var user = await _userService.GetUserByIdAsync(userId);
-            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+            var note = await _noteService.GetNoteByIdAsync(noteId);
 
-            if (user != null && doctor != null)
+            if (user != null && note != null)
             {
-                throw new NotImplementedException();
+                if (!note.IsTaken)
+                {
+                    note.IsTaken = true;
+                    return Ok();
+                }
+                return BadRequest(noteId);
             }
             return BadRequest();
         }

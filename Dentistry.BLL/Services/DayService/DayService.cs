@@ -6,12 +6,12 @@ using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.ScheduleService
 {
-    public class ScheduleService : IScheduleService
+    public class DayService : IDayService
     {
         private readonly IDayRepository _dayRepository;
         private readonly IMapper _mapper;
 
-        public ScheduleService(IDayRepository dayRepository, IMapper mapper)
+        public DayService(IDayRepository dayRepository, IMapper mapper)
         {
             _dayRepository = dayRepository;
             _mapper = mapper;

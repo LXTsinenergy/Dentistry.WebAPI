@@ -69,7 +69,7 @@ builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<IMessageService,  MessageService>();
-builder.Services.AddScoped<IScheduleService,  ScheduleService>();
+builder.Services.AddScoped<IDayService,  DayService>();
 
 builder.Services.AddSingleton<CodeBuffer>();
 

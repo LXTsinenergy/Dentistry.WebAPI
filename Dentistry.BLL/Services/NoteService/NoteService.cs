@@ -25,12 +25,27 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
-        public async Task<IEnumerable<Note>> GetNotesByIdAsync(int id)
+        public async Task<Note> GetNoteByIdAsync(int id)
         {
             try
             {
-                var notes = await _noteRepository.GetNotesByIdAsync(id);
-                return notes;
+                var note = await _noteRepository.GetNoteByIdAsync(id);
+                return note;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
+        public async Task<IEnumerable<Note>> GetFreeNotesAsync()
+        {
+            try
+            {
+                var notes = await _noteRepository.GetNotesAsync();
+                var freeNotes = notes
+                    .Where(n => n.IsTaken == false);
+                return freeNotes;
             }
             catch
             {
