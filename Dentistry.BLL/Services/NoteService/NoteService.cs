@@ -94,11 +94,13 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
-        public async Task<bool> BookAnAppointmentAsync(Note note, string username)
+        public async Task<bool> BookAnAppointmentAsync(Note note, User user)
         {
             try
             {
-                note.PatientFullname = username;
+                note.PatientFullname = user.Name;
+                note.PatientPhoneNumber = user.PhoneNumber;
+                note.PatientEmail = user.Email;
                 note.IsTaken = true;
 
                 await _noteRepository.UpdateNoteAsync(note);

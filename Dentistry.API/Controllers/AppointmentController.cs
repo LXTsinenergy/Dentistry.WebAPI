@@ -37,7 +37,7 @@ namespace Dentistry.API.Controllers
             {
                 if (!note.IsTaken)
                 {
-                    var result = await _noteService.BookAnAppointmentAsync(note, user.Name);
+                    var result = await _noteService.BookAnAppointmentAsync(note, user);
 
                     if (result) return Ok();
                 }

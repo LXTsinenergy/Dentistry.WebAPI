@@ -10,7 +10,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         Task<IEnumerable<Note>> GetFreeNotesAsync();
         Task<IEnumerable<Note>> GetUnacceptedNotesAsync();
         Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId);
-        Task<bool> BookAnAppointmentAsync(Note note, string username);
+        Task<bool> BookAnAppointmentAsync(Note note, User user);
         Task<bool> ConfirmAppointmentNoteAsync(Note note);
     }
 }
