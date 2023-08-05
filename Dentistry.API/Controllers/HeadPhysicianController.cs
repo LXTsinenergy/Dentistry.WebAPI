@@ -1,9 +1,11 @@
 ﻿using Dentistry.BLL.Services.DoctorService;
+using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.Domain.DTO.Day;
 using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
+using Dentistry.Domain.DTO.Note;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
@@ -14,15 +16,18 @@ namespace Dentistry.API.Controllers
         private readonly IDoctorService _doctorService;
         private readonly IPasswordService _passwordService;
         private readonly IDayService _scheduleService;
+        private readonly INoteService _noteService;
 
         public HeadPhysicianController(
             IDoctorService doctorService,
             IPasswordService passwordService,
-            IDayService scheduleService)
+            IDayService scheduleService,
+            INoteService noteService)
         {
             _doctorService = doctorService;
             _passwordService = passwordService;
             _scheduleService = scheduleService;
+            _noteService = noteService;
         }
 
         #region Doctor
@@ -99,7 +104,7 @@ namespace Dentistry.API.Controllers
         }
         #endregion
 
-        #region Schedule
+        #region Workdays
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
@@ -132,6 +137,17 @@ namespace Dentistry.API.Controllers
                 if (result) return Ok();
             }
             return BadRequest(id);
+        }
+        #endregion
+
+        #region Notes
+        [HttpGet]
+        public async Task<IActionResult> AddNote(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
+        {
+            var result = await _noteService.CreateNoteAsync(noteCreationDTO, dayId, doctorId);
+
+            if (result) return Ok();
+            return BadRequest();
         }
         #endregion
     }

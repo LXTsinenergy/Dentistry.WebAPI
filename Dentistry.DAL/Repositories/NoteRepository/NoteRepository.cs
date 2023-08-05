@@ -18,5 +18,11 @@ namespace Dentistry.DAL.Repositories.NoteRepository
 
         public async Task<Note> GetNoteByIdAsync(int id) =>
             await _context.Notes.Where(n => n.Id == id).FirstOrDefaultAsync();
+
+        public async Task CreateNoteAsync(Note note)
+        {
+            await _context.Notes.AddAsync(note);
+            await _context.SaveChangesAsync();
+        }
     }
 }

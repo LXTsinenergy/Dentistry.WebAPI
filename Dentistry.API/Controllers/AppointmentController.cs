@@ -10,7 +10,6 @@ namespace Dentistry.API.Controllers
     {
         private readonly INoteService _noteService;
         private readonly IUserService _userService;
-        private readonly IDoctorService _doctorService;
 
         public AppointmentController(INoteService noteService)
         {

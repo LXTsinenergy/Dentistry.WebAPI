@@ -16,6 +16,9 @@ namespace Dentistry.DAL.Repositories.DayRepository
         public async Task<IEnumerable<Workday>> GetAllDaysAsync() =>
             await _context.Days.ToListAsync();
 
+        public async Task<Workday> GetDayByIdAsync(int id) =>
+            await _context.Days.FirstOrDefaultAsync(x => x.Id == id);
+
         public async Task AddNewDayAsync(Workday workday)
         {
             await _context.Days.AddAsync(workday);

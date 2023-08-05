@@ -1,4 +1,8 @@
-﻿using Dentistry.DAL.Repositories.NoteRepository;
+﻿using AutoMapper;
+using Dentistry.DAL.Repositories.DayRepository;
+using Dentistry.DAL.Repositories.DoctorRepository;
+using Dentistry.DAL.Repositories.NoteRepository;
+using Dentistry.Domain.DTO.Note;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.DoctorsNoteService
@@ -6,10 +10,12 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
     public class NoteService : INoteService
     {
         private readonly INoteRepository _noteRepository;
+        private readonly IMapper _mapper;
 
-        public NoteService(INoteRepository noteRepository)
+        public NoteService(INoteRepository noteRepository, IMapper mapper)
         {
             _noteRepository = noteRepository;
+            _mapper = mapper;
         }
 
         public async Task<IEnumerable<Note>> GetNotesAsync()
@@ -50,6 +56,26 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             catch
             {
                 return null;
+            }
+        }
+
+        public async Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
+        {
+            try
+            {
+                var note = _mapper.Map<Note>(noteCreationDTO);
+                note.DoctorId = doctorId;
+                note.WorkdayId = dayId;
+                note.Comment = "";
+                note.PatientFullname = "";
+
+
+                await _noteRepository.CreateNoteAsync(note);
+                return true;
+            }
+            catch
+            {
+                return false;
             }
         }
     }
