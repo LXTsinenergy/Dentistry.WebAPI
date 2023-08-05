@@ -13,6 +13,9 @@ namespace Dentistry.Domain.Models
 
         public string Comment { get; set; }
         public string PatientFullname { get; set; }
+        public string PatientPhoneNumber { get; set; }
+        public string PatientEmail { get; set; }
+
         public DateTime AppointmentTime { get; set; }
 
         public int DoctorId { get; set; }
