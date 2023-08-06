@@ -74,6 +74,15 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 return null;
             }
         }
+
+        public IEnumerable<Note> GetDoctorSchedule(Workday workday, int doctorId)
+        {
+            var notes = workday.Schedule
+                .Where(x => x.DoctorId == doctorId)
+                .Where(x => x.IsTaken)
+                .Where(x => x.IsAccepted);
+            return notes;
+        }
         
         public async Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
@@ -82,9 +91,6 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 var note = _mapper.Map<Note>(noteCreationDTO);
                 note.DoctorId = doctorId;
                 note.WorkdayId = dayId;
-                note.Comment = "";
-                note.PatientFullname = "";
-
 
                 await _noteRepository.CreateNoteAsync(note);
                 return true;

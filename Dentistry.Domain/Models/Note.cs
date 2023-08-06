@@ -11,10 +11,10 @@ namespace Dentistry.Domain.Models
         public bool IsTaken { get; set; } = false;
         public bool IsAccepted { get; set; } = false;
 
-        public string Comment { get; set; }
-        public string PatientFullname { get; set; }
-        public string PatientPhoneNumber { get; set; }
-        public string PatientEmail { get; set; }
+        public string Comment { get; set; } = string.Empty;
+        public string PatientFullname { get; set; } = string.Empty;
+        public string PatientPhoneNumber { get; set; } = string.Empty;
+        public string PatientEmail { get; set; } = string.Empty;
 
         public string ProcedureName { get; set; } = string.Empty;
         public DateTime AppointmentTime { get; set; }

@@ -15,18 +15,18 @@ namespace Dentistry.API.Controllers
     {
         private readonly IDoctorService _doctorService;
         private readonly IPasswordService _passwordService;
-        private readonly IDayService _scheduleService;
+        private readonly IDayService _dayService;
         private readonly INoteService _noteService;
 
         public HeadPhysicianController(
             IDoctorService doctorService,
             IPasswordService passwordService,
-            IDayService scheduleService,
+            IDayService dayService,
             INoteService noteService)
         {
             _doctorService = doctorService;
             _passwordService = passwordService;
-            _scheduleService = scheduleService;
+            _dayService = dayService;
             _noteService = noteService;
         }
 
@@ -108,18 +108,18 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
-            var schedule = await _scheduleService.GetAllDaysAsync();
+            var schedule = await _dayService.GetAllDaysAsync();
             return Ok(schedule);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddNewWorkdayAsync(WorkdayCreationDTO creationDTO)
         {
-            var coincidingDays = await _scheduleService.GetCoincidingDaysAsync(creationDTO.DayOfWeek);
+            var coincidingDays = await _dayService.GetCoincidingDaysAsync(creationDTO.DayOfWeek);
 
             if (coincidingDays.Count == 0)
             {
-                var result = await _scheduleService.CreateNewDayAsync(creationDTO);
+                var result = await _dayService.CreateNewDayAsync(creationDTO);
                 if (result) return Ok();
             }
             return BadRequest(creationDTO);
@@ -128,11 +128,11 @@ namespace Dentistry.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteWorkdayAsync(int id)
         {
-            var day = await _scheduleService.GetDayByIdAsync(id);
+            var day = await _dayService.GetDayByIdAsync(id);
 
             if (day != null)
             {
-                var result = await _scheduleService.DeleteDayAsync(day);
+                var result = await _dayService.DeleteDayAsync(day);
 
                 if (result) return Ok();
             }
@@ -142,7 +142,7 @@ namespace Dentistry.API.Controllers
 
         #region Notes
         [HttpGet]
-        public async Task<IActionResult> AddNote(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
+        public async Task<IActionResult> AddNoteToDoctorSchedule(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
             var result = await _noteService.CreateNoteAsync(noteCreationDTO, dayId, doctorId);
 
