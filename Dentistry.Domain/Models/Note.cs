@@ -16,6 +16,7 @@ namespace Dentistry.Domain.Models
         public string PatientPhoneNumber { get; set; }
         public string PatientEmail { get; set; }
 
+        public string ProcedureName { get; set; }
         public DateTime AppointmentTime { get; set; }
 
         public int DoctorId { get; set; }

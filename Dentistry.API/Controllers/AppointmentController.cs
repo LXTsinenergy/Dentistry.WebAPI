@@ -26,7 +26,6 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
-
         [HttpPost]
         public async Task<IActionResult> SignUpForAppointmentAsync(int userId, int noteId)
         {
