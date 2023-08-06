@@ -65,7 +65,8 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             {
                 var notes = await _noteRepository.GetNotesAsync();
                 var unacceptedNotes = notes
-                    .Where(n => n.IsAccepted == false);
+                    .Where(n => !n.IsAccepted)
+                    .Where(n => n.IsTaken);
                 return unacceptedNotes;
             }
             catch
@@ -73,7 +74,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 return null;
             }
         }
-
+        
         public async Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
             try

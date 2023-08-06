@@ -32,7 +32,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> AcceptAppointmentNoteAsync(int id)
+        public async Task<IActionResult> AcceptAppointmentNoteAsync(int id, string procedureName)
         {
             var note = await _noteService.GetNoteByIdAsync(id);
 
@@ -40,6 +40,7 @@ namespace Dentistry.API.Controllers
             {
                 if (note.IsTaken && !note.IsAccepted)
                 {
+                    note.ProcedureName = procedureName;
                     var result =  await _noteService.ConfirmAppointmentNoteAsync(note);
                     if (result) return Ok();
                 }
