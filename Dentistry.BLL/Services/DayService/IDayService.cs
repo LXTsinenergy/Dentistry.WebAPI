@@ -7,9 +7,10 @@ namespace Dentistry.BLL.Services.ScheduleService
     public interface IDayService
     {
         Task<IEnumerable<Workday>> GetAllDaysAsync();
-        Task<Workday> GetDayByIdAsync(int id);
-        Task<bool> CreateNewDayAsync(WorkdayCreationDTO creationDTO);
-        Task<bool> DeleteDayAsync(Workday workday);
         Task<List<Workday>> GetCoincidingDaysAsync(Day dayOfWeek);
+        Task<Workday> GetDayByIdAsync(int id);
+
+        Task<bool> CreateDayAsync(WorkdayCreationDTO creationDTO);
+        Task<bool> DeleteDayAsync(Workday workday);
     }
 }

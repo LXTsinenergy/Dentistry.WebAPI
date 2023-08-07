@@ -6,11 +6,11 @@ namespace Dentistry.BLL.Services.DoctorService
 {
     public interface IDoctorService
     {
-        Task<bool> AddNewDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt);
+        Task<bool> CreateDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt);
         Task<bool> DeleteDoctorAsync(Doctor doctor);
         Task<bool> UpdateDoctorAsync(Doctor doctor, DoctorUpdateDTO updateDTO);
 
-        Task<IEnumerable<Doctor>> GetAllAsync();
+        Task<IEnumerable<Doctor>> GetDoctorsAsync();
         Task<Doctor?> GetDoctorByIdAsync(int id);
 
         Task<bool> PhoneIsRegistered(string phoneNumber);

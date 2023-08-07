@@ -1,6 +1,4 @@
 ﻿using AutoMapper;
-using Dentistry.DAL.Repositories.DayRepository;
-using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.NoteRepository;
 using Dentistry.Domain.DTO.Note;
 using Dentistry.Domain.Models;
@@ -18,6 +16,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             _mapper = mapper;
         }
 
+        #region Get
         public async Task<IEnumerable<Note>> GetNotesAsync()
         {
             try
@@ -106,7 +105,9 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 .Where(x => x.IsAccepted);
             return notes;
         }
+        #endregion
 
+        #region Note operations
         public async Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
             try
@@ -142,7 +143,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
-        public async Task<bool> ConfirmAppointmentNoteAsync(Note note)
+        public async Task<bool> ConfirmAppointmentAsync(Note note)
         {
             try
             {
@@ -179,6 +180,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             note.PatientPhoneNumber = "";
             note.PatientEmail = "";
             note.ProcedureName = "";
+
             return note;
         }
 
@@ -186,6 +188,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         {
             if (note.IsAccepted && note.IsTaken) return true;
             return false;
-        }
+        } 
+        #endregion
     }
 }

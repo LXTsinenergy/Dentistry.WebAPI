@@ -34,7 +34,7 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllUsersAsync()
         {
-            var users = await _userService.GetAllAsync();
+            var users = await _userService.GetUsersAsync();
 
             if (users != null) return Ok(users);
             return StatusCode(500);
@@ -60,7 +60,7 @@ namespace Dentistry.API.Controllers
             var salt = _passwordService.GenerateSalt();
             userDTO.Password = _passwordService.HashPassword(userDTO.Password, salt);
 
-            var result = await _userService.AddNewUserAsync(userDTO, salt);
+            var result = await _userService.CreateUserAsync(userDTO, salt);
 
             if (result) return Ok(result);
             return BadRequest(result);
@@ -108,7 +108,7 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDoctorsAsync()
         {
-            var doctors = await _doctorService.GetAllAsync();
+            var doctors = await _doctorService.GetDoctorsAsync();
 
             if (doctors != null) return Ok(doctors);
             return StatusCode(500);
@@ -134,7 +134,7 @@ namespace Dentistry.API.Controllers
             var salt = _passwordService.GenerateSalt();
             creationDTO.Password = _passwordService.HashPassword(creationDTO.Password, salt);
 
-            var result = await _doctorService.AddNewDoctorAsync(creationDTO, salt);
+            var result = await _doctorService.CreateDoctorAsync(creationDTO, salt);
 
             if (result) return Ok(result);
             return BadRequest(result);

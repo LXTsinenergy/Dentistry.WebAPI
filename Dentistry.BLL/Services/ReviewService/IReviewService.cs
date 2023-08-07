@@ -1,5 +1,4 @@
 ﻿using Dentistry.Domain.DTO.Review;
-using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.ReviewService
 {

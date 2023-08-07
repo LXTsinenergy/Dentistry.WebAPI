@@ -19,7 +19,7 @@ namespace Dentistry.BLL.Services.DoctorService
         }
 
         #region CRUD
-        public async Task<bool> AddNewDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt)
+        public async Task<bool> CreateDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt)
         {
             Doctor doctor = _mapper.Map<Doctor>(doctorDTO);
             doctor.Salt = passwordSalt;
@@ -125,7 +125,7 @@ namespace Dentistry.BLL.Services.DoctorService
         #endregion
 
         #region Get
-        public async Task<IEnumerable<Doctor>> GetAllAsync()
+        public async Task<IEnumerable<Doctor>> GetDoctorsAsync()
         {
             try
             {

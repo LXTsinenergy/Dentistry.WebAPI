@@ -16,7 +16,7 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetDoctorsListAsync()
         {
-            var doctors = await _doctorService.GetAllAsync();
+            var doctors = await _doctorService.GetDoctorsAsync();
             return Ok(doctors);
         }
 

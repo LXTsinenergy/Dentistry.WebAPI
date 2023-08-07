@@ -1,10 +1,8 @@
 ﻿using AutoMapper;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.DTO.User;
-using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
-using System.Numerics;
 
 namespace Dentistry.BLL.Services.UserService
 {
@@ -20,14 +18,14 @@ namespace Dentistry.BLL.Services.UserService
         }
 
         #region CRUD
-        public async Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt)
+        public async Task<bool> CreateUserAsync(UserDTO userDTO, byte[] passwordSalt)
         {
-            User user = _mapper.Map<User>(userDTO);
-            user.Salt = passwordSalt;
-            user.Role = Role.user;
-
             try
             {
+                User user = _mapper.Map<User>(userDTO);
+                user.Salt = passwordSalt;
+                user.Role = Role.user;
+
                 await _userRepository.AddAsync(user);
                 return true;
             }
@@ -75,7 +73,7 @@ namespace Dentistry.BLL.Services.UserService
         #endregion
 
         #region Get
-        public async Task<IEnumerable<User>> GetAllAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             try
             {
@@ -180,10 +178,10 @@ namespace Dentistry.BLL.Services.UserService
         #region Password
         public async Task<bool> UpdateUserPasswordAsync(User user, string password)
         {
-            user.Password = password;
-
             try
             {
+                user.Password = password;
+
                 await _userRepository.UpdateAsync(user);
                 return true;
             }

@@ -12,9 +12,11 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         IEnumerable<Note> GetUnacceptedDoctorNotes(Doctor doctor);
         IEnumerable<Note> GetDoctorDaySchedule(Workday workday, int doctorId);
         IEnumerable<Note> GetDoctorGeneralSchedule(Doctor doctor);
+
         Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId);
+
         Task<bool> BookAnAppointmentAsync(Note note, User user);
-        Task<bool> ConfirmAppointmentNoteAsync(Note note);
+        Task<bool> ConfirmAppointmentAsync(Note note);
         Task<bool> ResetNoteDataAsync(Note note);
         bool NoteIsTaken(Note note);
     }

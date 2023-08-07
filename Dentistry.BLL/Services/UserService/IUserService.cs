@@ -1,16 +1,15 @@
 ﻿using Dentistry.Domain.DTO.User;
-using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.UserService
 {
     public interface IUserService
     {
-        Task<bool> AddNewUserAsync(UserDTO userDTO, byte[] passwordSalt);
+        Task<bool> CreateUserAsync(UserDTO userDTO, byte[] passwordSalt);
         Task<bool> UpdateUserAsync(User user, UserUpdateDTO updateDTO);
         Task<bool> DeleteUserAsync(User user);
 
-        Task<IEnumerable<User>> GetAllAsync();
+        Task<IEnumerable<User>> GetUsersAsync();
         Task<User?> GetUserByIdAsync(int id);
         Task<User?> GetUserByEmailAsync(string email);
         Task<User?> GetUserByPhoneNumberAsync(string phoneNumber);

@@ -17,6 +17,7 @@ namespace Dentistry.BLL.Services.ScheduleService
             _mapper = mapper;
         }
 
+        #region Get
         public async Task<IEnumerable<Workday>> GetAllDaysAsync()
         {
             try
@@ -47,21 +48,6 @@ namespace Dentistry.BLL.Services.ScheduleService
             }
         }
 
-        public async Task<bool> CreateNewDayAsync(WorkdayCreationDTO creationDTO)
-        {
-            var day = _mapper.Map<Workday>(creationDTO);
-
-            try
-            {
-                await _dayRepository.AddAsync(day);
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
         public async Task<List<Workday>> GetCoincidingDaysAsync(Day dayOfWeek)
         {
             try
@@ -77,6 +63,23 @@ namespace Dentistry.BLL.Services.ScheduleService
                 return new List<Workday>();
             }
         }
+        #endregion
+
+        #region Day operations
+        public async Task<bool> CreateDayAsync(WorkdayCreationDTO creationDTO)
+        {
+            try
+            {
+                var day = _mapper.Map<Workday>(creationDTO);
+
+                await _dayRepository.AddAsync(day);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
 
         public async Task<bool> DeleteDayAsync(Workday workday)
         {
@@ -89,6 +92,7 @@ namespace Dentistry.BLL.Services.ScheduleService
             {
                 return false;
             }
-        }
+        } 
+        #endregion
     }
 }

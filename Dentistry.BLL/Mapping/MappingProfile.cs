@@ -13,13 +13,15 @@ namespace Dentistry.BLL.Mapping
     {
         public MappingProfile()
         {
+            #region CreateMap
             CreateMap<UserRegisterDTO, User>();
             CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
             CreateMap<DoctorCreationDTO, Doctor>();
             CreateMap<WorkdayCreationDTO, Workday>();
             CreateMap<NoteCreationDTO, Note>();
-            CreateMap<ReviewCreationDTO, Review>();
+            CreateMap<ReviewCreationDTO, Review>(); 
+            #endregion
         }
     }
 }

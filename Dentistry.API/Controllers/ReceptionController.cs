@@ -62,7 +62,7 @@ namespace Dentistry.API.Controllers
                 if (note.IsTaken && !note.IsAccepted)
                 {
                     note.ProcedureName = procedureName;
-                    var result = await _noteService.ConfirmAppointmentNoteAsync(note);
+                    var result = await _noteService.ConfirmAppointmentAsync(note);
                     if (result) return Ok();
                 }
             }

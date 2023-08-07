@@ -34,7 +34,7 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetAllDoctorsAsync()
         {
-            var doctors = await _doctorService.GetAllAsync();
+            var doctors = await _doctorService.GetDoctorsAsync();
 
             if (doctors != null) return Ok(doctors);
             return StatusCode(500);
@@ -60,7 +60,7 @@ namespace Dentistry.API.Controllers
             var salt = _passwordService.GenerateSalt();
             creationDTO.Password = _passwordService.HashPassword(creationDTO.Password, salt);
 
-            var result = await _doctorService.AddNewDoctorAsync(creationDTO, salt);
+            var result = await _doctorService.CreateDoctorAsync(creationDTO, salt);
 
             if (result) return Ok(result);
             return BadRequest(result);
@@ -119,7 +119,7 @@ namespace Dentistry.API.Controllers
 
             if (coincidingDays.Count == 0)
             {
-                var result = await _dayService.CreateNewDayAsync(creationDTO);
+                var result = await _dayService.CreateDayAsync(creationDTO);
                 if (result) return Ok();
             }
             return BadRequest(creationDTO);
