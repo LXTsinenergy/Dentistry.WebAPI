@@ -37,19 +37,19 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
             .Include(x => x.Reviews)
             .ToListAsync();
 
-        public async Task<Doctor?> GetDoctorByEmailAsync(string email) => 
+        public async Task<Doctor?> GetByEmailAsync(string email) => 
             await _context.Doctors
             .Include(x => x.Notes)
             .Include(x => x.Reviews)
             .FirstOrDefaultAsync(d => d.Email == email);
 
-        public async Task<Doctor?> GetDoctorByIdAsync(int id) => 
+        public async Task<Doctor?> GetByIdAsync(int id) => 
             await _context.Doctors
             .Include(x => x.Notes)
             .Include(x => x.Reviews)
             .FirstOrDefaultAsync(d => d.Id == id);
 
-        public async Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber) => 
+        public async Task<Doctor?> GetByPhoneNumberAsync(string phoneNumber) => 
             await _context.Doctors
             .Include(x => x.Notes)
             .Include(x => x.Reviews)

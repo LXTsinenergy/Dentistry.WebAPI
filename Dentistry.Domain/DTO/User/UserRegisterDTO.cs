@@ -2,7 +2,7 @@
 
 namespace Dentistry.Domain.DTO.UserDTO.UserDTO
 {
-    public class RegisterUserDTO
+    public class UserRegisterDTO
     {
         [Required]
         public string Name { get; set; }

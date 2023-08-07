@@ -21,7 +21,7 @@ namespace Dentistry.BLL.Services.ScheduleService
         {
             try
             {
-                var days = await _dayRepository.GetAllDaysAsync();
+                var days = await _dayRepository.GetAllAsync();
                 return days;
             }
             catch
@@ -34,7 +34,7 @@ namespace Dentistry.BLL.Services.ScheduleService
         {
             try
             {
-                var days = await _dayRepository.GetAllDaysAsync();
+                var days = await _dayRepository.GetAllAsync();
                 var day = days
                     .Where(d => d.Id == id)
                     .FirstOrDefault();
@@ -53,7 +53,7 @@ namespace Dentistry.BLL.Services.ScheduleService
 
             try
             {
-                await _dayRepository.AddNewDayAsync(day);
+                await _dayRepository.AddAsync(day);
                 return true;
             }
             catch
@@ -66,7 +66,7 @@ namespace Dentistry.BLL.Services.ScheduleService
         {
             try
             {
-                var days = await _dayRepository.GetAllDaysAsync();
+                var days = await _dayRepository.GetAllAsync();
                 var coincidingDays = days
                     .Where(d => d.DayOfWeek == dayOfWeek)
                     .ToList();
@@ -82,7 +82,7 @@ namespace Dentistry.BLL.Services.ScheduleService
         {
             try
             {
-                await _dayRepository.DeleteDayAsync(workday);
+                await _dayRepository.DeleteAsync(workday);
                 return true;
             }
             catch

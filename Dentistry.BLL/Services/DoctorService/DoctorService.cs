@@ -80,7 +80,7 @@ namespace Dentistry.BLL.Services.DoctorService
         {
             try
             {
-                var doctor = await _doctorRepository.GetDoctorByPhoneNumberAsync(phoneNumber);
+                var doctor = await _doctorRepository.GetByPhoneNumberAsync(phoneNumber);
 
                 if (doctor != null) return true;
                 return false;
@@ -95,7 +95,7 @@ namespace Dentistry.BLL.Services.DoctorService
         {
             try
             {
-                var doctor = await _doctorRepository.GetDoctorByEmailAsync(email);
+                var doctor = await _doctorRepository.GetByEmailAsync(email);
 
                 if (doctor != null) return true;
                 return false;
@@ -112,7 +112,7 @@ namespace Dentistry.BLL.Services.DoctorService
         {
             try
             {
-                var doctor = await _doctorRepository.GetDoctorByIdAsync(id);
+                var doctor = await _doctorRepository.GetByIdAsync(id);
 
                 if (doctor != null) return true;
                 return false;
@@ -142,7 +142,7 @@ namespace Dentistry.BLL.Services.DoctorService
         {
             try
             {
-                var doctor = await _doctorRepository.GetDoctorByIdAsync(id);
+                var doctor = await _doctorRepository.GetByIdAsync(id);
                 return doctor;
             }
             catch

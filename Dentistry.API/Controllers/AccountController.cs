@@ -28,7 +28,7 @@ namespace Dentistry.API.Controllers
 
         #region Login/Register/Logout
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(LoginUserDTO loginDTO)
+        public async Task<IActionResult> LoginAsync(UserLoginDTO loginDTO)
         {
             var user = await _userService.GetUserByEmailAsync(loginDTO.Email);
 
@@ -45,7 +45,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync(RegisterUserDTO registerDTO)
+        public async Task<IActionResult> RegisterAsync(UserRegisterDTO registerDTO)
         {
             var user = await _userService.GetUserByEmailAsync(registerDTO.Email);
 
@@ -58,7 +58,7 @@ namespace Dentistry.API.Controllers
                 registerDTO.Password = password;
 
                 var newUser = await _accountService.RegisterNewUserAsync(registerDTO, salt);
-                await LoginAsync(new LoginUserDTO { Email = registerDTO.Email, Password = registerDTO.Password });
+                await LoginAsync(new UserLoginDTO { Email = registerDTO.Email, Password = registerDTO.Password });
 
                 return Ok();
             }

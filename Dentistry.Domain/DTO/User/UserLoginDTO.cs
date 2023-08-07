@@ -2,7 +2,7 @@
 
 namespace Dentistry.Domain.DTO.UserDTO.UserDTO
 {
-    public class LoginUserDTO
+    public class UserLoginDTO
     {
         [Required]
         [EmailAddress]

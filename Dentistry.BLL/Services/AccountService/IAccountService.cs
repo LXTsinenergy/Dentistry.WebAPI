@@ -5,6 +5,6 @@ namespace Dentistry.BLL.Services.AccountService
 {
     public interface IAccountService
     {
-        Task<bool> RegisterNewUserAsync(RegisterUserDTO registerDTO, byte[] passwordSalt);
+        Task<bool> RegisterNewUserAsync(UserRegisterDTO registerDTO, byte[] passwordSalt);
     }
 }

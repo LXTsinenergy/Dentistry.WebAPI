@@ -4,6 +4,6 @@ namespace Dentistry.DAL.Repositories.ReviewRepository
 {
     public interface IReviewRepository
     {
-        public Task CreateAsync(Review review);
+        public Task AddAsync(Review review);
     }
 }

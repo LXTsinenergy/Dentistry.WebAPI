@@ -17,7 +17,7 @@ namespace Dentistry.BLL.Services.AccountService
             _userRepository = userRepository;
         }
 
-        public async Task<bool> RegisterNewUserAsync(RegisterUserDTO registerDTO, byte[] passwordSalt)
+        public async Task<bool> RegisterNewUserAsync(UserRegisterDTO registerDTO, byte[] passwordSalt)
         {
             User user = _mapper.Map<User>(registerDTO);
             user.Role = Role.user;

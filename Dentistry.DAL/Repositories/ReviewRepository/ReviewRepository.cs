@@ -12,7 +12,7 @@ namespace Dentistry.DAL.Repositories.ReviewRepository
             _context = context;
         }
 
-        public async Task CreateAsync(Review review)
+        public async Task AddAsync(Review review)
         {
             await _context.Reviews.AddAsync(review);
             await _context.SaveChangesAsync();

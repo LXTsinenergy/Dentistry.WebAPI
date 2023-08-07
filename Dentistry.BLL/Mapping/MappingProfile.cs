@@ -13,7 +13,7 @@ namespace Dentistry.BLL.Mapping
     {
         public MappingProfile()
         {
-            CreateMap<RegisterUserDTO, User>();
+            CreateMap<UserRegisterDTO, User>();
             CreateMap<UserDTO, User>();
             CreateMap<User, UserDTO>();
             CreateMap<DoctorCreationDTO, Doctor>();

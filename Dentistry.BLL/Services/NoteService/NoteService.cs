@@ -22,7 +22,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         {
             try
             {
-                var notes = await _noteRepository.GetNotesAsync();
+                var notes = await _noteRepository.GetAllAsync();
                 return notes;
             }
             catch
@@ -35,7 +35,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         {
             try
             {
-                var note = await _noteRepository.GetNoteByIdAsync(id);
+                var note = await _noteRepository.GetByIdAsync(id);
                 return note;
             }
             catch
@@ -48,7 +48,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         {
             try
             {
-                var notes = await _noteRepository.GetNotesAsync();
+                var notes = await _noteRepository.GetAllAsync();
                 var freeNotes = notes
                     .Where(n => n.IsTaken == false);
                 return freeNotes;
@@ -63,7 +63,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         {
             try
             {
-                var notes = await _noteRepository.GetNotesAsync();
+                var notes = await _noteRepository.GetAllAsync();
                 var unacceptedNotes = notes
                     .Where(n => !n.IsAccepted)
                     .Where(n => n.IsTaken);
@@ -115,7 +115,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 note.DoctorId = doctorId;
                 note.WorkdayId = dayId;
 
-                await _noteRepository.CreateNoteAsync(note);
+                await _noteRepository.AddAsync(note);
                 return true;
             }
             catch
@@ -133,7 +133,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 note.PatientEmail = user.Email;
                 note.IsTaken = true;
 
-                await _noteRepository.UpdateNoteAsync(note);
+                await _noteRepository.UpdateAsync(note);
                 return true;
             }
             catch
@@ -147,7 +147,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             try
             {
                 note.IsAccepted = true;
-                await _noteRepository.UpdateNoteAsync(note);
+                await _noteRepository.UpdateAsync(note);
                 return true;
             }
             catch
@@ -161,7 +161,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             try
             {
                 note = ResetNoteData(note);
-                await _noteRepository.UpdateNoteAsync(note);
+                await _noteRepository.UpdateAsync(note);
                 return true;
             }
             catch

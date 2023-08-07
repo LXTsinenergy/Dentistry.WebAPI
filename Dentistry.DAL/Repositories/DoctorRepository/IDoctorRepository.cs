@@ -4,12 +4,12 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
 {
     public interface IDoctorRepository
     {
-        Task<IEnumerable<Doctor>> GetAllAsync();
         Task AddAsync(Doctor doctor);
         Task DeleteAsync(Doctor doctor);
         Task UpdateAsync(Doctor doctor);
-        Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber);
-        Task<Doctor?> GetDoctorByEmailAsync(string email);
-        Task<Doctor?> GetDoctorByIdAsync(int id);
+        Task<IEnumerable<Doctor>> GetAllAsync();
+        Task<Doctor?> GetByPhoneNumberAsync(string phoneNumber);
+        Task<Doctor?> GetByEmailAsync(string email);
+        Task<Doctor?> GetByIdAsync(int id);
     }
 }

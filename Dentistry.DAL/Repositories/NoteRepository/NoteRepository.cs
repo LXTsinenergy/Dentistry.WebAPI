@@ -13,19 +13,21 @@ namespace Dentistry.DAL.Repositories.NoteRepository
             _context = context;
         }
 
-        public async Task<IEnumerable<Note>> GetNotesAsync() =>
-            await _context.Notes.ToListAsync();
+        public async Task<IEnumerable<Note>> GetAllAsync() =>
+            await _context.Notes
+            .ToListAsync();
 
-        public async Task<Note> GetNoteByIdAsync(int id) =>
-            await _context.Notes.FirstOrDefaultAsync(x => x.Id == id);
+        public async Task<Note> GetByIdAsync(int id) =>
+            await _context.Notes
+            .FirstOrDefaultAsync(x => x.Id == id);
 
-        public async Task CreateNoteAsync(Note note)
+        public async Task AddAsync(Note note)
         {
             await _context.Notes.AddAsync(note);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateNoteAsync(Note note)
+        public async Task UpdateAsync(Note note)
         {
             _context.Notes.Update(note);
             await _context.SaveChangesAsync();
