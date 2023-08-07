@@ -6,11 +6,13 @@ using Dentistry.Domain.DTO.Day;
 using Dentistry.Domain.DTO.Doctor;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.DTO.Note;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize(Roles = "admin, head")]
     public class HeadPhysicianController : Controller
     {
         private readonly IDoctorService _doctorService;

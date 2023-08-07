@@ -1,9 +1,11 @@
 ﻿using Dentistry.BLL.Services.DoctorService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize(Roles = "admin, user, doctor, registrar, head")]
     public class MainPageController : Controller
     {
         private readonly IDoctorService _doctorService;

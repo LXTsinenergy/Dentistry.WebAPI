@@ -1,11 +1,12 @@
-﻿using Dentistry.BLL.Services.DoctorService;
-using Dentistry.BLL.Services.DoctorsNoteService;
+﻿using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.UserService;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize(Roles = "user, admin")]
     public class AppointmentController : Controller
     {
         private readonly INoteService _noteService;

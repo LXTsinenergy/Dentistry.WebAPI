@@ -6,12 +6,13 @@ using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.Review;
 using Dentistry.Domain.DTO.User;
 using Dentistry.Domain.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
-    [ApiController]
+    [Authorize(Roles = "user, admin")]
     public class UserController : Controller
     {
         private readonly IUserService _userService;

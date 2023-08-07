@@ -5,5 +5,7 @@
         admin,
         user,
         doctor,
+        registrar,
+        head,
     }
 }

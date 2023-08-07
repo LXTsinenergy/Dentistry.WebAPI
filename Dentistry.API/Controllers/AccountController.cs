@@ -5,11 +5,13 @@ using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
     [Route("[controller]/[action]")]
+    [Authorize(Roles = "admin, user")]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
