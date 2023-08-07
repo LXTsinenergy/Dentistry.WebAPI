@@ -9,7 +9,8 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         Task<Note> GetNoteByIdAsync(int id);
         Task<IEnumerable<Note>> GetFreeNotesAsync();
         Task<IEnumerable<Note>> GetUnacceptedNotesAsync();
-        IEnumerable<Note> GetDoctorSchedule(Workday workday, int doctorId);
+        IEnumerable<Note> GetDoctorDaySchedule(Workday workday, int doctorId);
+        IEnumerable<Note> GetDoctorGeneralSchedule(Doctor doctor);
         Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId);
         Task<bool> BookAnAppointmentAsync(Note note, User user);
         Task<bool> ConfirmAppointmentNoteAsync(Note note);

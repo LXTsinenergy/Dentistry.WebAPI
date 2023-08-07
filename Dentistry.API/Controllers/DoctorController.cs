@@ -20,14 +20,27 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetScheduleAsync(int doctorId, int dayId)
+        public async Task<IActionResult> GetGeneralScheduleAsync(int doctorId)
+        {
+            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+
+            if (doctor != null)
+            {
+                var schedule = _noteService.GetDoctorGeneralSchedule(doctor);
+                if (schedule != null) return Ok(schedule);
+            }
+            return BadRequest();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> GetDayScheduleAsync(int doctorId, int dayId)
         {
             var day = await _dayService.GetDayByIdAsync(dayId);
             var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
 
             if (day != null && doctor != null)
             {
-                var schedule = _noteService.GetDoctorSchedule(day, doctorId);
+                var schedule = _noteService.GetDoctorDaySchedule(day, doctorId);
                 if (schedule != null) return Ok(schedule);
             }
             return BadRequest();

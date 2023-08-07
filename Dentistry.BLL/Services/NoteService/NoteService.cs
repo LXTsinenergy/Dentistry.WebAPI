@@ -75,7 +75,15 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
-        public IEnumerable<Note> GetDoctorSchedule(Workday workday, int doctorId)
+        public IEnumerable<Note> GetDoctorGeneralSchedule(Doctor doctor)
+        {
+            var notes = doctor.Notes
+                .Where(x => x.IsTaken)
+                .Where(x => x.IsAccepted);
+            return notes;
+        }
+
+        public IEnumerable<Note> GetDoctorDaySchedule(Workday workday, int doctorId)
         {
             var notes = workday.Schedule
                 .Where(x => x.DoctorId == doctorId)
@@ -83,7 +91,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
                 .Where(x => x.IsAccepted);
             return notes;
         }
-        
+
         public async Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
             try
