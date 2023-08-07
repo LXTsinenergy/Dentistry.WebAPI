@@ -2,6 +2,7 @@
 using Dentistry.Domain.DTO.Day;
 using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.DTO.Note;
+using Dentistry.Domain.DTO.Review;
 using Dentistry.Domain.DTO.User;
 using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Dentistry.Domain.Models;
@@ -18,6 +19,7 @@ namespace Dentistry.BLL.Mapping
             CreateMap<DoctorCreationDTO, Doctor>();
             CreateMap<WorkdayCreationDTO, Workday>();
             CreateMap<NoteCreationDTO, Note>();
+            CreateMap<ReviewCreationDTO, Review>();
         }
     }
 }

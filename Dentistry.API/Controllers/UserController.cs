@@ -1,6 +1,9 @@
-﻿using Dentistry.BLL.Services.MessageService;
+﻿using Dentistry.BLL.Services.DoctorService;
+using Dentistry.BLL.Services.MessageService;
 using Dentistry.BLL.Services.PasswordService;
+using Dentistry.BLL.Services.ReviewService;
 using Dentistry.BLL.Services.UserService;
+using Dentistry.Domain.DTO.Review;
 using Dentistry.Domain.DTO.User;
 using Dentistry.Domain.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -14,17 +17,23 @@ namespace Dentistry.API.Controllers
         private readonly IUserService _userService;
         private readonly IPasswordService _passwordService;
         private readonly IMessageService _messageService;
+        private readonly IReviewService _reviewService;
+        private readonly IDoctorService _doctorService;
         private readonly CodeBuffer _buffer;
 
         public UserController(
             IUserService userService,
             IPasswordService passwordService,
             IMessageService messageService,
+            IReviewService reviewService,
+            IDoctorService doctorService,
             CodeBuffer buffer)
         {
             _userService = userService;
             _passwordService = passwordService;
             _messageService = messageService;
+            _reviewService = reviewService;
+            _doctorService = doctorService;
             _buffer = buffer;
         }
 
@@ -109,6 +118,22 @@ namespace Dentistry.API.Controllers
                 return BadRequest(result);
             }
             return NotFound(id);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> WriteComment(int userId, ReviewCreationDTO reviewCreationDTO)
+        {
+            var user = await _userService.GetUserByIdAsync(userId);
+            var doctor = await _doctorService.GetDoctorByIdAsync(reviewCreationDTO.DoctorId);
+
+            if (user != null && doctor != null)
+            {
+                var result = await _reviewService.CreateReviewAsync(reviewCreationDTO, user.Name);
+
+                if (result) return Ok(result);
+                return StatusCode(500);
+            }
+            return BadRequest();
         }
     }
 }

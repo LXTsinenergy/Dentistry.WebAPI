@@ -32,15 +32,27 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
         }
 
         public async Task<IEnumerable<Doctor>> GetAllAsync() => 
-            await _context.Doctors.Include(x => x.Notes).ToListAsync();
+            await _context.Doctors
+            .Include(x => x.Notes)
+            .Include(x => x.Reviews)
+            .ToListAsync();
 
         public async Task<Doctor?> GetDoctorByEmailAsync(string email) => 
-            await _context.Doctors.Include(x => x.Notes).FirstOrDefaultAsync(d => d.Email == email);
+            await _context.Doctors
+            .Include(x => x.Notes)
+            .Include(x => x.Reviews)
+            .FirstOrDefaultAsync(d => d.Email == email);
 
         public async Task<Doctor?> GetDoctorByIdAsync(int id) => 
-            await _context.Doctors.Include(x => x.Notes).FirstOrDefaultAsync(d => d.Id == id);
+            await _context.Doctors
+            .Include(x => x.Notes)
+            .Include(x => x.Reviews)
+            .FirstOrDefaultAsync(d => d.Id == id);
 
         public async Task<Doctor?> GetDoctorByPhoneNumberAsync(string phoneNumber) => 
-            await _context.Doctors.Include(x => x.Notes).FirstOrDefaultAsync(d => d.PhoneNumber == phoneNumber);
+            await _context.Doctors
+            .Include(x => x.Notes)
+            .Include(x => x.Reviews)
+            .FirstOrDefaultAsync(d => d.PhoneNumber == phoneNumber);
     }
 }

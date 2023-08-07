@@ -5,12 +5,14 @@ using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.MessageService;
 using Dentistry.BLL.Services.PasswordService;
+using Dentistry.BLL.Services.ReviewService;
 using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.DayRepository;
 using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.NoteRepository;
+using Dentistry.DAL.Repositories.ReviewRepository;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -56,6 +58,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
 builder.Services.AddScoped<INoteRepository, NoteRepository>();
 builder.Services.AddScoped<IDayRepository, DayRepository>();
+builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 #endregion
 
@@ -70,6 +73,7 @@ builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<IMessageService,  MessageService>();
 builder.Services.AddScoped<IDayService,  DayService>();
+builder.Services.AddScoped<IReviewService,  ReviewService>();
 
 builder.Services.AddSingleton<CodeBuffer>();
 
