@@ -53,7 +53,7 @@ namespace Dentistry.API.Controllers
 
         #region Accept
         [HttpPut]
-        public async Task<IActionResult> AcceptAppointmentNoteAsync(int id, string procedureName)
+        public async Task<IActionResult> AcceptAppointmentAsync(int id, string procedureName)
         {
             var note = await _noteService.GetNoteByIdAsync(id);
 
