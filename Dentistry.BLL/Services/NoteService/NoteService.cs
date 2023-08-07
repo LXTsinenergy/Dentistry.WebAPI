@@ -75,6 +75,21 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
+        public IEnumerable<Note> GetUnacceptedDoctorNotes(Doctor doctor)
+        {
+            try
+            {
+                var notes = doctor.Notes
+                    .Where(x => x.IsTaken)
+                    .Where(x => !x.IsAccepted);
+                return notes;
+            }
+            catch
+            {
+                return null;
+            }
+        }
+
         public IEnumerable<Note> GetDoctorGeneralSchedule(Doctor doctor)
         {
             var notes = doctor.Notes
@@ -139,6 +154,38 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             {
                 return false;
             }
+        }
+
+        public async Task<bool> ResetNoteDataAsync(Note note)
+        {
+            try
+            {
+                note = ResetNoteData(note);
+                await _noteRepository.UpdateNoteAsync(note);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private Note ResetNoteData(Note note)
+        {
+            note.IsTaken = false;
+            note.IsAccepted = false;
+            note.Comment = "";
+            note.PatientFullname = "";
+            note.PatientPhoneNumber = "";
+            note.PatientEmail = "";
+            note.ProcedureName = "";
+            return note;
+        }
+
+        public bool NoteIsTaken(Note note)
+        {
+            if (note.IsAccepted && note.IsTaken) return true;
+            return false;
         }
     }
 }

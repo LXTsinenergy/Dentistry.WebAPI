@@ -2,6 +2,7 @@
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.API.Controllers
 {
@@ -19,6 +20,7 @@ namespace Dentistry.API.Controllers
             _dayService = dayService;
         }
 
+        #region Schedule
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync(int doctorId)
         {
@@ -45,5 +47,28 @@ namespace Dentistry.API.Controllers
             }
             return BadRequest();
         }
+        #endregion
+
+        #region Appointment
+        [HttpPut]
+        public async Task<IActionResult> CompleteAppointmentAsync(int noteId, int doctorId)
+        {
+            var note = await _noteService.GetNoteByIdAsync(noteId);
+            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+
+            if (note != null)
+            {
+                if (doctor.Notes.Contains(note) && _noteService.NoteIsTaken(note))
+                {
+                    var result = await _noteService.ResetNoteDataAsync(note);
+
+                    if (result) return Ok(result);
+                    return StatusCode(500);
+                }
+                return BadRequest(doctorId);
+            }
+            return NotFound(noteId);
+        } 
+        #endregion
     }
 }
