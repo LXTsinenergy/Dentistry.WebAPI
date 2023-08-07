@@ -73,7 +73,7 @@ namespace Dentistry.API.Controllers
                 _buffer.PasswordResetCode = code;
 
                 await _messageService.SendEmailAsync(user.Email, code);
-                return Ok(code);
+                return Ok();
             }
             return NotFound(id);
         }
@@ -91,8 +91,8 @@ namespace Dentistry.API.Controllers
 
                 var result = await _userService.DeleteUserAsync(user);
 
-                if (result) return Ok(result);
-                return BadRequest(false);
+                if (result) return Ok();
+                return StatusCode(500);
             }
             return NotFound(id);
         }
@@ -114,14 +114,14 @@ namespace Dentistry.API.Controllers
                 }
                 var result = await _userService.UpdateUserAsync(user, updateDTO);
 
-                if (result) return Ok(result);
-                return BadRequest(result);
+                if (result) return Ok();
+                return StatusCode(500);
             }
             return NotFound(id);
         }
 
         [HttpPost]
-        public async Task<IActionResult> WriteComment(int userId, ReviewCreationDTO reviewCreationDTO)
+        public async Task<IActionResult> WriteCommentAsync(int userId, ReviewCreationDTO reviewCreationDTO)
         {
             var user = await _userService.GetUserByIdAsync(userId);
             var doctor = await _doctorService.GetDoctorByIdAsync(reviewCreationDTO.DoctorId);
@@ -133,7 +133,7 @@ namespace Dentistry.API.Controllers
                 if (result) return Ok(result);
                 return StatusCode(500);
             }
-            return BadRequest();
+            return NotFound();
         }
     }
 }

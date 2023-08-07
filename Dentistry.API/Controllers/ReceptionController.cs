@@ -63,10 +63,12 @@ namespace Dentistry.API.Controllers
                 {
                     note.ProcedureName = procedureName;
                     var result = await _noteService.ConfirmAppointmentAsync(note);
+
                     if (result) return Ok();
+                    return StatusCode(500);
                 }
             }
-            return BadRequest(id);
+            return NotFound(id);
         } 
         #endregion
     }

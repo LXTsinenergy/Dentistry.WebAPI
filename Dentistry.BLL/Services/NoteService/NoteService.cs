@@ -26,7 +26,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
             catch
             {
-                return Enumerable.Empty<Note>();
+                return null;
             }
         }
 
@@ -91,19 +91,35 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
 
         public IEnumerable<Note> GetDoctorGeneralSchedule(Doctor doctor)
         {
-            var notes = doctor.Notes
+            try
+            {
+                var notes = doctor.Notes
                 .Where(x => x.IsTaken)
                 .Where(x => x.IsAccepted);
-            return notes;
+
+                return notes;
+            }
+            catch
+            {
+                return null;
+            }
         }
 
         public IEnumerable<Note> GetDoctorDaySchedule(Workday workday, int doctorId)
         {
-            var notes = workday.Schedule
+            try
+            {
+                var notes = workday.Schedule
                 .Where(x => x.DoctorId == doctorId)
                 .Where(x => x.IsTaken)
                 .Where(x => x.IsAccepted);
-            return notes;
+
+                return notes;
+            }
+            catch
+            {
+                return null;
+            }
         }
         #endregion
 

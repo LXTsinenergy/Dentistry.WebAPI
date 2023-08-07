@@ -17,7 +17,9 @@ namespace Dentistry.API.Controllers
         public async Task<IActionResult> GetDoctorsListAsync()
         {
             var doctors = await _doctorService.GetDoctorsAsync();
-            return Ok(doctors);
+
+            if (doctors != null) return Ok(doctors);
+            return StatusCode(500);
         }
 
         [HttpGet]

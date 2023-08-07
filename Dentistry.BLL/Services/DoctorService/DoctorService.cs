@@ -21,12 +21,12 @@ namespace Dentistry.BLL.Services.DoctorService
         #region CRUD
         public async Task<bool> CreateDoctorAsync(DoctorCreationDTO doctorDTO, byte[] passwordSalt)
         {
-            Doctor doctor = _mapper.Map<Doctor>(doctorDTO);
-            doctor.Salt = passwordSalt;
-            doctor.Role = Role.doctor;
-
             try
             {
+                Doctor doctor = _mapper.Map<Doctor>(doctorDTO);
+                doctor.Salt = passwordSalt;
+                doctor.Role = Role.doctor;
+
                 await _doctorRepository.AddAsync(doctor);
                 return true;
             }

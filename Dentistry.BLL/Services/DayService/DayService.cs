@@ -27,7 +27,7 @@ namespace Dentistry.BLL.Services.ScheduleService
             }
             catch
             {
-                return Enumerable.Empty<Workday>();
+                return null;
             }
         }
 
@@ -48,19 +48,19 @@ namespace Dentistry.BLL.Services.ScheduleService
             }
         }
 
-        public async Task<List<Workday>> GetCoincidingDaysAsync(Day dayOfWeek)
+        public async Task<IEnumerable<Workday>> GetCoincidingDaysAsync(Day dayOfWeek)
         {
             try
             {
                 var days = await _dayRepository.GetAllAsync();
                 var coincidingDays = days
-                    .Where(d => d.DayOfWeek == dayOfWeek)
-                    .ToList();
+                    .Where(d => d.DayOfWeek == dayOfWeek);
+
                 return coincidingDays;
             }
             catch
             {
-                return new List<Workday>();
+                return null;
             }
         }
         #endregion

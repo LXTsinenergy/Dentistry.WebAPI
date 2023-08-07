@@ -109,7 +109,9 @@ namespace Dentistry.API.Controllers
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
             var schedule = await _dayService.GetAllDaysAsync();
-            return Ok(schedule);
+
+            if (schedule != null) return Ok(schedule);
+            return StatusCode(500);
         }
 
         [HttpPost]
@@ -117,7 +119,7 @@ namespace Dentistry.API.Controllers
         {
             var coincidingDays = await _dayService.GetCoincidingDaysAsync(creationDTO.DayOfWeek);
 
-            if (coincidingDays.Count == 0)
+            if (coincidingDays.ToList().Count == 0)
             {
                 var result = await _dayService.CreateDayAsync(creationDTO);
                 if (result) return Ok();
@@ -143,7 +145,7 @@ namespace Dentistry.API.Controllers
 
         #region Notes
         [HttpGet]
-        public async Task<IActionResult> AddNoteToDoctorSchedule(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
+        public async Task<IActionResult> AddNoteToDoctorScheduleAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
             var result = await _noteService.CreateNoteAsync(noteCreationDTO, dayId, doctorId);
 
@@ -152,7 +154,7 @@ namespace Dentistry.API.Controllers
         }
 
         [HttpDelete]
-        public async Task<IActionResult> DeleteNote(int id)
+        public async Task<IActionResult> DeleteNoteAsync(int id)
         {
             var note = await _noteService.GetNoteByIdAsync(id);
 

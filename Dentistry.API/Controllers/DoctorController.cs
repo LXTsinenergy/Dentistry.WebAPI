@@ -3,6 +3,7 @@ using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Text;
 
 namespace Dentistry.API.Controllers
 {
@@ -29,9 +30,11 @@ namespace Dentistry.API.Controllers
             if (doctor != null)
             {
                 var schedule = _noteService.GetDoctorGeneralSchedule(doctor);
+
                 if (schedule != null) return Ok(schedule);
+                return StatusCode(500);
             }
-            return BadRequest();
+            return NotFound(doctorId);
         }
 
         [HttpGet]
@@ -43,9 +46,11 @@ namespace Dentistry.API.Controllers
             if (day != null && doctor != null)
             {
                 var schedule = _noteService.GetDoctorDaySchedule(day, doctorId);
+
                 if (schedule != null) return Ok(schedule);
+                return StatusCode(500);
             }
-            return BadRequest();
+            return NotFound();
         }
         #endregion
 
@@ -65,9 +70,8 @@ namespace Dentistry.API.Controllers
                     if (result) return Ok(result);
                     return StatusCode(500);
                 }
-                return BadRequest(doctorId);
             }
-            return NotFound(noteId);
+            return NotFound();
         } 
         #endregion
     }

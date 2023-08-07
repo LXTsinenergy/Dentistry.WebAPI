@@ -82,7 +82,7 @@ namespace Dentistry.BLL.Services.UserService
             }
             catch
             {
-                return Enumerable.Empty<User>();
+                return null;
             }
         }
 

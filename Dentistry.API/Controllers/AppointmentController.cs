@@ -39,10 +39,10 @@ namespace Dentistry.API.Controllers
                     var result = await _noteService.BookAnAppointmentAsync(note, user);
 
                     if (result) return Ok();
+                    return StatusCode(500);
                 }
-                return BadRequest(noteId);
             }
-            return BadRequest();
+            return NotFound();
         }
     }
 }
