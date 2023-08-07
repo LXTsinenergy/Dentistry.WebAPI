@@ -135,8 +135,9 @@ namespace Dentistry.API.Controllers
                 var result = await _dayService.DeleteDayAsync(day);
 
                 if (result) return Ok();
+                return StatusCode(500);
             }
-            return BadRequest(id);
+            return NotFound(id);
         }
         #endregion
 
@@ -148,6 +149,21 @@ namespace Dentistry.API.Controllers
 
             if (result) return Ok();
             return BadRequest();
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> DeleteNote(int id)
+        {
+            var note = await _noteService.GetNoteByIdAsync(id);
+
+            if (note != null)
+            {
+                var result = await _noteService.DeleteNoteAsync(note);
+
+                if (result) return Ok();
+                return StatusCode(500);
+            }
+            return NotFound(id);
         }
         #endregion
     }

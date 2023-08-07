@@ -8,5 +8,6 @@ namespace Dentistry.DAL.Repositories.NoteRepository
         Task<Note> GetByIdAsync(int id);
         Task AddAsync(Note note);
         Task UpdateAsync(Note note);
+        Task DeleteAsync(Note note);
     }
 }

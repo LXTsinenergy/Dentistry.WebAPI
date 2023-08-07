@@ -125,6 +125,19 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             }
         }
 
+        public async Task<bool> DeleteNoteAsync(Note note)
+        {
+            try
+            {
+                await _noteRepository.DeleteAsync(note);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public async Task<bool> BookAnAppointmentAsync(Note note, User user)
         {
             try
