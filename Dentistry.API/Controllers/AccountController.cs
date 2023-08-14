@@ -78,7 +78,8 @@ namespace Dentistry.API.Controllers
             //}
             //return BadRequest
             var command = _mapper.Map<CreateUserCommand>(userRegisterDTO);
-            throw new NotImplementedException();
+            var result = await Mediator.Send(command, CancellationToken.None);
+            return Ok(result);
         }
 
         [Route("logout")]

@@ -1,3 +1,4 @@
+using Dentistry.BLL;
 using Dentistry.BLL.Exceptions;
 using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.AccountService;
@@ -44,6 +45,7 @@ builder.Services.AddAutoMapper(config =>
 
 
 builder.Services.AddContext(builder.Configuration);
+builder.Services.AddApplication();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -60,7 +62,6 @@ builder.Services.AddCors(options =>
         policy.AllowAnyOrigin();
     });
 });
-
 builder.Services.AddAuthorization();
 
 #region Repositories

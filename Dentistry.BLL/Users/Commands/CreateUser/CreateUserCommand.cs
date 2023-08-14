@@ -3,7 +3,7 @@ using MediatR;
 
 namespace Dentistry.BLL.Users.Commands.CreateUser
 {
-    public class CreateUserCommand : IRequest<User>
+    public class CreateUserCommand : IRequest<bool>
     {
         public string Fullname { get; set; }
         public string Email { get; set; }
