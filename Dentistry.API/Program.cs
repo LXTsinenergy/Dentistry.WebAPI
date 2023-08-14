@@ -38,7 +38,12 @@ builder.Services.Configure<RouteOptions>(o =>
     o.AppendTrailingSlash = true;
 });
 
-builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddAutoMapper(config =>
+{
+    config.AddProfile(typeof(MappingProfile));
+});
+
+
 builder.Services.AddContext(builder.Configuration);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
