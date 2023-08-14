@@ -93,8 +93,6 @@ builder.Services.AddSingleton<CodeBuffer>();
 
 #endregion
 
-builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
-
 var app = builder.Build();
 
 using (var scope = app.Services.CreateScope())

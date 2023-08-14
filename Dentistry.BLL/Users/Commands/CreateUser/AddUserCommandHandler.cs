@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Helpers;
+﻿using Dentistry.BLL.Exceptions;
+using Dentistry.BLL.Helpers;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
@@ -27,9 +28,16 @@ namespace Dentistry.BLL.Users.Commands.CreateUser
                 PhoneNumber = request.PhoneNumber,
                 Role = Role.user
             };
-
-            await _userRepository.AddAsync(user);
-            return user;
+            
+            try
+            {
+                await _userRepository.AddAsync(user);
+                return user;
+            }
+            catch
+            {
+                throw new RepositoryOperationException(nameof(UserRepository));
+            }
         }
     }
 }
