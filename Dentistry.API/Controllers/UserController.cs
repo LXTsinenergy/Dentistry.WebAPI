@@ -13,7 +13,7 @@ namespace Dentistry.API.Controllers
 {
     [Route("user")]
     [Authorize(Roles = "user, admin")]
-    public class UserController : Controller
+    public class UserController : BaseController
     {
         private readonly IUserService _userService;
         private readonly IPasswordService _passwordService;

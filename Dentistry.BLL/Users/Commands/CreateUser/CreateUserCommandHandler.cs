@@ -7,14 +7,14 @@ using MediatR;
 
 namespace Dentistry.BLL.Users.Commands.CreateUser
 {
-    public class AddUserCommandHandler : IRequestHandler<AddUserCommand, User>
+    public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, User>
     {
         private readonly IUserRepository _userRepository;
 
-        public AddUserCommandHandler(IUserRepository userRepository) =>
+        public CreateUserCommandHandler(IUserRepository userRepository) =>
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
 
-        public async Task<User> Handle(AddUserCommand request, CancellationToken cancellationToken)
+        public async Task<User> Handle(CreateUserCommand request, CancellationToken cancellationToken)
         {
             var salt = PasswordHelper.GenerateSalt();
             var hashingPassword = PasswordHelper.HashPassword(request.Password, salt);

@@ -17,9 +17,7 @@ using Dentistry.DAL.Repositories.NoteRepository;
 using Dentistry.DAL.Repositories.ReviewRepository;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
-using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -40,7 +38,8 @@ builder.Services.Configure<RouteOptions>(o =>
 
 builder.Services.AddAutoMapper(config =>
 {
-    config.AddProfile(typeof(MappingProfile));
+    config.AddProfile(new AssemblyMappingProfile(Assembly.GetExecutingAssembly()));
+    config.AddProfile(new AssemblyMappingProfile(typeof(UserService).Assembly));
 });
 
 
