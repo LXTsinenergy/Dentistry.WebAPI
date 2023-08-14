@@ -1,4 +1,3 @@
-using Dentistry.API.Controllers;
 using Dentistry.BLL.Exceptions;
 using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.AccountService;
@@ -10,6 +9,7 @@ using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.ReviewService;
 using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.BLL.Services.UserService;
+using Dentistry.DAL;
 using Dentistry.DAL.DataContext;
 using Dentistry.DAL.Repositories.DayRepository;
 using Dentistry.DAL.Repositories.DoctorRepository;
@@ -31,19 +31,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-
-#region Other Services
-
-builder.Services.AddDbContext<ApplicationDbContext>(
-    o => o.UseSqlServer(builder.Configuration.GetConnectionString("SqlServer")));
-builder.Services.AddAutoMapper(typeof(MappingProfile));
-
 builder.Services.Configure<RouteOptions>(o =>
 {
     o.LowercaseUrls = true;
     o.LowercaseQueryStrings = true;
     o.AppendTrailingSlash = true;
 });
+
+builder.Services.AddAutoMapper(typeof(MappingProfile));
+builder.Services.AddContext(builder.Configuration);
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -52,9 +48,6 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
         options.AccessDeniedPath = "/user";
     });
 builder.Services.AddAuthorization();
-
-#endregion
-
 
 #region Repositories
 
