@@ -158,7 +158,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         {
             try
             {
-                note.PatientFullname = user.Name;
+                note.PatientFullname = user.Fullname;
                 note.PatientPhoneNumber = user.PhoneNumber;
                 note.PatientEmail = user.Email;
                 note.IsTaken = true;

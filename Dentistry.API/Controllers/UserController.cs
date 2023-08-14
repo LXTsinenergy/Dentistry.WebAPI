@@ -134,7 +134,7 @@ namespace Dentistry.API.Controllers
 
             if (user != null && doctor != null)
             {
-                var result = await _reviewService.CreateReviewAsync(reviewCreationDTO, user.Name);
+                var result = await _reviewService.CreateReviewAsync(reviewCreationDTO, user.Fullname);
 
                 if (result) return Ok(result);
                 return StatusCode(500);

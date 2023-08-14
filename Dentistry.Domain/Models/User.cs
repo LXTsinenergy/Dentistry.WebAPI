@@ -9,7 +9,7 @@ namespace Dentistry.Domain.Models
         public int Id { get; set; }
 
         [Required]
-        public string Name { get; set; }
+        public string Fullname { get; set; }
 
         [Required]
         [EmailAddress]
