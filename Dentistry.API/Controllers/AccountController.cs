@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Mvc;
 namespace Dentistry.API.Controllers
 {
     [Route("account")]
-    [Authorize(Roles = "admin, user")]
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
@@ -20,10 +19,12 @@ namespace Dentistry.API.Controllers
         private readonly IPasswordService _passwordService;
 
         public AccountController(IUserService userService,
+            IAccountService accountService,
             IClaimsService claimsService,
             IPasswordService passwordService)
         {
             _userService = userService;
+            _accountService = accountService;
             _claimsService = claimsService;
             _passwordService = passwordService;
         }
@@ -49,11 +50,11 @@ namespace Dentistry.API.Controllers
 
         [Route("register")]
         [HttpPost]
-        public async Task<IActionResult> RegisterAsync(UserRegisterDTO registerDTO)
+        public async Task<IActionResult> RegisterAsync([FromBody] UserRegisterDTO registerDTO)
         {
             var user = await _userService.GetUserByEmailAsync(registerDTO.Email);
 
-            if (user == null) return BadRequest(registerDTO);
+            if (user != null) return BadRequest(registerDTO);
 
             if (registerDTO.Password == registerDTO.ConfirmedPassword)
             {
@@ -61,10 +62,14 @@ namespace Dentistry.API.Controllers
                 var password = _passwordService.HashPassword(registerDTO.Password, salt);
                 registerDTO.Password = password;
 
-                var newUser = await _accountService.RegisterNewUserAsync(registerDTO, salt);
-                await LoginAsync(new UserLoginDTO { Email = registerDTO.Email, Password = registerDTO.Password });
+                var result = await _accountService.RegisterNewUserAsync(registerDTO, salt);
 
-                return Ok();
+                if (result)
+                {
+                    await LoginAsync(new UserLoginDTO { Email = registerDTO.Email, Password = registerDTO.Password });
+                    return Ok();
+                }
+                return StatusCode(500);
             }
             return BadRequest();
         }

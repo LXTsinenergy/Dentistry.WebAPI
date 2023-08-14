@@ -15,8 +15,7 @@ namespace Dentistry.BLL.Mapping
         {
             #region CreateMap
             CreateMap<UserRegisterDTO, User>();
-            CreateMap<UserDTO, User>();
-            CreateMap<User, UserDTO>();
+            CreateMap<UserDTO, User>().ReverseMap();
             CreateMap<DoctorCreationDTO, Doctor>();
             CreateMap<WorkdayCreationDTO, Workday>();
             CreateMap<NoteCreationDTO, Note>();

@@ -4,7 +4,7 @@ namespace Dentistry.Domain.DTO.User
 {
     public class UserUpdateDTO
     {
-        public string Name { get; set; }
+        public string Fullname { get; set; }
 
         [EmailAddress]
         [RegularExpression("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", ErrorMessage = "Введите действительный Email-адрес")]

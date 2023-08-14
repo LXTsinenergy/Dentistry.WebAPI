@@ -5,7 +5,7 @@ namespace Dentistry.Domain.DTO.UserDTO.UserDTO
     public class UserRegisterDTO
     {
         [Required]
-        public string Name { get; set; }
+        public string Fullname { get; set; }
 
         [Required]
         [EmailAddress]

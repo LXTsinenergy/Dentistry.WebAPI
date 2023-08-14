@@ -1,4 +1,5 @@
 using Dentistry.API.Controllers;
+using Dentistry.BLL.Exceptions;
 using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
@@ -88,13 +89,25 @@ builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
+using (var scope = app.Services.CreateScope())
+{
+    try
+    {
+        var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+        DbInitializer.Initialize(context);
+    }
+    catch
+    {
+        throw new DatabaseNotInitializedException<ApplicationDbContext>();
+    }
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+    {
+        app.UseSwagger();
+        app.UseSwaggerUI();
+    }
 
 
 app.UseHttpsRedirection();

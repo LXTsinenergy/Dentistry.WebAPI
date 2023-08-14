@@ -51,7 +51,7 @@ namespace Dentistry.BLL.Services.UserService
 
         private User MapUserUpdateData(User user, UserUpdateDTO updateDTO)
         {
-            if (updateDTO.Name != null) user.Fullname = updateDTO.Name;
+            if (updateDTO.Fullname != null) user.Fullname = updateDTO.Fullname;
             if (updateDTO.Email != null) user.Email = updateDTO.Email;
             if (updateDTO.PhoneNumber != null) user.PhoneNumber = updateDTO.PhoneNumber;
 
