@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("appointment")]
     [Authorize(Roles = "user, admin")]
     public class AppointmentController : Controller
     {
@@ -18,6 +18,7 @@ namespace Dentistry.API.Controllers
             _userService = userService;
         }
 
+        [Route("appointments")]
         [HttpGet]
         public async Task<IActionResult> GetListOfFreeAppointmentsAsync()
         {
@@ -27,6 +28,7 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [Route("registration")]
         [HttpPost]
         public async Task<IActionResult> SignUpForAppointmentAsync(int userId, int noteId)
         {

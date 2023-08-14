@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("reception")]
     [Authorize(Roles = "registrar, admin")]
     public class ReceptionController : Controller
     {
@@ -19,6 +19,7 @@ namespace Dentistry.API.Controllers
         }
 
         #region GetNotes
+        [Route("notes")]
         [HttpGet]
         public async Task<IActionResult> GetListOfNotesAsync()
         {
@@ -28,6 +29,7 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [Route("unacceptednotes")]
         [HttpGet]
         public async Task<IActionResult> GetListOfUnacceptedNotesAsync()
         {
@@ -37,6 +39,7 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [Route("doctornotes/{id:int}")]
         [HttpGet]
         public async Task<IActionResult> GetListOfUnacceptedDoctorNotesAsync(int doctorId)
         {
@@ -54,6 +57,7 @@ namespace Dentistry.API.Controllers
         #endregion
 
         #region Accept
+        [Route("confirmation/{id:int}")]
         [HttpPut]
         public async Task<IActionResult> AcceptAppointmentAsync(int id, string procedureName)
         {

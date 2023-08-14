@@ -1,3 +1,4 @@
+using Dentistry.API.Controllers;
 using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
@@ -89,6 +90,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
 
 app.UseHttpsRedirection();
 

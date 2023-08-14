@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("account")]
     [Authorize(Roles = "admin, user")]
     public class AccountController : Controller
     {
@@ -29,6 +29,7 @@ namespace Dentistry.API.Controllers
         }
 
         #region Login/Register/Logout
+        [Route("login")]
         [HttpPost]
         public async Task<IActionResult> LoginAsync(UserLoginDTO loginDTO)
         {
@@ -46,6 +47,7 @@ namespace Dentistry.API.Controllers
             return Ok();
         }
 
+        [Route("register")]
         [HttpPost]
         public async Task<IActionResult> RegisterAsync(UserRegisterDTO registerDTO)
         {
@@ -67,6 +69,7 @@ namespace Dentistry.API.Controllers
             return BadRequest();
         }
 
+        [Route("logout")]
         [HttpPost]
         public async Task<IActionResult> LogoutAsync()
         {

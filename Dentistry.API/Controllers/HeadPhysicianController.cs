@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("headphysician")]
     [Authorize(Roles = "admin, head")]
     public class HeadPhysicianController : Controller
     {
@@ -34,6 +34,7 @@ namespace Dentistry.API.Controllers
 
         #region Doctor
         [HttpGet]
+        [Route("doctors")]
         public async Task<IActionResult> GetAllDoctorsAsync()
         {
             var doctors = await _doctorService.GetDoctorsAsync();
@@ -42,6 +43,7 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [Route("doctor/{id:int}")]
         [HttpGet]
         public async Task<IActionResult> GetDoctorById(int id)
         {
@@ -51,6 +53,7 @@ namespace Dentistry.API.Controllers
             return NotFound(id);
         }
 
+        [Route("newdoctor")]
         [HttpPost]
         public async Task<IActionResult> RegisterNewDoctorAsync(DoctorCreationDTO creationDTO)
         {
@@ -68,7 +71,8 @@ namespace Dentistry.API.Controllers
             return BadRequest(result);
         }
 
-        [HttpPut("{id}")]
+        [Route("updatedoctor/{id:int}")]
+        [HttpPut]
         public async Task<IActionResult> UpdateDoctorDataAsync(int id, DoctorUpdateDTO updateDTO)
         {
             var doctor = await _doctorService.GetDoctorByIdAsync(id);
@@ -91,6 +95,7 @@ namespace Dentistry.API.Controllers
             return NotFound(id);
         }
 
+        [Route("deletedoctor/{id:int}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDoctorAsync(int id)
         {
@@ -107,6 +112,7 @@ namespace Dentistry.API.Controllers
         #endregion
 
         #region Workdays
+        [Route("schedule")]
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
@@ -116,6 +122,7 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [Route("newday")]
         [HttpPost]
         public async Task<IActionResult> AddNewWorkdayAsync(WorkdayCreationDTO creationDTO)
         {
@@ -129,6 +136,7 @@ namespace Dentistry.API.Controllers
             return BadRequest(creationDTO);
         }
 
+        [Route("deleteday")]
         [HttpDelete]
         public async Task<IActionResult> DeleteWorkdayAsync(int id)
         {
@@ -146,6 +154,7 @@ namespace Dentistry.API.Controllers
         #endregion
 
         #region Notes
+        [Route("addnotetodoctor")]
         [HttpGet]
         public async Task<IActionResult> AddNoteToDoctorScheduleAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
         {
@@ -155,6 +164,7 @@ namespace Dentistry.API.Controllers
             return BadRequest();
         }
 
+        [Route("deletenote/{id:int}")]
         [HttpDelete]
         public async Task<IActionResult> DeleteNoteAsync(int id)
         {

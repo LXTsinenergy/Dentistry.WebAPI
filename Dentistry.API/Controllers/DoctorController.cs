@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("doctor")]
     [Authorize(Roles = "admin, doctor")]
     public class DoctorController : Controller
     {
@@ -22,6 +22,7 @@ namespace Dentistry.API.Controllers
         }
 
         #region Schedule
+        [Route("schedule")]
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync(int doctorId)
         {
@@ -37,6 +38,7 @@ namespace Dentistry.API.Controllers
             return NotFound(doctorId);
         }
 
+        [Route("dayschedule")]
         [HttpGet]
         public async Task<IActionResult> GetDayScheduleAsync(int doctorId, int dayId)
         {
@@ -55,6 +57,7 @@ namespace Dentistry.API.Controllers
         #endregion
 
         #region Appointment
+        [Route("complete")]
         [HttpPut]
         public async Task<IActionResult> CompleteAppointmentAsync(int noteId, int doctorId)
         {

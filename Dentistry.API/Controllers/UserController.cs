@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("user")]
     [Authorize(Roles = "user, admin")]
     public class UserController : Controller
     {
@@ -38,6 +38,7 @@ namespace Dentistry.API.Controllers
             _buffer = buffer;
         }
 
+        [Route("password")]
         [HttpPut]
         public async Task<IActionResult> ChangePasswordAsync(string code, int id, string password)
         {
@@ -63,6 +64,7 @@ namespace Dentistry.API.Controllers
             return BadRequest(code);
         }
 
+        [Route("code")]
         [HttpGet]
         public async Task<IActionResult> SendResetCodeAsync(int id)
         {
@@ -79,6 +81,7 @@ namespace Dentistry.API.Controllers
             return NotFound(id);
         }
 
+        [Route("delete")]
         [HttpDelete]
         public async Task<IActionResult> DeleteAccountAsync(int id, string confirmationPassword)
         {
@@ -98,6 +101,7 @@ namespace Dentistry.API.Controllers
             return NotFound(id);
         }
 
+        [Route("data")]
         [HttpPut]
         public async Task<IActionResult> ChangeDataAsync(int id, UserUpdateDTO updateDTO)
         {
@@ -121,6 +125,7 @@ namespace Dentistry.API.Controllers
             return NotFound(id);
         }
 
+        [Route("review")]
         [HttpPost]
         public async Task<IActionResult> WriteCommentAsync(int userId, ReviewCreationDTO reviewCreationDTO)
         {

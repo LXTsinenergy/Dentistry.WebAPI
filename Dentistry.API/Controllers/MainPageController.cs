@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Dentistry.API.Controllers
 {
-    [Route("[controller]/[action]")]
+    [Route("/")]
     [Authorize(Roles = "admin, user, doctor, registrar, head")]
     public class MainPageController : Controller
     {
@@ -15,6 +15,7 @@ namespace Dentistry.API.Controllers
             _doctorService = doctorService;
         }
 
+        [Route("doctors")]
         [HttpGet]
         public async Task<IActionResult> GetDoctorsListAsync()
         {
@@ -24,6 +25,7 @@ namespace Dentistry.API.Controllers
             return StatusCode(500);
         }
 
+        [Route("doctor")]
         [HttpGet]
         public async Task<IActionResult> GetDoctorAsync(int doctorId)
         {
