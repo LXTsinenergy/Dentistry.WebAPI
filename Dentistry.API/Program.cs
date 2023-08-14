@@ -16,8 +16,10 @@ using Dentistry.DAL.Repositories.NoteRepository;
 using Dentistry.DAL.Repositories.ReviewRepository;
 using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
+using System.Reflection;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,8 +80,11 @@ builder.Services.AddScoped<IReviewService,  ReviewService>();
 
 builder.Services.AddSingleton<CodeBuffer>();
 
+
+
 #endregion
 
+builder.Services.AddMediatR(Assembly.GetExecutingAssembly());
 
 var app = builder.Build();
 
