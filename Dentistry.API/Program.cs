@@ -106,7 +106,7 @@ using (var scope = app.Services.CreateScope())
     }
     catch
     {
-        throw new DatabaseNotInitializedException<ApplicationDbContext>();
+        throw new DatabaseNotInitializedException(nameof(ApplicationDbContext));
     }
 }
 

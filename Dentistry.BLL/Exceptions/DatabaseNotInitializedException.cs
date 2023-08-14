@@ -4,10 +4,9 @@ using Org.BouncyCastle.Pqc.Crypto.Lms;
 
 namespace Dentistry.BLL.Exceptions
 {
-    public class DatabaseNotInitializedException<TContext> : Exception
-        where TContext : DbContext
+    public class DatabaseNotInitializedException : Exception
     {
-        public DatabaseNotInitializedException()
-            : base($"Database \"{typeof(TContext)}\"  has not been initialized.") { }
+        public DatabaseNotInitializedException(string contextName)
+            : base($"Database \"{contextName}\"  has not been initialized.") { }
     }
 }
