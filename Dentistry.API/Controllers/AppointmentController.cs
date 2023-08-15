@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Services.DoctorsNoteService;
+﻿using Dentistry.BLL.CommandsAndQueries.Notes.Queries;
+using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -7,7 +8,7 @@ namespace Dentistry.API.Controllers
 {
     [Route("appointment")]
     [Authorize(Roles = "user, admin")]
-    public class AppointmentController : Controller
+    public class AppointmentController : BaseController
     {
         private readonly INoteService _noteService;
         private readonly IUserService _userService;
@@ -22,10 +23,9 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetListOfFreeAppointmentsAsync()
         {
-            var freeNotes = await _noteService.GetFreeNotesAsync();
-
-            if (freeNotes != null) return Ok(freeNotes);
-            return StatusCode(500);
+            var getFreeNotesQuery = new GetFreeNotesQuery();
+            var freeNotes = await Mediator.Send(getFreeNotesQuery);
+            return Ok(freeNotes);
         }
 
         [Route("registration")]
