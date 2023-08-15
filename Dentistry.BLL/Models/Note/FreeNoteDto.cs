@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Dentistry.BLL.Mapping;
-using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Models.Notes

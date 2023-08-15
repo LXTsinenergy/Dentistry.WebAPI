@@ -1,10 +1,10 @@
-﻿using Dentistry.API.Models.Appointment;
+﻿using AutoMapper;
+using Dentistry.API.Models.Appointment;
 using Dentistry.BLL.CommandsAndQueries.Notes.Commands.BookAppointment;
 using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetFreeNotes;
 using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;
 using Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserById;
-using Dentistry.BLL.Services.DoctorsNoteService;
-using Dentistry.BLL.Services.UserService;
+using Dentistry.BLL.Models.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -14,14 +14,9 @@ namespace Dentistry.API.Controllers
     [Authorize(Roles = "user, admin")]
     public class AppointmentController : BaseController
     {
-        private readonly INoteService _noteService;
-        private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public AppointmentController(INoteService noteService, IUserService userService)
-        {
-            _noteService = noteService;
-            _userService = userService;
-        }
+        public AppointmentController(IMapper mapper) => _mapper = mapper;
 
         [Route("appointments")]
         [HttpGet]
@@ -51,7 +46,12 @@ namespace Dentistry.API.Controllers
                 return NotFound(signUpDto.NoteId);
             }
 
-            var bookAppointmentCommand = new BookAppointmentCommand { User = user, Note = note };
+            var userAppointmentDto = _mapper.Map<UserAppointmentDto>(user);
+            var bookAppointmentCommand = new BookAppointmentCommand 
+            { 
+                UserAppointmentDto = userAppointmentDto,
+                Note = note
+            };
             var result = await Mediator.Send(bookAppointmentCommand);
             return Ok(result);
         }

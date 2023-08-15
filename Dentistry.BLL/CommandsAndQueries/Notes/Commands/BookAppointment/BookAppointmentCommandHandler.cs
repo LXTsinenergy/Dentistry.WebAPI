@@ -13,9 +13,9 @@ namespace Dentistry.BLL.CommandsAndQueries.Notes.Commands.BookAppointment
 
         public async Task<bool> Handle(BookAppointmentCommand request, CancellationToken cancellationToken)
         {
-            request.Note.PatientFullname = request.User.Fullname;
-            request.Note.PatientPhoneNumber = request.User.PhoneNumber;
-            request.Note.PatientEmail = request.User.Email;
+            request.Note.PatientFullname = request.UserAppointmentDto.Fullname;
+            request.Note.PatientPhoneNumber = request.UserAppointmentDto.PhoneNumber;
+            request.Note.PatientEmail = request.UserAppointmentDto.Email;
             request.Note.IsTaken = true;
 
             try
