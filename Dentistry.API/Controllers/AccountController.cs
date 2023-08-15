@@ -47,21 +47,21 @@ namespace Dentistry.API.Controllers
         public async Task<IActionResult> RegisterAsync([FromBody] UserRegisterDto userRegisterDTO)
         {
             var getUserByEmailQuery = new GetUserByEmailQuery { Email = userRegisterDTO.Email };
-            var userByEmail = await Mediator.Send(getUserByEmailQuery, CancellationToken.None);
+            var userByEmail = await Mediator.Send(getUserByEmailQuery);
             if (userByEmail != null)
             {
                 return Conflict(userRegisterDTO.Email);
             }
 
             var getUserByPhoneQuery = new GetUserByPhoneQuery { PhoneNumber = userRegisterDTO.PhoneNumber };
-            var userByPhone = await Mediator.Send(getUserByPhoneQuery, CancellationToken.None);
+            var userByPhone = await Mediator.Send(getUserByPhoneQuery);
             if (userByPhone != null)
             {
                 return Conflict(userRegisterDTO.PhoneNumber);
             }
 
             var command = _mapper.Map<CreateUserCommand>(userRegisterDTO);
-            var result = await Mediator.Send(command, CancellationToken.None);
+            var result = await Mediator.Send(command);
             return Ok(result);
         }
 

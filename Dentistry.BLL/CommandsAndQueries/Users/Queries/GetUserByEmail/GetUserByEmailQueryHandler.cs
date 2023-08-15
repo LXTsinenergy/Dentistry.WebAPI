@@ -17,7 +17,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByEmail
             try
             {
                 var user = await _userRepository.GetByEmailAsync(request.Email);
-                return user ?? null;
+                return user;
             }
             catch (Exception ex)
             {

@@ -1,4 +1,8 @@
-﻿using Dentistry.BLL.CommandsAndQueries.Notes.Queries;
+﻿using Dentistry.API.Models.Appointment;
+using Dentistry.BLL.CommandsAndQueries.Notes.Commands.BookAppointment;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetFreeNotes;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;
+using Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserById;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.UserService;
 using Microsoft.AspNetCore.Authorization;
@@ -30,22 +34,26 @@ namespace Dentistry.API.Controllers
 
         [Route("registration")]
         [HttpPost]
-        public async Task<IActionResult> SignUpForAppointmentAsync(int userId, int noteId)
+        public async Task<IActionResult> SignUpForAppointmentAsync([FromBody] SignUpDto signUpDto)
         {
-            var user = await _userService.GetUserByIdAsync(userId);
-            var note = await _noteService.GetNoteByIdAsync(noteId);
+            var getUserByIdQuery = new GetUserByIdQuery { Id = signUpDto.UserId };
+            var getNoteByIdQery = new GetNoteByIdQuery { Id = signUpDto.NoteId };
 
-            if (user != null && note != null)
+            var user = await Mediator.Send(getUserByIdQuery);
+            var note = await Mediator.Send(getNoteByIdQery);
+
+            if (user == null)
             {
-                if (!note.IsTaken)
-                {
-                    var result = await _noteService.BookAnAppointmentAsync(note, user);
-
-                    if (result) return Ok();
-                    return StatusCode(500);
-                }
+                return NotFound(signUpDto.UserId);
             }
-            return NotFound();
+            if (note == null || note.IsTaken)
+            {
+                return NotFound(signUpDto.NoteId);
+            }
+
+            var bookAppointmentCommand = new BookAppointmentCommand { User = user, Note = note };
+            var result = await Mediator.Send(bookAppointmentCommand);
+            return Ok(result);
         }
     }
 }

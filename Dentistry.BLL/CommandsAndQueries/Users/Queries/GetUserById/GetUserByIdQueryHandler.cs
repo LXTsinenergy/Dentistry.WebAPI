@@ -3,20 +3,20 @@ using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByPhone
+namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserById
 {
-    public class GetUserByPhoneQueryHandler : IRequestHandler<GetUserByPhoneQuery, User>
+    public class GetUserByIdQueryHandler : IRequestHandler<GetUserByIdQuery, User>
     {
         private readonly IUserRepository _userRepository;
 
-        public GetUserByPhoneQueryHandler(IUserRepository userRepository) =>
+        public GetUserByIdQueryHandler(IUserRepository userRepository) =>
             _userRepository = userRepository;
 
-        public async Task<User> Handle(GetUserByPhoneQuery request, CancellationToken cancellationToken)
+        public async Task<User> Handle(GetUserByIdQuery request, CancellationToken cancellationToken)
         {
             try
             {
-                var user = await _userRepository.GetByPhoneNumberAsync(request.PhoneNumber);
+                var user = await _userRepository.GetByIdAsync(request.Id);
                 return user;
             }
             catch (Exception ex)

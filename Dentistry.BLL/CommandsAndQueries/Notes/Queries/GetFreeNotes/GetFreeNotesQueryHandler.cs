@@ -4,7 +4,7 @@ using Dentistry.BLL.Models.Notes;
 using Dentistry.DAL.Repositories.NoteRepository;
 using MediatR;
 
-namespace Dentistry.BLL.CommandsAndQueries.Notes.Queries
+namespace Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetFreeNotes
 {
     public class GetFreeNotesQueryHandler : IRequestHandler<GetFreeNotesQuery, FreeNotesListVM>
     {
@@ -16,8 +16,8 @@ namespace Dentistry.BLL.CommandsAndQueries.Notes.Queries
         {
             _noteRepository = noteRepository;
             _mapper = mapper;
-        } 
-            
+        }
+
 
         public async Task<FreeNotesListVM> Handle(GetFreeNotesQuery request, CancellationToken cancellationToken)
         {
