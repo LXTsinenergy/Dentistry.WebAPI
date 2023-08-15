@@ -5,6 +5,8 @@ using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.BLL.Users.Commands.CreateUser;
+using Dentistry.BLL.Users.Queries.GetUserByEmail;
+using Dentistry.BLL.Users.Queries.GetUserByPhone;
 using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -57,26 +59,20 @@ namespace Dentistry.API.Controllers
         [HttpPost]
         public async Task<IActionResult> RegisterAsync([FromBody] UserRegisterDto userRegisterDTO)
         {
-            //var user = await _userService.GetUserByEmailAsync(userRegisterDTO.Email);
+            var getUserByEmailQuery = new GetUserByEmailQuery { Email = userRegisterDTO.Email };
+            var userByEmail = await Mediator.Send(getUserByEmailQuery, CancellationToken.None);
+            if (userByEmail != null)
+            {
+                return Conflict(userRegisterDTO.Email);
+            }
 
-            //if (user != null) return BadRequest(userRegisterDTO);
+            var getUserByPhoneQuery = new GetUserByPhoneQuery { PhoneNumber = userRegisterDTO.PhoneNumber };
+            var userByPhone = await Mediator.Send(getUserByPhoneQuery, CancellationToken.None);
+            if (userByPhone != null)
+            {
+                return Conflict(userRegisterDTO.PhoneNumber);
+            }
 
-            //if (userRegisterDTO.Password == userRegisterDTO.ConfirmedPassword)
-            //{
-            //    var salt = _passwordService.GenerateSalt();
-            //    var password = _passwordService.HashPassword(userRegisterDTO.Password, salt);
-            //    userRegisterDTO.Password = password;
-
-            //    var result = await _accountService.RegisterNewUserAsync(userRegisterDTO, salt);
-
-            //    if (result)
-            //    {
-            //        await LoginAsync(new UserLoginDTO { Email = userRegisterDTO.Email, Password = userRegisterDTO.Password });
-            //        return Ok();
-            //    }
-            //    return StatusCode(500);
-            //}
-            //return BadRequest
             var command = _mapper.Map<CreateUserCommand>(userRegisterDTO);
             var result = await Mediator.Send(command, CancellationToken.None);
             return Ok(result);

@@ -30,9 +30,9 @@ namespace Dentistry.BLL.Users.Commands.UpdateUser
                 await _userRepository.UpdateAsync(user);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                throw new RepositoryOperationException(nameof(UserRepository));
+                throw new RepositoryOperationException(nameof(UserRepository), ex.Message);
             }
         }
     }

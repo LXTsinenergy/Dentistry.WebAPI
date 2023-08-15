@@ -11,7 +11,7 @@ namespace Dentistry.API.Models
         public string Fullname { get; set; }
 
         [Required]
-        [EmailAddress]
+        [DataType(DataType.EmailAddress)]
         [RegularExpression("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", ErrorMessage = "Введите действительный Email-адрес")]
         public string Email { get; set; }
 

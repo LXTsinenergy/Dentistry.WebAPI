@@ -26,9 +26,9 @@ namespace Dentistry.BLL.Users.Commands.DeleteUser
                 await _userRepository.DeleteAsync(user);
                 return true;
             }
-            catch
+            catch (Exception ex)
             {
-                throw new RepositoryOperationException(nameof(UserRepository));
+                throw new RepositoryOperationException(nameof(UserRepository), ex.Message);
             }
         }
     }

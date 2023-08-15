@@ -22,7 +22,8 @@ namespace Dentistry.DAL.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Doctor>().OwnsOne(x => x.Specialties);
+            modelBuilder.Entity<Doctor>()
+                .OwnsOne(x => x.Specialties);
             base.OnModelCreating(modelBuilder);
         }
     }
