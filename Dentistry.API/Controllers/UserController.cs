@@ -1,6 +1,6 @@
-﻿using Dentistry.BLL.Services.DoctorService;
+﻿using Dentistry.BLL.Helpers;
+using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.MessageService;
-using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.ReviewService;
 using Dentistry.BLL.Services.UserService;
 using Dentistry.Domain.DTO.Review;
@@ -16,7 +16,6 @@ namespace Dentistry.API.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
-        private readonly IPasswordService _passwordService;
         private readonly IMessageService _messageService;
         private readonly IReviewService _reviewService;
         private readonly IDoctorService _doctorService;
@@ -24,14 +23,12 @@ namespace Dentistry.API.Controllers
 
         public UserController(
             IUserService userService,
-            IPasswordService passwordService,
             IMessageService messageService,
             IReviewService reviewService,
             IDoctorService doctorService,
             CodeBuffer buffer)
         {
             _userService = userService;
-            _passwordService = passwordService;
             _messageService = messageService;
             _reviewService = reviewService;
             _doctorService = doctorService;
@@ -48,7 +45,7 @@ namespace Dentistry.API.Controllers
 
                 if (user != null)
                 {
-                    var newPasswordHash = _passwordService.HashPassword(password, user.Salt);
+                    var newPasswordHash = PasswordHelper.HashPassword(password, user.Salt);
 
                     var result = await _userService.UpdateUserPasswordAsync(user, newPasswordHash);
 
@@ -68,17 +65,19 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> SendResetCodeAsync(int id)
         {
-            var user = await _userService.GetUserByIdAsync(id);
+            //var user = await _userService.GetUserByIdAsync(id);
 
-            if (user != null)
-            {
-                var code = _passwordService.GenerateCode();
-                _buffer.PasswordResetCode = code;
+            //if (user != null)
+            //{
+            //    var code = .GenerateCode();
 
-                await _messageService.SendEmailAsync(user.Email, code);
-                return Ok();
-            }
-            return NotFound(id);
+            //    _buffer.PasswordResetCode = code;
+
+            //    await _messageService.SendEmailAsync(user.Email, code);
+            //    return Ok();
+            //}
+            //return NotFound(id);
+            throw new NotImplementedException(nameof(SendResetCodeAsync));
         }
 
         [Route("delete")]
@@ -89,7 +88,7 @@ namespace Dentistry.API.Controllers
 
             if (user != null)
             {
-                var confirmationPasswordHash = _passwordService.HashPassword(confirmationPassword, user.Salt);
+                var confirmationPasswordHash = PasswordHelper.HashPassword(confirmationPassword, user.Salt);
 
                 if (confirmationPasswordHash != user.Password) return BadRequest(confirmationPassword);
 

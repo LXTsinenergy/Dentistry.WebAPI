@@ -1,6 +1,6 @@
-﻿using Dentistry.BLL.Services.DoctorService;
+﻿using Dentistry.BLL.Helpers;
+using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
-using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.Domain.DTO.Day;
 using Dentistry.Domain.DTO.Doctor;
@@ -16,18 +16,15 @@ namespace Dentistry.API.Controllers
     public class HeadPhysicianController : Controller
     {
         private readonly IDoctorService _doctorService;
-        private readonly IPasswordService _passwordService;
         private readonly IDayService _dayService;
         private readonly INoteService _noteService;
 
         public HeadPhysicianController(
             IDoctorService doctorService,
-            IPasswordService passwordService,
             IDayService dayService,
             INoteService noteService)
         {
             _doctorService = doctorService;
-            _passwordService = passwordService;
             _dayService = dayService;
             _noteService = noteService;
         }
@@ -62,8 +59,8 @@ namespace Dentistry.API.Controllers
                 return BadRequest(creationDTO);
             }
 
-            var salt = _passwordService.GenerateSalt();
-            creationDTO.Password = _passwordService.HashPassword(creationDTO.Password, salt);
+            var salt = PasswordHelper.GenerateSalt();
+            creationDTO.Password = PasswordHelper.HashPassword(creationDTO.Password, salt);
 
             var result = await _doctorService.CreateDoctorAsync(creationDTO, salt);
 

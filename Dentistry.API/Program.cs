@@ -1,12 +1,10 @@
 using Dentistry.BLL;
 using Dentistry.BLL.Exceptions;
 using Dentistry.BLL.Mapping;
-using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.MessageService;
-using Dentistry.BLL.Services.PasswordService;
 using Dentistry.BLL.Services.ReviewService;
 using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.BLL.Services.UserService;
@@ -79,8 +77,6 @@ builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
 
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IClaimsService, ClaimsService>();
-builder.Services.AddScoped<IAccountService, AccountService>();
-builder.Services.AddScoped<IPasswordService, PasswordService>();
 builder.Services.AddScoped<IDoctorService, DoctorService>();
 builder.Services.AddScoped<INoteService, NoteService>();
 builder.Services.AddScoped<IMessageService,  MessageService>();

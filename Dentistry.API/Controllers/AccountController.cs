@@ -1,10 +1,7 @@
 ﻿using AutoMapper;
 using Dentistry.API.Models.User;
 using Dentistry.BLL.Helpers;
-using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
-using Dentistry.BLL.Services.PasswordService;
-using Dentistry.BLL.Services.UserService;
 using Dentistry.BLL.Users.Commands.CreateUser;
 using Dentistry.BLL.Users.Queries.GetUserByEmail;
 using Dentistry.BLL.Users.Queries.GetUserByPhone;
@@ -17,24 +14,11 @@ namespace Dentistry.API.Controllers
     [Route("account")]
     public class AccountController : BaseController
     {
-        private readonly IUserService _userService;
-        private readonly IAccountService _accountService;
         private readonly IClaimsService _claimsService;
-        private readonly IPasswordService _passwordService;
         private readonly IMapper _mapper;
 
-        public AccountController(IUserService userService,
-            IAccountService accountService,
-            IClaimsService claimsService,
-            IPasswordService passwordService,
-            IMapper mapper)
-        {
-            _userService = userService;
-            _accountService = accountService;
-            _claimsService = claimsService;
-            _passwordService = passwordService;
-            _mapper = mapper;
-        }
+        public AccountController(IClaimsService claimsService, IMapper mapper) =>
+            (_claimsService, _mapper) = (claimsService, mapper);
 
         #region Login/Register/Logout
         [Route("login")]
