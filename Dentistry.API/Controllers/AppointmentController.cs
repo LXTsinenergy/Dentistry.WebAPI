@@ -29,7 +29,7 @@ namespace Dentistry.API.Controllers
 
         [Route("registration")]
         [HttpPost]
-        public async Task<IActionResult> SignUpForAppointmentAsync([FromBody] SignUpDto signUpDto)
+        public async Task<IActionResult> SignUpForAppointmentAsync([FromQuery] SignUpDto signUpDto)
         {
             var getUserByIdQuery = new GetUserByIdQuery { Id = signUpDto.UserId };
             var getNoteByIdQery = new GetNoteByIdQuery { Id = signUpDto.NoteId };

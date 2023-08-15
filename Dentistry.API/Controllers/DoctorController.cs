@@ -1,9 +1,11 @@
-﻿using Dentistry.BLL.CommandsAndQueries.Days.Queries;
+﻿using Dentistry.API.Models.Appointment;
+using Dentistry.BLL.CommandsAndQueries.Days.Queries;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries;
+using Dentistry.BLL.CommandsAndQueries.Notes.Commands.ResetNote;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;
 using Dentistry.BLL.Models.Schedule;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
-using Dentistry.BLL.Services.ScheduleService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -13,16 +15,9 @@ namespace Dentistry.API.Controllers
     [Authorize(Roles = "admin, doctor")]
     public class DoctorController : BaseController
     {
-        private readonly IDayService _dayService;
         private readonly INoteService _noteService;
-        private readonly IDoctorService _doctorService;
 
-        public DoctorController(IDoctorService doctorService, INoteService noteService, IDayService dayService)
-        {
-            _doctorService = doctorService;
-            _noteService = noteService;
-            _dayService = dayService;
-        }
+        public DoctorController(INoteService noteService) => _noteService = noteService;
 
         #region Schedule
         [Route("schedule")]
@@ -66,22 +61,26 @@ namespace Dentistry.API.Controllers
         #region Appointment
         [Route("complete")]
         [HttpPut]
-        public async Task<IActionResult> CompleteAppointmentAsync(int noteId, int doctorId)
+        public async Task<IActionResult> CompleteAppointmentAsync([FromQuery] CompleteAppointmentDto appointmentDto)
         {
-            var note = await _noteService.GetNoteByIdAsync(noteId);
-            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+            var getNoteByIdQuery = new GetNoteByIdQuery { Id = appointmentDto.NoteId };
+            var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = appointmentDto.DoctorId };
 
-            if (note != null)
+            var note = await Mediator.Send(getNoteByIdQuery);
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
+
+            if (note == null || !_noteService.NoteCanBeCompleted(note, doctor))
             {
-                if (doctor.Notes.Contains(note) && _noteService.NoteIsTaken(note))
-                {
-                    var result = await _noteService.ResetNoteDataAsync(note);
-
-                    if (result) return Ok(result);
-                    return StatusCode(500);
-                }
+                return NotFound(appointmentDto.NoteId);
             }
-            return NotFound();
+            if (doctor == null)
+            {
+                return NotFound(appointmentDto.DoctorId);
+            }
+
+            var resetNoteCommand = new ResetNoteCommand { Note = note };
+            var result = await Mediator.Send(resetNoteCommand);
+            return Ok(result);
         } 
         #endregion
     }

@@ -211,9 +211,9 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
             return note;
         }
 
-        public bool NoteIsTaken(Note note)
+        public bool NoteCanBeCompleted (Note note, Doctor doctor)
         {
-            if (note.IsAccepted && note.IsTaken) return true;
+            if (note.IsAccepted && note.IsTaken && doctor.Notes.Contains(note)) return true;
             return false;
         } 
         #endregion

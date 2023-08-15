@@ -21,6 +21,6 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         Task<bool> BookAnAppointmentAsync(Note note, User user);
         Task<bool> ConfirmAppointmentAsync(Note note);
         Task<bool> ResetNoteDataAsync(Note note);
-        bool NoteIsTaken(Note note);
+        bool NoteCanBeCompleted(Note note, Doctor doctor);
     }
 }
