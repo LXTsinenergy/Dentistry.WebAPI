@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Dentistry.API.Models;
+using Dentistry.API.Models.User;
+using Dentistry.BLL.Helpers;
 using Dentistry.BLL.Services.AccountService;
 using Dentistry.BLL.Services.ClaimsService;
 using Dentistry.BLL.Services.PasswordService;
@@ -7,7 +8,6 @@ using Dentistry.BLL.Services.UserService;
 using Dentistry.BLL.Users.Commands.CreateUser;
 using Dentistry.BLL.Users.Queries.GetUserByEmail;
 using Dentistry.BLL.Users.Queries.GetUserByPhone;
-using Dentistry.Domain.DTO.UserDTO.UserDTO;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
@@ -39,19 +39,22 @@ namespace Dentistry.API.Controllers
         #region Login/Register/Logout
         [Route("login")]
         [HttpPost]
-        public async Task<IActionResult> LoginAsync(UserLoginDTO loginDTO)
+        public async Task<IActionResult> LoginAsync([FromBody] UserLoginDto loginDTO)
         {
-            var user = await _userService.GetUserByEmailAsync(loginDTO.Email);
-
-            if (user == null) return NotFound();
-            if (user.Password != _passwordService.HashPassword(loginDTO.Password, user.Salt))
+            var getUserByEmailQuery = new GetUserByEmailQuery { Email =  loginDTO.Email };
+            var user = await Mediator.Send(getUserByEmailQuery);
+            if (user == null)
             {
-                return BadRequest(loginDTO.Password);
+                return NotFound(loginDTO.Email);
+            }
+
+            if (user.Password != PasswordHelper.HashPassword(loginDTO.Password, user.Salt))
+            {
+                return Unauthorized(loginDTO.Password);
             }
 
             var claimsPrincipal = _claimsService.CreateClaimsPrincipal(user);
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, claimsPrincipal);
-
             return Ok();
         }
 

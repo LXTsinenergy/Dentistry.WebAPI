@@ -3,7 +3,7 @@ using Dentistry.BLL.Mapping;
 using Dentistry.BLL.Users.Commands.CreateUser;
 using System.ComponentModel.DataAnnotations;
 
-namespace Dentistry.API.Models
+namespace Dentistry.API.Models.User
 {
     public class UserRegisterDto : IMapWith<CreateUserCommand>
     {
@@ -28,7 +28,7 @@ namespace Dentistry.API.Models
         [RegularExpression("^[0-9]{11}$", ErrorMessage = "Введите действительный номер телефона")]
         public string PhoneNumber { get; set; }
 
-        public void Mapping(Profile profile) => 
+        public void Mapping(Profile profile) =>
             profile.CreateMap<UserRegisterDto, CreateUserCommand>();
     }
 }
