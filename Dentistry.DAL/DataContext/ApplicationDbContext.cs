@@ -1,4 +1,5 @@
-﻿using Dentistry.Domain.Models;
+﻿using Dentistry.DAL.EntityTypeConfigurations;
+using Dentistry.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.DAL.DataContext
@@ -22,8 +23,7 @@ namespace Dentistry.DAL.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Doctor>()
-                .OwnsOne(x => x.Specialties);
+            modelBuilder.ApplyConfiguration(new DoctorConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }
