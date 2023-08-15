@@ -3,7 +3,7 @@ using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Queries.GetUserByPhone
+namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByPhone
 {
     public class GetUserByPhoneQueryHandler : IRequestHandler<GetUserByPhoneQuery, User>
     {

@@ -3,7 +3,7 @@ using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Queries.GetUserByEmail
+namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByEmail
 {
     public class GetUserByEmailQueryHandler : IRequestHandler<GetUserByEmailQuery, User>
     {

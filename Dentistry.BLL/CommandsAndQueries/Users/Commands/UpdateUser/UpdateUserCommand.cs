@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Dentistry.BLL.Users.Commands.UpdateUser
+namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.UpdateUser
 {
     public class UpdateUserCommand : IRequest<bool>
     {

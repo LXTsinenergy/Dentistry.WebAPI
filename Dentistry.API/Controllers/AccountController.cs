@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Dentistry.API.Models.User;
+using Dentistry.BLL.CommandsAndQueries.Users.Commands.CreateUser;
+using Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByEmail;
+using Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByPhone;
 using Dentistry.BLL.Helpers;
 using Dentistry.BLL.Services.ClaimsService;
-using Dentistry.BLL.Users.Commands.CreateUser;
-using Dentistry.BLL.Users.Queries.GetUserByEmail;
-using Dentistry.BLL.Users.Queries.GetUserByPhone;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;

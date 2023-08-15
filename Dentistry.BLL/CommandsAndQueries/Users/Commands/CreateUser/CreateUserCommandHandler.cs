@@ -5,7 +5,7 @@ using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Commands.CreateUser
+namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.CreateUser
 {
     public class CreateUserCommandHandler : IRequestHandler<CreateUserCommand, bool>
     {
@@ -28,7 +28,7 @@ namespace Dentistry.BLL.Users.Commands.CreateUser
                 PhoneNumber = request.PhoneNumber,
                 Role = Role.user
             };
-            
+
             try
             {
                 await _userRepository.AddAsync(user);

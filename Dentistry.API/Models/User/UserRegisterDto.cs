@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
+using Dentistry.BLL.CommandsAndQueries.Users.Commands.CreateUser;
 using Dentistry.BLL.Mapping;
-using Dentistry.BLL.Users.Commands.CreateUser;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.API.Models.User

@@ -3,16 +3,16 @@ using Dentistry.DAL.Repositories.UserRepository;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Commands.UpdateUser
+namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.DeleteUser
 {
-    public class UpdateUserCommandHandler : IRequestHandler<UpdateUserCommand, bool>
+    public class DeleteUserCommandHandler : IRequestHandler<DeleteUserCommand, bool>
     {
         private readonly IUserRepository _userRepository;
 
-        public UpdateUserCommandHandler(IUserRepository userRepository) =>
+        public DeleteUserCommandHandler(IUserRepository userRepository) =>
             _userRepository = userRepository ?? throw new NullReferenceException(nameof(UserRepository));
 
-        public async Task<bool> Handle(UpdateUserCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(DeleteUserCommand request, CancellationToken cancellationToken)
         {
             try
             {
@@ -23,11 +23,7 @@ namespace Dentistry.BLL.Users.Commands.UpdateUser
                     throw new NotFoundException(nameof(User), request.Id);
                 }
 
-                user.Fullname = request.Fullname;
-                user.Email = request.Email;
-                user.PhoneNumber = request.PhoneNumber;
-
-                await _userRepository.UpdateAsync(user);
+                await _userRepository.DeleteAsync(user);
                 return true;
             }
             catch (Exception ex)

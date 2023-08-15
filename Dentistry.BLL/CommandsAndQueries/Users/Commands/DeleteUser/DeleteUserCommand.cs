@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Dentistry.BLL.Users.Commands.DeleteUser
+namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.DeleteUser
 {
     public class DeleteUserCommand : IRequest<bool>
     {

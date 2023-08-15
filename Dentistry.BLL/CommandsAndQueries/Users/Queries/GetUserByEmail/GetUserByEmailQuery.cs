@@ -1,7 +1,7 @@
 ﻿using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Queries.GetUserByEmail
+namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByEmail
 {
     public class GetUserByEmailQuery : IRequest<User>
     {

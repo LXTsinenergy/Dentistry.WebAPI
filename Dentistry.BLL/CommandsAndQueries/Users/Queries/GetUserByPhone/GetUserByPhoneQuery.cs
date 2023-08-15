@@ -1,7 +1,7 @@
 ﻿using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Queries.GetUserByPhone
+namespace Dentistry.BLL.CommandsAndQueries.Users.Queries.GetUserByPhone
 {
     public class GetUserByPhoneQuery : IRequest<User>
     {

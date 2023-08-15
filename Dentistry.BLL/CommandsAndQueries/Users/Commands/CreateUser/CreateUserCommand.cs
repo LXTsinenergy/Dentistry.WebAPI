@@ -1,7 +1,7 @@
 ﻿using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.Users.Commands.CreateUser
+namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.CreateUser
 {
     public class CreateUserCommand : IRequest<bool>
     {
