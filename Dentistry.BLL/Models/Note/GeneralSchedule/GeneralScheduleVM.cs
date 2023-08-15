@@ -1,4 +1,4 @@
-﻿namespace Dentistry.BLL.Models.Note
+﻿namespace Dentistry.BLL.Models.Note.GeneralSchedule
 {
     public class GeneralScheduleVM
     {

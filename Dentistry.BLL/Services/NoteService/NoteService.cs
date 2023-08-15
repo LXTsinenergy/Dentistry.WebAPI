@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
-using Dentistry.BLL.Models.Note;
+using Dentistry.BLL.Models.Note.DaySchedule;
+using Dentistry.BLL.Models.Note.GeneralSchedule;
 using Dentistry.DAL.Repositories.NoteRepository;
 using Dentistry.Domain.DTO.Note;
 using Dentistry.Domain.Models;
@@ -92,32 +93,31 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
 
         public GeneralScheduleVM GetDoctorSchedule(Doctor doctor)
         {
-            var scheduleList = new GeneralScheduleVM();
+            var schedule = new GeneralScheduleVM();
 
             foreach (var note in doctor.Notes)
             {
-                var scheduleNoteDto = _mapper.Map<GeneralScheduleNoteDto>(note);
-                scheduleList.Notes.Add(scheduleNoteDto);
+                var noteDto = _mapper.Map<GeneralScheduleNoteDto>(note);
+                schedule.Notes.Add(noteDto);
             }
 
-            return scheduleList;
+            return schedule;
         }
 
-        public IEnumerable<Note> GetDoctorDaySchedule(Workday workday, int doctorId)
+        public DayScheduleVM GetDoctorDaySchedule(Workday workday, int doctorId)
         {
-            try
-            {
-                var notes = workday.Schedule
-                .Where(x => x.DoctorId == doctorId)
-                .Where(x => x.IsTaken)
-                .Where(x => x.IsAccepted);
+            var schedule = new DayScheduleVM();
+            var notes = workday.Schedule
+                .Where(note => note.DoctorId == doctorId)
+                .Where(note => note.IsAccepted);
 
-                return notes;
-            }
-            catch
+            foreach (var note in notes)
             {
-                return null;
+                var noteDto = _mapper.Map<DayScheduleNoteDto>(note);
+                schedule.Notes.Add(noteDto);
             }
+
+            return schedule;
         }
         #endregion
 

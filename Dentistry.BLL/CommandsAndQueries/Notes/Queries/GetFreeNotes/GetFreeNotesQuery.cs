@@ -1,4 +1,4 @@
-﻿using Dentistry.BLL.Models.Notes;
+﻿using Dentistry.BLL.Models.Note.FreeNotes;
 using MediatR;
 
 namespace Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetFreeNotes

@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Dentistry.BLL.Mapping;
 
-namespace Dentistry.BLL.Models.Notes
+namespace Dentistry.BLL.Models.Note.FreeNotes
 {
     public class FreeNoteDto : IMapWith<Domain.Models.Note>
     {

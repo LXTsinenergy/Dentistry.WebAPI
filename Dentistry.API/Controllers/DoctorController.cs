@@ -1,4 +1,6 @@
-﻿using Dentistry.BLL.CommandsAndQueries.Doctors.Queries;
+﻿using Dentistry.BLL.CommandsAndQueries.Days.Queries;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Queries;
+using Dentistry.BLL.Models.Schedule;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
@@ -40,19 +42,24 @@ namespace Dentistry.API.Controllers
 
         [Route("dayschedule")]
         [HttpGet]
-        public async Task<IActionResult> GetDayScheduleAsync(int doctorId, int dayId)
+        public async Task<IActionResult> GetDayScheduleAsync([FromQuery] GetDayScheduleDto getDayScheduleDto)
         {
-            var day = await _dayService.GetDayByIdAsync(dayId);
-            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+            var getDayByIdQuery = new GetDayByIdQuery { Id = getDayScheduleDto.DayId };
+            var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = getDayScheduleDto.DoctorId };
 
-            if (day != null && doctor != null)
+            var day = await Mediator.Send(getDayByIdQuery);
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
+
+            if (day == null)
             {
-                var schedule = _noteService.GetDoctorDaySchedule(day, doctorId);
-
-                if (schedule != null) return Ok(schedule);
-                return StatusCode(500);
+                return NotFound(getDayScheduleDto.DayId);
             }
-            return NotFound();
+            if (doctor == null)
+            {
+                return NotFound(getDayScheduleDto.DoctorId);
+            }
+            var schedule = _noteService.GetDoctorDaySchedule(day, getDayScheduleDto.DoctorId);
+            return Ok(schedule);
         }
         #endregion
 

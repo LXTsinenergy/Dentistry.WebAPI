@@ -1,4 +1,4 @@
-﻿namespace Dentistry.BLL.Models.Notes
+﻿namespace Dentistry.BLL.Models.Note.FreeNotes
 {
     public class FreeNotesListVM
     {

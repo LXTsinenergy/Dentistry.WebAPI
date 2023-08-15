@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Dentistry.BLL.Mapping;
 
-namespace Dentistry.BLL.Models.Note
+namespace Dentistry.BLL.Models.Note.GeneralSchedule
 {
     public class GeneralScheduleNoteDto : IMapWith<Domain.Models.Note>
     {
