@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Services.DoctorService;
+﻿using Dentistry.BLL.CommandsAndQueries.Doctors.Queries;
+using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
 using Microsoft.AspNetCore.Authorization;
@@ -8,7 +9,7 @@ namespace Dentistry.API.Controllers
 {
     [Route("doctor")]
     [Authorize(Roles = "admin, doctor")]
-    public class DoctorController : Controller
+    public class DoctorController : BaseController
     {
         private readonly IDayService _dayService;
         private readonly INoteService _noteService;
@@ -26,16 +27,15 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync(int doctorId)
         {
-            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+            var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = doctorId };
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
 
-            if (doctor != null)
+            if (doctor == null)
             {
-                var schedule = _noteService.GetDoctorGeneralSchedule(doctor);
-
-                if (schedule != null) return Ok(schedule);
-                return StatusCode(500);
+                return NotFound(doctorId);
             }
-            return NotFound(doctorId);
+            var schedule = _noteService.GetDoctorSchedule(doctor);
+            return Ok(schedule);
         }
 
         [Route("dayschedule")]

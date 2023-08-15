@@ -1,4 +1,5 @@
-﻿using Dentistry.Domain.DTO.Note;
+﻿using Dentistry.BLL.Models.Note;
+using Dentistry.Domain.DTO.Note;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Services.DoctorsNoteService
@@ -11,7 +12,7 @@ namespace Dentistry.BLL.Services.DoctorsNoteService
         Task<IEnumerable<Note>> GetUnacceptedNotesAsync();
         IEnumerable<Note> GetUnacceptedDoctorNotes(Doctor doctor);
         IEnumerable<Note> GetDoctorDaySchedule(Workday workday, int doctorId);
-        IEnumerable<Note> GetDoctorGeneralSchedule(Doctor doctor);
+        GeneralScheduleVM GetDoctorSchedule(Doctor doctor);
 
         Task<bool> CreateNoteAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId);
         Task<bool> DeleteNoteAsync(Note note);
