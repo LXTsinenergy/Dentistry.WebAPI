@@ -1,5 +1,10 @@
-﻿using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
+﻿using AutoMapper;
+using Dentistry.API.Models.Doctor;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
 using Dentistry.BLL.Helpers;
+using Dentistry.BLL.Models.Doctor.DoctorById;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
@@ -19,15 +24,18 @@ namespace Dentistry.API.Controllers
         private readonly IDoctorService _doctorService;
         private readonly IDayService _dayService;
         private readonly INoteService _noteService;
+        private readonly IMapper _mapper;
 
         public HeadPhysicianController(
             IDoctorService doctorService,
             IDayService dayService,
-            INoteService noteService)
+            INoteService noteService,
+            IMapper mapper)
         {
             _doctorService = doctorService;
             _dayService = dayService;
             _noteService = noteService;
+            _mapper = mapper;
         }
 
         #region Doctor
@@ -40,32 +48,28 @@ namespace Dentistry.API.Controllers
             return Ok(doctors);
         }
 
-        [Route("doctor/{id:int}")]
+        [Route("doctor")]
         [HttpGet]
-        public async Task<IActionResult> GetDoctorById(int id)
+        public async Task<IActionResult> GetDoctorByIdAsync([FromQuery] int id)
         {
-            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+            var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = id };
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
 
-            if (doctor != null) return Ok(doctor);
-            return NotFound(id);
+            if (doctor == null)
+            {
+                return NotFound(id);
+            }
+            var doctorVm = _mapper.Map<DoctorByIdVM>(doctor);
+            return Ok(doctorVm);
         }
 
         [Route("newdoctor")]
         [HttpPost]
-        public async Task<IActionResult> RegisterNewDoctorAsync(DoctorCreationDTO creationDTO)
+        public async Task<IActionResult> RegisterNewDoctorAsync([FromBody] DoctorCreationDto creationDTO)
         {
-            if (await _doctorService.PhoneIsRegistered(creationDTO.PhoneNumber) || await _doctorService.EmailIsRegistered(creationDTO.Email))
-            {
-                return BadRequest(creationDTO);
-            }
-
-            var salt = PasswordHelper.GenerateSalt();
-            creationDTO.Password = PasswordHelper.HashPassword(creationDTO.Password, salt);
-
-            var result = await _doctorService.CreateDoctorAsync(creationDTO, salt);
-
-            if (result) return Ok(result);
-            return BadRequest(result);
+            var createDoctorCommand = _mapper.Map<CreateDoctorCommand>(creationDTO);
+            var result = await Mediator.Send(createDoctorCommand);
+            return Ok(result);
         }
 
         [Route("updatedoctor/{id:int}")]
