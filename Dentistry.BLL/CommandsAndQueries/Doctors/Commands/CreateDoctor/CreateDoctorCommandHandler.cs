@@ -23,7 +23,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor
             {
                 Fullname = request.Fullname,
                 Experience = request.Experience,
-                Specialties = request.Specialties,
+                //Specialties = request.Specialties,
                 Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
                 Password = hasingPassword,

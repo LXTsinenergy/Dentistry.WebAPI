@@ -67,7 +67,7 @@ namespace Dentistry.BLL.Services.DoctorService
         {
             if (updateDTO.Fullname != null) doctor.Fullname = updateDTO.Fullname;
             if (updateDTO.Experience != 0) doctor.Experience = updateDTO.Experience;
-            if (updateDTO.Specialties != null) doctor.Specialties = updateDTO.Specialties;
+            //if (updateDTO.Specialties != null) doctor.Specialties = updateDTO.Specialties;
             if (updateDTO.Email != null) doctor.Email = updateDTO.Email;
             if (updateDTO.PhoneNumber != null) doctor.PhoneNumber = updateDTO.PhoneNumber;
 

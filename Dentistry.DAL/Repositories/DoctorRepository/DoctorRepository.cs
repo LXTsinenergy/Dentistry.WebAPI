@@ -31,7 +31,7 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
             await _context.SaveChangesAsync();
         }
 
-        public async Task<IEnumerable<Doctor>> GetAllAsync() => 
+        public async Task<IEnumerable<Doctor>> GetAllAsync() =>
             await _context.Doctors
             .Include(x => x.Notes)
             .Include(x => x.Reviews)
@@ -48,6 +48,7 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
             await _context.Doctors
             .Include(x => x.Notes)
             .Include(x => x.Reviews)
+            .Include(x => x.Specialties)
             .FirstOrDefaultAsync(d => d.Id == id);
 
         public async Task<Doctor?> GetByPhoneNumberAsync(string phoneNumber) => 

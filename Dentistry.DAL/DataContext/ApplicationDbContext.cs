@@ -1,5 +1,4 @@
-﻿using Dentistry.DAL.EntityTypeConfigurations;
-using Dentistry.Domain.Models;
+﻿using Dentistry.Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Dentistry.DAL.DataContext
@@ -10,6 +9,7 @@ namespace Dentistry.DAL.DataContext
         public DbSet<User> Users { get; set; }
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Note> Notes { get; set; }
+        public DbSet<Speciality> Specialities { get; set; }
         public DbSet<Workday> Days { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
@@ -23,7 +23,6 @@ namespace Dentistry.DAL.DataContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.ApplyConfiguration(new DoctorConfiguration());
             base.OnModelCreating(modelBuilder);
         }
     }

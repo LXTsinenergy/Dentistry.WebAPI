@@ -76,6 +76,7 @@ namespace Dentistry.API.Controllers
         [HttpPut]
         public async Task<IActionResult> UpdateDoctorDataAsync(int id, DoctorUpdateDTO updateDTO)
         {
+            // Новая таблица под специальности
             var doctor = await _doctorService.GetDoctorByIdAsync(id);
 
             if (doctor != null)
