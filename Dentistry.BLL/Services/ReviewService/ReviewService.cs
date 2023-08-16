@@ -24,7 +24,7 @@ namespace Dentistry.BLL.Services.ReviewService
                 review.Name = userName;
                 review.DateOfReview = DateTime.UtcNow;
 
-                await _reviewRepository.AddAsync(review);
+                await _reviewRepository.AddAsync(review, CancellationToken.None);
                 return true;
             }
             catch

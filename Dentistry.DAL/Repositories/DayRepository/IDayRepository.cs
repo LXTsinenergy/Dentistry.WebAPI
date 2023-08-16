@@ -6,7 +6,7 @@ namespace Dentistry.DAL.Repositories.DayRepository
     {
         Task<IEnumerable<Workday>> GetAllAsync();
         Task<Workday> GetByIdAsync(int id);
-        Task AddAsync(Workday workday);
-        Task DeleteAsync(Workday workday);
+        Task AddAsync(Workday workday, CancellationToken cancellationToken);
+        Task DeleteAsync(Workday workday, CancellationToken cancellationToken);
     }
 }

@@ -1,4 +1,4 @@
-﻿using Dentistry.Domain.Enums;
+﻿using Dentistry.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.Domain.DTO.Doctor

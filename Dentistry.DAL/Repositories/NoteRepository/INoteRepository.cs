@@ -6,8 +6,8 @@ namespace Dentistry.DAL.Repositories.NoteRepository
     {
         Task<IEnumerable<Note>> GetAllAsync();
         Task<Note> GetByIdAsync(int id);
-        Task AddAsync(Note note);
-        Task UpdateAsync(Note note);
-        Task DeleteAsync(Note note);
+        Task AddAsync(Note note, CancellationToken cancellationToken);
+        Task UpdateAsync(Note note, CancellationToken cancellationToken);
+        Task DeleteAsync(Note note, CancellationToken cancellationToken);
     }
 }

@@ -27,7 +27,7 @@ namespace Dentistry.BLL.Services.DoctorService
                 doctor.Salt = passwordSalt;
                 doctor.Role = Role.doctor;
 
-                await _doctorRepository.AddAsync(doctor);
+                await _doctorRepository.AddAsync(doctor, CancellationToken.None);
                 return true;
             }
             catch
@@ -40,7 +40,7 @@ namespace Dentistry.BLL.Services.DoctorService
         {
             try
             {
-                await _doctorRepository.DeleteAsync(doctor);
+                await _doctorRepository.DeleteAsync(doctor, CancellationToken.None);
                 return true;
             }
             catch
@@ -54,7 +54,7 @@ namespace Dentistry.BLL.Services.DoctorService
             try
             {
                 doctor = MapDoctorUpdateData(doctor, updateDTO);
-                await _doctorRepository.UpdateAsync(doctor);
+                await _doctorRepository.UpdateAsync(doctor, CancellationToken.None);
                 return true;
             }
             catch

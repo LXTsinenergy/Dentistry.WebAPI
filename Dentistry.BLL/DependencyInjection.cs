@@ -5,7 +5,7 @@ namespace Dentistry.BLL
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddApplication(
+        public static IServiceCollection AddBLL(
             this IServiceCollection services)
         {
             services.AddMediatR(config =>

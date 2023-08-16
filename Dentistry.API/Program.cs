@@ -42,8 +42,8 @@ builder.Services.AddAutoMapper(config =>
 });
 
 
-builder.Services.AddContext(builder.Configuration);
-builder.Services.AddApplication();
+builder.Services.AddDAL(builder.Configuration);
+builder.Services.AddBLL();
 
 builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(options =>
@@ -61,17 +61,6 @@ builder.Services.AddCors(options =>
     });
 });
 builder.Services.AddAuthorization();
-
-#region Repositories
-
-builder.Services.AddScoped<IUserRepository, UserRepository>();
-builder.Services.AddScoped<IDoctorRepository, DoctorRepository>();
-builder.Services.AddScoped<INoteRepository, NoteRepository>();
-builder.Services.AddScoped<IDayRepository, DayRepository>();
-builder.Services.AddScoped<IReviewRepository, ReviewRepository>();
-
-#endregion
-
 
 #region Services
 

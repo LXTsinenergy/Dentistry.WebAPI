@@ -5,9 +5,9 @@ namespace Dentistry.DAL.Repositories.UserRepository
 {
     public interface IUserRepository
     {
-        Task AddAsync(User user);
-        Task UpdateAsync(User user);
-        Task DeleteAsync(User user);
+        Task AddAsync(User user, CancellationToken cancellationToken);
+        Task UpdateAsync(User user, CancellationToken cancellationToken);
+        Task DeleteAsync(User user, CancellationToken cancellationToken);
 
         Task<IEnumerable<User>> GetAllAsync();
         Task<User?> GetByIdAsync(int id);

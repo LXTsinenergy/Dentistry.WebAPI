@@ -15,7 +15,7 @@ namespace Dentistry.API.Models.Doctor
         public int Experience { get; set; }
 
         [Required]
-        public List<Speciality> Specialties { get; set; }
+        public List<int> SpecialtiesId { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

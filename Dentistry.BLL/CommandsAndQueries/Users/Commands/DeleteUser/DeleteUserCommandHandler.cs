@@ -23,7 +23,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.DeleteUser
                     throw new NotFoundException(nameof(User), request.Id);
                 }
 
-                await _userRepository.DeleteAsync(user);
+                await _userRepository.DeleteAsync(user, cancellationToken);
                 return true;
             }
             catch (Exception ex)

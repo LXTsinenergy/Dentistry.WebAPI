@@ -6,30 +6,31 @@ namespace Dentistry.DAL.Repositories.UserRepository
 {
     public class UserRepository : IUserRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public UserRepository(ApplicationDbContext context)
+        public UserRepository(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task DeleteAsync(User user)
-        {
-            _context.Users.Remove(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task UpdateAsync(User user)
-        {
-            _context.Users.Update(user);
-            await _context.SaveChangesAsync();
-        }
-
-        public async Task AddAsync(User user)
+        public async Task AddAsync(User user, CancellationToken cancellationToken)
         {
             await _context.Users.AddAsync(user);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task DeleteAsync(User user, CancellationToken cancellationToken)
+        {
+            _context.Users.Remove(user);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
+        public async Task UpdateAsync(User user, CancellationToken cancellationToken)
+        {
+            _context.Users.Update(user);
+            await _context.SaveChangesAsync(cancellationToken);
+        }
+
 
         public async Task<IEnumerable<User>> GetAllAsync() => 
             await _context.Users

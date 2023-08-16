@@ -26,7 +26,7 @@ namespace Dentistry.BLL.Services.UserService
                 user.Salt = passwordSalt;
                 user.Role = Role.user;
 
-                await _userRepository.AddAsync(user);
+                await _userRepository.AddAsync(user, CancellationToken.None);
                 return true;
             }
             catch
@@ -40,7 +40,7 @@ namespace Dentistry.BLL.Services.UserService
             try
             {
                 user = MapUserUpdateData(user, updateDTO);
-                await _userRepository.UpdateAsync(user);
+                await _userRepository.UpdateAsync(user, CancellationToken.None);
                 return true;
             }
             catch
@@ -62,7 +62,7 @@ namespace Dentistry.BLL.Services.UserService
         {
             try
             {
-                await _userRepository.DeleteAsync(user);
+                await _userRepository.DeleteAsync(user, CancellationToken.None);
                 return true;
             }
             catch
@@ -182,7 +182,7 @@ namespace Dentistry.BLL.Services.UserService
             {
                 user.Password = password;
 
-                await _userRepository.UpdateAsync(user);
+                await _userRepository.UpdateAsync(user, CancellationToken.None);
                 return true;
             }
             catch

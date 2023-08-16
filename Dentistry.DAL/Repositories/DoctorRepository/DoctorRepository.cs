@@ -6,29 +6,29 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
 {
     public class DoctorRepository : IDoctorRepository
     {
-        private readonly ApplicationDbContext _context;
+        private readonly IApplicationDbContext _context;
 
-        public DoctorRepository(ApplicationDbContext context)
+        public DoctorRepository(IApplicationDbContext context)
         {
             _context = context;
         }
 
-        public async Task AddAsync(Doctor doctor)
+        public async Task AddAsync(Doctor doctor, CancellationToken cancellationToken)
         {
             await _context.Doctors.AddAsync(doctor);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task DeleteAsync(Doctor doctor)
+        public async Task DeleteAsync(Doctor doctor, CancellationToken cancellationToken)
         {
             _context.Doctors.Remove(doctor);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task UpdateAsync(Doctor doctor)
+        public async Task UpdateAsync(Doctor doctor, CancellationToken cancellationToken)
         {
             _context.Doctors.Update(doctor);
-            await _context.SaveChangesAsync();
+            await _context.SaveChangesAsync(cancellationToken);
         }
 
         public async Task<IEnumerable<Doctor>> GetAllAsync() =>

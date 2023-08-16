@@ -72,7 +72,7 @@ namespace Dentistry.BLL.Services.ScheduleService
             {
                 var day = _mapper.Map<Workday>(creationDTO);
 
-                await _dayRepository.AddAsync(day);
+                await _dayRepository.AddAsync(day, CancellationToken.None);
                 return true;
             }
             catch
@@ -85,7 +85,7 @@ namespace Dentistry.BLL.Services.ScheduleService
         {
             try
             {
-                await _dayRepository.DeleteAsync(workday);
+                await _dayRepository.DeleteAsync(workday, CancellationToken.None);
                 return true;
             }
             catch

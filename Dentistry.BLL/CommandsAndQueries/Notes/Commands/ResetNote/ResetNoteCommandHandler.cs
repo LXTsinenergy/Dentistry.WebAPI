@@ -24,7 +24,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Notes.Commands.ResetNote
 
             try
             {
-                await _noteRepository.UpdateAsync(request.Note);
+                await _noteRepository.UpdateAsync(request.Note, cancellationToken);
                 return true;
             }
             catch (Exception ex)

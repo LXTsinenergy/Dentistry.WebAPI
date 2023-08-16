@@ -27,7 +27,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.UpdateUser
                 user.Email = request.Email;
                 user.PhoneNumber = request.PhoneNumber;
 
-                await _userRepository.UpdateAsync(user);
+                await _userRepository.UpdateAsync(user, cancellationToken);
                 return true;
             }
             catch (Exception ex)

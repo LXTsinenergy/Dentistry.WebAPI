@@ -31,7 +31,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Users.Commands.CreateUser
 
             try
             {
-                await _userRepository.AddAsync(user);
+                await _userRepository.AddAsync(user, cancellationToken);
                 return true;
             }
             catch (Exception ex)
