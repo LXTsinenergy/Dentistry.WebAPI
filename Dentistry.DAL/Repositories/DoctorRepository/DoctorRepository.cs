@@ -35,6 +35,7 @@ namespace Dentistry.DAL.Repositories.DoctorRepository
             await _context.Doctors
             .Include(x => x.Notes)
             .Include(x => x.Reviews)
+            .Include(x => x.Specialties)
             .ToListAsync();
 
         public async Task<Doctor?> GetByEmailAsync(string email) => 

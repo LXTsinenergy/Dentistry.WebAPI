@@ -1,4 +1,5 @@
-﻿using Dentistry.BLL.Helpers;
+﻿using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
+using Dentistry.BLL.Helpers;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
@@ -13,7 +14,7 @@ namespace Dentistry.API.Controllers
 {
     [Route("headphysician")]
     [Authorize(Roles = "admin, head")]
-    public class HeadPhysicianController : Controller
+    public class HeadPhysicianController : BaseController
     {
         private readonly IDoctorService _doctorService;
         private readonly IDayService _dayService;
@@ -34,10 +35,9 @@ namespace Dentistry.API.Controllers
         [Route("doctors")]
         public async Task<IActionResult> GetAllDoctorsAsync()
         {
-            var doctors = await _doctorService.GetDoctorsAsync();
-
-            if (doctors != null) return Ok(doctors);
-            return StatusCode(500);
+            var getAllDoctorsQuery = new GetAllDoctorsQuery();
+            var doctors = await Mediator.Send(getAllDoctorsQuery);
+            return Ok(doctors);
         }
 
         [Route("doctor/{id:int}")]

@@ -3,13 +3,13 @@ using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.CommandsAndQueries.Doctors.Queries
+namespace Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById
 {
     public class GetDoctorByIdQueryHandler : IRequestHandler<GetDoctorByIdQuery, Doctor>
     {
         private readonly IDoctorRepository _doctorRepository;
 
-        public GetDoctorByIdQueryHandler(IDoctorRepository doctorRepository) => 
+        public GetDoctorByIdQueryHandler(IDoctorRepository doctorRepository) =>
             _doctorRepository = doctorRepository;
 
         public async Task<Doctor> Handle(GetDoctorByIdQuery request, CancellationToken cancellationToken)
