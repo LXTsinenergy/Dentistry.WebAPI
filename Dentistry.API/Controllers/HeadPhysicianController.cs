@@ -1,16 +1,17 @@
 ﻿using AutoMapper;
 using Dentistry.API.Models.Doctor;
+using Dentistry.API.Models.Speciality;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
-using Dentistry.BLL.Helpers;
+using Dentistry.BLL.CommandsAndQueries.Specialties.Commands.CreateSpeciality;
+using Dentistry.BLL.CommandsAndQueries.Specialties.Queries.GetSpecialties;
 using Dentistry.BLL.Models.Doctor.DoctorById;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
 using Dentistry.Domain.DTO.Day;
 using Dentistry.Domain.DTO.Doctor;
-using Dentistry.Domain.DTO.DoctorDTO;
 using Dentistry.Domain.DTO.Note;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,8 @@ namespace Dentistry.API.Controllers
             return Ok(doctors);
         }
 
+        // Для Speciality сделать List<DoctorId> ёмаё блин...
+
         [Route("doctor")]
         [HttpGet]
         public async Task<IActionResult> GetDoctorByIdAsync([FromQuery] int id)
@@ -65,7 +68,7 @@ namespace Dentistry.API.Controllers
 
         [Route("newdoctor")]
         [HttpPost]
-        public async Task<IActionResult> RegisterNewDoctorAsync([FromBody] DoctorCreationDto creationDTO)
+        public async Task<IActionResult> RegisterNewDoctorAsync([FromBody] DoctorCreateDto creationDTO)
         {
             var createDoctorCommand = _mapper.Map<CreateDoctorCommand>(creationDTO);
             var result = await Mediator.Send(createDoctorCommand);
@@ -112,6 +115,24 @@ namespace Dentistry.API.Controllers
             return NotFound(id);
         }
         #endregion
+
+        [Route("specialties")]
+        [HttpGet]
+        public async Task<IActionResult> GetSpecialtiesAsync()
+        {
+            var getAllSpecialtiesQuery = new GetAllSpecialtiesQuery();
+            var result = await Mediator.Send(getAllSpecialtiesQuery);
+            return Ok(result);
+        }
+
+        [Route("newspeciality")]
+        [HttpPost]
+        public async Task<IActionResult> AddSpecialityAsync([FromBody] SpecialityCreateDto createDto)
+        {
+            var createSpecialityCommand = _mapper.Map<CreateSpecialityCommand>(createDto);
+            var result = await Mediator.Send(createSpecialityCommand);
+            return Ok(result);
+        }
 
         #region Workdays
         [Route("schedule")]

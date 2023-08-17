@@ -9,8 +9,7 @@ namespace Dentistry.Domain.Models
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public int? DoctorId { get; set; }
         [JsonIgnore]
-        public Doctor Doctor { get; set; }
+        public List<Doctor> Doctors { get; set; }
     }
 }

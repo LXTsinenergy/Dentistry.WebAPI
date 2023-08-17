@@ -5,6 +5,7 @@ using Dentistry.DAL.Repositories.SpecialityRepository;
 using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
 using MediatR;
+using System.Numerics;
 
 namespace Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor
 {
@@ -28,7 +29,6 @@ namespace Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor
             {
                 Fullname = request.Fullname,
                 Experience = request.Experience,
-                //Specialties = request.Specialties,
                 Email = request.Email,
                 PhoneNumber = request.PhoneNumber,
                 Password = hasingPassword,
@@ -38,12 +38,33 @@ namespace Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor
 
             try
             {
+                var doctorSpecialties = await GetDoctorSpecialtiesAsync(request.SpecialtiesId);
+                doctor.Specialties = doctorSpecialties;
+
                 await _doctorRepository.AddAsync(doctor, cancellationToken);
                 return true;
             }
             catch (Exception ex)
             {
                 throw new RepositoryOperationException(nameof(DoctorRepository), ex.Message);
+            }
+        }
+
+        private async Task<List<Speciality>> GetDoctorSpecialtiesAsync(List<int> specialtiesId)
+        {
+            try
+            {
+                var specialties = await _specialityRepository.GetAllAsync();
+                var specialtiesForDoctor = specialties
+                    .Where(speciality => specialtiesId
+                    .Contains(speciality.Id))
+                    .ToList();
+
+                return specialtiesForDoctor;
+            }
+            catch (Exception ex)
+            {
+                throw new RepositoryOperationException(nameof(SpecialityRepository), ex.Message);
             }
         }
     }

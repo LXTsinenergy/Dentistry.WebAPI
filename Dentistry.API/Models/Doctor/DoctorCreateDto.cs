@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.API.Models.Doctor
 {
-    public class DoctorCreationDto : IMapWith<CreateDoctorCommand>
+    public class DoctorCreateDto : IMapWith<CreateDoctorCommand>
     {
         [Required]
         public string Fullname { get; set; }
@@ -31,7 +31,7 @@ namespace Dentistry.API.Models.Doctor
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<DoctorCreationDto, CreateDoctorCommand>();
+            profile.CreateMap<DoctorCreateDto, CreateDoctorCommand>();
         }
     }
 }
