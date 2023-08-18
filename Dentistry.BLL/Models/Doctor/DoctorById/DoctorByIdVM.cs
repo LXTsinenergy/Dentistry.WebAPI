@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using Dentistry.BLL.Mapping;
-using Dentistry.Domain.Enums;
 using Dentistry.Domain.Models;
 
 namespace Dentistry.BLL.Models.Doctor.DoctorById
@@ -23,7 +22,8 @@ namespace Dentistry.BLL.Models.Doctor.DoctorById
         {
             profile.CreateMap<Domain.Models.Doctor, DoctorByIdVM>()
                 .ForMember(vm => vm.Specialties,
-                src => src.MapFrom(doctor => doctor.Specialties));
+                src => src.MapFrom(doctor => doctor.Specialties
+                    .Select(s => s.Name)));
         }
     }
 }

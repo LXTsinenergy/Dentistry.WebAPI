@@ -16,7 +16,8 @@ namespace Dentistry.BLL.Models.Doctor.DoctorForAll
         {
             profile.CreateMap<Domain.Models.Doctor, DoctorForAllDto>()
                 .ForMember(dto => dto.Specialties,
-                src => src.MapFrom(doctor => doctor.Specialties));
+                src => src.MapFrom(doctor => doctor.Specialties
+                .Select(s => s.Name)));
         }
     }
 }

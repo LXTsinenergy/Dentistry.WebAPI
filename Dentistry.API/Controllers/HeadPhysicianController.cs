@@ -61,8 +61,8 @@ namespace Dentistry.API.Controllers
             {
                 return NotFound(id);
             }
-            var doctorVm = _mapper.Map<DoctorByIdVM>(doctor);
-            return Ok(doctorVm);
+            var doctorVM = _mapper.Map<DoctorByIdVM>(doctor);
+            return Ok(doctorVM);
         }
 
         [Route("newdoctor")]
