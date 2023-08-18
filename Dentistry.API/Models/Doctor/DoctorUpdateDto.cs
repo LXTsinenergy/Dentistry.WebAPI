@@ -1,38 +1,28 @@
 ﻿using AutoMapper;
-using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.UpdateDoctor;
 using Dentistry.BLL.Mapping;
-using Dentistry.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 
 namespace Dentistry.API.Models.Doctor
 {
-    public class DoctorCreateDto : IMapWith<CreateDoctorCommand>
+    public class DoctorUpdateDto : IMapWith<UpdateDoctorCommand>
     {
-        [Required]
+        public int Id { get; set; }
         public string Fullname { get; set; }
-
-        [Required]
         public int Experience { get; set; }
-
-        [Required]
         public List<int> SpecialtiesId { get; set; }
 
-        [Required]
         [DataType(DataType.EmailAddress)]
         [RegularExpression("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$", ErrorMessage = "Введите действительный Email-адрес")]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.PhoneNumber)]
         [RegularExpression("^[0-9]{11}$", ErrorMessage = "Введите действительный номер телефона")]
         public string PhoneNumber { get; set; }
 
-        [Required]
-        public string Password { get; set; }
-
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<DoctorCreateDto, CreateDoctorCommand>();
+            profile.CreateMap<DoctorUpdateDto, UpdateDoctorCommand>();
         }
     }
 }

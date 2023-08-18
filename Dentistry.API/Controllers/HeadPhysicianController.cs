@@ -2,6 +2,7 @@
 using Dentistry.API.Models.Doctor;
 using Dentistry.API.Models.Speciality;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.UpdateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Commands.CreateSpeciality;
@@ -49,8 +50,6 @@ namespace Dentistry.API.Controllers
             return Ok(doctors);
         }
 
-        // Для Speciality сделать List<DoctorId> ёмаё блин...
-
         [Route("doctor")]
         [HttpGet]
         public async Task<IActionResult> GetDoctorByIdAsync([FromQuery] int id)
@@ -75,29 +74,22 @@ namespace Dentistry.API.Controllers
             return Ok(result);
         }
 
-        [Route("updatedoctor/{id:int}")]
+        [Route("updatedoctor")]
         [HttpPut]
-        public async Task<IActionResult> UpdateDoctorDataAsync(int id, DoctorUpdateDTO updateDTO)
+        public async Task<IActionResult> UpdateDoctorDataAsync(DoctorUpdateDto updateDto)
         {
-            // Новая таблица под специальности
-            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+            var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = updateDto.Id };
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
 
-            if (doctor != null)
+            if (doctor == null)
             {
-                if (await _doctorService.EmailIsRegistered(updateDTO.Email))
-                {
-                    return BadRequest(updateDTO.Email);
-                }
-                if (await _doctorService.PhoneIsRegistered(updateDTO.PhoneNumber))
-                {
-                    return BadRequest(updateDTO.PhoneNumber);
-                }
-                var result = await _doctorService.UpdateDoctorAsync(doctor, updateDTO);
-
-                if (result) return Ok(result);
-                return BadRequest(result);
+                return NotFound(updateDto.Id);
             }
-            return NotFound(id);
+
+            var updateDoctorCommand = _mapper.Map<UpdateDoctorCommand>(updateDto);
+            updateDoctorCommand.Doctor = doctor;
+            var result = await Mediator.Send(updateDoctorCommand);
+            return Ok(result);
         }
 
         [Route("deletedoctor/{id:int}")]
