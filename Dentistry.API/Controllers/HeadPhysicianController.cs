@@ -2,6 +2,7 @@
 using Dentistry.API.Models.Doctor;
 using Dentistry.API.Models.Speciality;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.DeleteDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.UpdateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
@@ -92,19 +93,20 @@ namespace Dentistry.API.Controllers
             return Ok(result);
         }
 
-        [Route("deletedoctor/{id:int}")]
+        [Route("deletedoctor")]
         [HttpDelete]
         public async Task<IActionResult> DeleteDoctorAsync(int id)
         {
-            var doctor = await _doctorService.GetDoctorByIdAsync(id);
+            var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = id };
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
 
-            if (doctor != null)
+            if (doctor == null)
             {
-                var result = await _doctorService.DeleteDoctorAsync(doctor);
-                if (result) return Ok(result);
-                return BadRequest(false);
+                return NotFound(id);
             }
-            return NotFound(id);
+            var deleteDoctorCommand = new DeleteDoctorCommand { Doctor = doctor };
+            var result = await Mediator.Send(deleteDoctorCommand);
+            return Ok(result);
         }
         #endregion
 
