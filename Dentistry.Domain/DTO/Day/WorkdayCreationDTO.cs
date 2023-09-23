@@ -2,6 +2,6 @@
 {
     public class WorkdayCreationDTO
     {
-        public Enums.Day DayOfWeek { get; set; }
+        public DateOnly Date { get; set; }
     }
 }

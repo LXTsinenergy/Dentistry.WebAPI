@@ -1,6 +1,6 @@
 ﻿using AutoMapper;
 using Dentistry.BLL.Exceptions;
-using Dentistry.BLL.Models.AllSpecialties;
+using Dentistry.BLL.Models.Specialties.AllSpecialties;
 using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.SpecialityRepository;
 using Dentistry.Domain.Models;

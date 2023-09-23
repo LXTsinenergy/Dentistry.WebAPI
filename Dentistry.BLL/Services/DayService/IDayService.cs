@@ -7,7 +7,6 @@ namespace Dentistry.BLL.Services.ScheduleService
     public interface IDayService
     {
         Task<IEnumerable<Workday>> GetAllDaysAsync();
-        Task<IEnumerable<Workday>> GetCoincidingDaysAsync(Day dayOfWeek);
         Task<Workday> GetDayByIdAsync(int id);
 
         Task<bool> CreateDayAsync(WorkdayCreationDTO creationDTO);

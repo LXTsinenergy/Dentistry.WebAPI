@@ -8,7 +8,7 @@ namespace Dentistry.Domain.Models
         [Key]
         public int Id { get; set; }
 
-        public Day DayOfWeek { get; set; }
+        public DateTime Date { get; set; }
         public ICollection<Note> Schedule { get; set; }
 
         public Workday()

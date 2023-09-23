@@ -2,7 +2,7 @@
 using Dentistry.BLL.Mapping;
 using Dentistry.Domain.Models;
 
-namespace Dentistry.BLL.Models.AllSpecialties
+namespace Dentistry.BLL.Models.Specialties.AllSpecialties
 {
     public class SpecialityForAllDto : IMapWith<Speciality>
     {

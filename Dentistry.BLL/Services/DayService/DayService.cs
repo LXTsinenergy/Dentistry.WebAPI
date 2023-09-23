@@ -47,22 +47,6 @@ namespace Dentistry.BLL.Services.ScheduleService
                 return null;
             }
         }
-
-        public async Task<IEnumerable<Workday>> GetCoincidingDaysAsync(Day dayOfWeek)
-        {
-            try
-            {
-                var days = await _dayRepository.GetAllAsync();
-                var coincidingDays = days
-                    .Where(d => d.DayOfWeek == dayOfWeek);
-
-                return coincidingDays;
-            }
-            catch
-            {
-                return null;
-            }
-        }
         #endregion
 
         #region Day operations

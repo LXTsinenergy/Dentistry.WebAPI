@@ -1,20 +1,20 @@
 ﻿using AutoMapper;
 using Dentistry.API.Models.Doctor;
 using Dentistry.API.Models.Speciality;
+using Dentistry.BLL.CommandsAndQueries.Days.Queries.GetAllDays;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.DeleteDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.UpdateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
+using Dentistry.BLL.CommandsAndQueries.Notes.Commands.CreateNote;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Commands.CreateSpeciality;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Queries.GetSpecialties;
 using Dentistry.BLL.Models.Doctor.DoctorById;
+using Dentistry.BLL.Models.Note.CreateNote;
 using Dentistry.BLL.Services.DoctorService;
 using Dentistry.BLL.Services.DoctorsNoteService;
 using Dentistry.BLL.Services.ScheduleService;
-using Dentistry.Domain.DTO.Day;
-using Dentistry.Domain.DTO.Doctor;
-using Dentistry.Domain.DTO.Note;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -133,52 +133,20 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
-            var schedule = await _dayService.GetAllDaysAsync();
-
-            if (schedule != null) return Ok(schedule);
-            return StatusCode(500);
-        }
-
-        [Route("newday")]
-        [HttpPost]
-        public async Task<IActionResult> AddNewWorkdayAsync(WorkdayCreationDTO creationDTO)
-        {
-            var coincidingDays = await _dayService.GetCoincidingDaysAsync(creationDTO.DayOfWeek);
-
-            if (coincidingDays.ToList().Count == 0)
-            {
-                var result = await _dayService.CreateDayAsync(creationDTO);
-                if (result) return Ok();
-            }
-            return BadRequest(creationDTO);
-        }
-
-        [Route("deleteday")]
-        [HttpDelete]
-        public async Task<IActionResult> DeleteWorkdayAsync(int id)
-        {
-            var day = await _dayService.GetDayByIdAsync(id);
-
-            if (day != null)
-            {
-                var result = await _dayService.DeleteDayAsync(day);
-
-                if (result) return Ok();
-                return StatusCode(500);
-            }
-            return NotFound(id);
+            var getAllDaysQuery = new GetAllDaysQuery();
+            var schedule = await Mediator.Send(getAllDaysQuery);
+            return Ok(schedule);
         }
         #endregion
 
         #region Notes
-        [Route("addnotetodoctor")]
-        [HttpGet]
-        public async Task<IActionResult> AddNoteToDoctorScheduleAsync(NoteCreationDTO noteCreationDTO, int dayId, int doctorId)
+        [Route("newnote")]
+        [HttpPost]
+        public async Task<IActionResult> CreateNoteAsync([FromBody] CreateNoteDto createNoteDto)
         {
-            var result = await _noteService.CreateNoteAsync(noteCreationDTO, dayId, doctorId);
-
-            if (result) return Ok();
-            return BadRequest();
+            var createNoteCommand = _mapper.Map<CreateNoteCommand>(createNoteDto);
+            var result = await Mediator.Send(createNoteCommand);
+            return Ok(result);
         }
 
         [Route("deletenote/{id:int}")]

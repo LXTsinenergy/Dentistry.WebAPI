@@ -1,7 +1,7 @@
 ﻿using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.CommandsAndQueries.Days.Queries
+namespace Dentistry.BLL.CommandsAndQueries.Days.Queries.GetDayById
 {
     public class GetDayByIdQuery : IRequest<Workday>
     {

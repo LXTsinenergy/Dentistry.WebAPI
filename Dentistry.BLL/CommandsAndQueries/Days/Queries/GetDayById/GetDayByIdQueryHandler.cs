@@ -3,13 +3,13 @@ using Dentistry.DAL.Repositories.DayRepository;
 using Dentistry.Domain.Models;
 using MediatR;
 
-namespace Dentistry.BLL.CommandsAndQueries.Days.Queries
+namespace Dentistry.BLL.CommandsAndQueries.Days.Queries.GetDayById
 {
     public class GetDayByIdQueryHandler : IRequestHandler<GetDayByIdQuery, Workday>
     {
         private readonly IDayRepository _dayRepository;
 
-        public GetDayByIdQueryHandler(IDayRepository dayRepository) => 
+        public GetDayByIdQueryHandler(IDayRepository dayRepository) =>
             _dayRepository = dayRepository;
 
         public async Task<Workday> Handle(GetDayByIdQuery request, CancellationToken cancellationToken)

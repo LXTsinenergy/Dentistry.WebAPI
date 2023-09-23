@@ -1,4 +1,4 @@
-﻿using Dentistry.BLL.Models.AllSpecialties;
+﻿using Dentistry.BLL.Models.Specialties.AllSpecialties;
 using MediatR;
 
 namespace Dentistry.BLL.CommandsAndQueries.Specialties.Queries.GetSpecialties

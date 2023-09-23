@@ -8,5 +8,6 @@ namespace Dentistry.DAL.Repositories.DayRepository
         Task<Workday> GetByIdAsync(int id);
         Task AddAsync(Workday workday, CancellationToken cancellationToken);
         Task DeleteAsync(Workday workday, CancellationToken cancellationToken);
+        Task<Workday> GetByDateAsync(DateOnly date, CancellationToken cancellationToken);
     }
 }

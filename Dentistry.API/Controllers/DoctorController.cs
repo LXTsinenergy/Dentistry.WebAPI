@@ -1,5 +1,6 @@
 ﻿using Dentistry.API.Models.Appointment;
 using Dentistry.BLL.CommandsAndQueries.Days.Queries;
+using Dentistry.BLL.CommandsAndQueries.Days.Queries.GetDayById;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
 using Dentistry.BLL.CommandsAndQueries.Notes.Commands.ResetNote;
 using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;

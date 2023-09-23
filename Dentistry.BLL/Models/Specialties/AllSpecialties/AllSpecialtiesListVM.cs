@@ -1,4 +1,4 @@
-﻿namespace Dentistry.BLL.Models.AllSpecialties
+﻿namespace Dentistry.BLL.Models.Specialties.AllSpecialties
 {
     public class AllSpecialtiesListVM
     {
