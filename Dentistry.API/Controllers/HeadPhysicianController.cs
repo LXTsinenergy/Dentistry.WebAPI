@@ -8,6 +8,8 @@ using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.UpdateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
 using Dentistry.BLL.CommandsAndQueries.Notes.Commands.CreateNote;
+using Dentistry.BLL.CommandsAndQueries.Notes.Commands.DeleteNote;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Commands.CreateSpeciality;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Queries.GetSpecialties;
 using Dentistry.BLL.Models.Doctor.DoctorById;
@@ -153,16 +155,16 @@ namespace Dentistry.API.Controllers
         [HttpDelete]
         public async Task<IActionResult> DeleteNoteAsync(int id)
         {
-            var note = await _noteService.GetNoteByIdAsync(id);
+            var getNoteByIdQuery = new GetNoteByIdQuery { Id = id };
+            var note = await Mediator.Send(getNoteByIdQuery);
 
-            if (note != null)
+            if (note == null)
             {
-                var result = await _noteService.DeleteNoteAsync(note);
-
-                if (result) return Ok();
-                return StatusCode(500);
+                return NotFound(id);
             }
-            return NotFound(id);
+            var deleteNoteCommand = new DeleteNoteCommand { Note = note };
+            var result = await Mediator.Send(deleteNoteCommand);
+            return Ok(result);
         }
         #endregion
     }
