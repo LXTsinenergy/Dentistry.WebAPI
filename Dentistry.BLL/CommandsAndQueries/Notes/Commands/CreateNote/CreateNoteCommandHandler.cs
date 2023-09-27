@@ -48,13 +48,14 @@ namespace Dentistry.BLL.CommandsAndQueries.Notes.Commands.CreateNote
             {
                 Workday = day,
                 Doctor = doctor,
-                AppointmentTime = ConvertOnlyToDateTime(request.Date, request.AppointmentTime)
+                AppointmentTime = ConvertToDateTime(request.Date, request.AppointmentTime)
             };
 
             await AddNote(_noteRepository, note, cancellationToken);
             return true;
         }
 
+        #region Private Methods
         private async Task<Domain.Models.Workday> FindDayAsync(DateOnly date, CancellationToken cancellationToken)
         {
             try
@@ -93,7 +94,8 @@ namespace Dentistry.BLL.CommandsAndQueries.Notes.Commands.CreateNote
             }
         }
 
-        private DateTime ConvertOnlyToDateTime(DateOnly date, TimeOnly time) =>
-            new (date.Year, date.Month, date.Day, time.Hour, time.Minute, time.Second);
+        private DateTime ConvertToDateTime(DateOnly date, TimeOnly time) =>
+            new(date.Year, date.Month, date.Day, time.Hour, time.Minute, time.Second); 
+        #endregion
     }
 }

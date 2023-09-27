@@ -149,7 +149,7 @@ namespace Dentistry.API.Controllers
             return Ok(result);
         }
 
-        [Route("deletenote/{id:int}")]
+        [Route("deletenote")]
         [HttpDelete]
         public async Task<IActionResult> DeleteNoteAsync(int id)
         {

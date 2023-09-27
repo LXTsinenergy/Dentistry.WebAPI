@@ -35,9 +35,8 @@ namespace Dentistry.DAL.Repositories.DayRepository
             await _context.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<Workday> GetByDateAsync(DateOnly date, CancellationToken cancellationToken) =>
+        public async Task<Workday> GetByDateAsync(DateOnly date, CancellationToken cancellationToken) => 
             await _context.Days
-            .FirstOrDefaultAsync(day => date == DateOnly.FromDateTime(day.Date.Date), cancellationToken);
-            
+            .FirstOrDefaultAsync(day => day.Date == DateTime.Parse(date.ToString()), cancellationToken);    
     }
 }
