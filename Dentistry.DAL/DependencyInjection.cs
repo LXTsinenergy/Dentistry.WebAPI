@@ -1,5 +1,4 @@
 ﻿using Dentistry.DAL.DataContext;
-using Dentistry.DAL.Repositories.DayRepository;
 using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.NoteRepository;
 using Dentistry.DAL.Repositories.ReviewRepository;
@@ -22,7 +21,6 @@ namespace Dentistry.DAL
             });
             services.AddScoped<IApplicationDbContext, ApplicationDbContext>();
 
-            services.AddScoped<IDayRepository, DayRepository>();
             services.AddScoped<IDoctorRepository, DoctorRepository>();
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<IReviewRepository, ReviewRepository>();

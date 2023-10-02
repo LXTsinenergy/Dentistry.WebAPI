@@ -3,7 +3,7 @@ using Dentistry.BLL.Mapping;
 
 namespace Dentistry.BLL.Models.Note.DaySchedule
 {
-    public class DayScheduleNoteDto : IMapWith<Domain.Models.Note>
+    public class DayNoteDto : IMapWith<Domain.Models.Note>
     {
         public int Id { get; set; }
 
@@ -16,7 +16,7 @@ namespace Dentistry.BLL.Models.Note.DaySchedule
 
         public void Mapping(Profile profile)
         {
-            profile.CreateMap<Domain.Models.Note, DayScheduleNoteDto>();
+            profile.CreateMap<Domain.Models.Note, DayNoteDto>();
         }
     }
 }

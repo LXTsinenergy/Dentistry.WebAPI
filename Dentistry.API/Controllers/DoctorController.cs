@@ -1,11 +1,10 @@
 ﻿using Dentistry.API.Models.Appointment;
-using Dentistry.BLL.CommandsAndQueries.Days.Queries;
-using Dentistry.BLL.CommandsAndQueries.Days.Queries.GetDayById;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
 using Dentistry.BLL.CommandsAndQueries.Notes.Commands.ResetNote;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetDayDoctorNotes;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetDoctorNotes;
 using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;
 using Dentistry.BLL.Models.Schedule;
-using Dentistry.BLL.Services.DoctorsNoteService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -15,10 +14,6 @@ namespace Dentistry.API.Controllers
     [Authorize(Roles = "admin, doctor")]
     public class DoctorController : BaseController
     {
-        private readonly INoteService _noteService;
-
-        public DoctorController(INoteService noteService) => _noteService = noteService;
-
         #region Schedule
         [Route("schedule")]
         [HttpGet]
@@ -31,30 +26,25 @@ namespace Dentistry.API.Controllers
             {
                 return NotFound(doctorId);
             }
-            var schedule = _noteService.GetDoctorSchedule(doctor);
-            return Ok(schedule);
+            var getDoctorNotesQuery = new GetDoctorNotesQuery { Doctor = doctor };
+            var notes = await Mediator.Send(getDoctorNotesQuery);
+            return Ok(notes);
         }
 
         [Route("dayschedule")]
         [HttpGet]
         public async Task<IActionResult> GetDayScheduleAsync([FromQuery] GetDayScheduleDto getDayScheduleDto)
         {
-            var getDayByIdQuery = new GetDayByIdQuery { Id = getDayScheduleDto.DayId };
             var getDoctorByIdQuery = new GetDoctorByIdQuery { Id = getDayScheduleDto.DoctorId };
-
-            var day = await Mediator.Send(getDayByIdQuery);
             var doctor = await Mediator.Send(getDoctorByIdQuery);
-
-            if (day == null)
-            {
-                return NotFound(getDayScheduleDto.DayId);
-            }
             if (doctor == null)
             {
                 return NotFound(getDayScheduleDto.DoctorId);
             }
-            var schedule = _noteService.GetDoctorDaySchedule(day, getDayScheduleDto.DoctorId);
-            return Ok(schedule);
+
+            var getDayDoctorNotesQuery = new GetDayDoctorNotesQuery() { Doctor = doctor, Date = getDayScheduleDto.Date };
+            var notes = await Mediator.Send(getDayDoctorNotesQuery);
+            return Ok(notes);
         }
         #endregion
 
@@ -69,7 +59,7 @@ namespace Dentistry.API.Controllers
             var note = await Mediator.Send(getNoteByIdQuery);
             var doctor = await Mediator.Send(getDoctorByIdQuery);
 
-            if (note == null || !_noteService.NoteCanBeCompleted(note, doctor))
+            if (note == null)
             {
                 return NotFound(appointmentDto.NoteId);
             }

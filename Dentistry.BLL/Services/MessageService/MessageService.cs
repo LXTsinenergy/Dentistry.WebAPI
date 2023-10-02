@@ -21,7 +21,7 @@ namespace Dentistry.BLL.Services.MessageService
 
             await client.AuthenticateAsync(_configuration.GetSection("Email")["Account"],
                 _configuration.GetSection("Email")["Password"]);
-
+            
             await client.SendAsync(emailMessage);
         }
 

@@ -32,15 +32,15 @@ namespace Dentistry.API.Controllers
         public async Task<IActionResult> SignUpForAppointmentAsync([FromQuery] SignUpDto signUpDto)
         {
             var getUserByIdQuery = new GetUserByIdQuery { Id = signUpDto.UserId };
-            var getNoteByIdQery = new GetNoteByIdQuery { Id = signUpDto.NoteId };
+            var getNoteByIdQuery = new GetNoteByIdQuery { Id = signUpDto.NoteId };
 
             var user = await Mediator.Send(getUserByIdQuery);
-            var note = await Mediator.Send(getNoteByIdQery);
-
             if (user == null)
             {
                 return NotFound(signUpDto.UserId);
             }
+
+            var note = await Mediator.Send(getNoteByIdQuery);
             if (note == null || note.IsTaken)
             {
                 return NotFound(signUpDto.NoteId);

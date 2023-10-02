@@ -1,5 +1,5 @@
-﻿using Dentistry.BLL.Services.DoctorService;
-using Dentistry.BLL.Services.DoctorsNoteService;
+﻿using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetAllNotes;
+using Dentistry.BLL.Services.DoctorService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -7,52 +7,39 @@ namespace Dentistry.API.Controllers
 {
     [Route("reception")]
     [Authorize(Roles = "registrar, admin")]
-    public class ReceptionController : Controller
+    public class ReceptionController : BaseController
     {
-        private readonly INoteService _noteService;
         private readonly IDoctorService _doctorService;
 
-        public ReceptionController(INoteService noteService, IDoctorService doctorService)
+        public ReceptionController(IDoctorService doctorService)
         {
-            _noteService = noteService;
             _doctorService = doctorService;
         }
 
         #region GetNotes
         [Route("notes")]
         [HttpGet]
-        public async Task<IActionResult> GetListOfNotesAsync()
+        public async Task<IActionResult> GetNotesAsync()
         {
-            var notes = await _noteService.GetNotesAsync();
-
-            if (notes != null) return Ok(notes);
-            return StatusCode(500);
+            var getAllNotesQuery = new GetAllNotesQuery();
+            var notes = await Mediator.Send(getAllNotesQuery);
+            return Ok(notes);
         }
 
         [Route("unacceptednotes")]
         [HttpGet]
         public async Task<IActionResult> GetListOfUnacceptedNotesAsync()
         {
-            var notes = await _noteService.GetUnacceptedNotesAsync();
+            //var notes = await _noteService.GetUnacceptedNotesAsync();
 
-            if (notes != null) return Ok(notes);
-            return StatusCode(500);
+            return Ok();
         }
 
         [Route("doctornotes/{id:int}")]
         [HttpGet]
         public async Task<IActionResult> GetListOfUnacceptedDoctorNotesAsync(int doctorId)
         {
-            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
-
-            if (doctor != null)
-            {
-                var notes = _noteService.GetUnacceptedDoctorNotes(doctor);
-
-                if (notes != null) return Ok(notes);
-                return StatusCode(500);
-            }
-            return NotFound(doctorId);
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -61,20 +48,7 @@ namespace Dentistry.API.Controllers
         [HttpPut]
         public async Task<IActionResult> AcceptAppointmentAsync(int id, string procedureName)
         {
-            var note = await _noteService.GetNoteByIdAsync(id);
-
-            if (note != null)
-            {
-                if (note.IsTaken && !note.IsAccepted)
-                {
-                    note.ProcedureName = procedureName;
-                    var result = await _noteService.ConfirmAppointmentAsync(note);
-
-                    if (result) return Ok();
-                    return StatusCode(500);
-                }
-            }
-            return NotFound(id);
+            throw new NotImplementedException();
         } 
         #endregion
     }

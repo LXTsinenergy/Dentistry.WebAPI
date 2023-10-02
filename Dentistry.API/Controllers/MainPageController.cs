@@ -1,4 +1,6 @@
-﻿using Dentistry.BLL.Services.DoctorService;
+﻿using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
+using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
+using Dentistry.BLL.Services.DoctorService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,33 +8,29 @@ namespace Dentistry.API.Controllers
 {
     [Route("/")]
     [Authorize(Roles = "admin, user, doctor, registrar, head")]
-    public class MainPageController : Controller
+    public class MainPageController : BaseController
     {
-        private readonly IDoctorService _doctorService;
-
-        public MainPageController(IDoctorService doctorService)
-        {
-            _doctorService = doctorService;
-        }
-
         [Route("doctors")]
         [HttpGet]
         public async Task<IActionResult> GetDoctorsListAsync()
         {
-            var doctors = await _doctorService.GetDoctorsAsync();
-
-            if (doctors != null) return Ok(doctors);
-            return StatusCode(500);
+            var getAllDoctorsQuery = new GetAllDoctorsQuery();
+            var doctors = await Mediator.Send(getAllDoctorsQuery);
+            return Ok(doctors);
         }
 
         [Route("doctor")]
         [HttpGet]
-        public async Task<IActionResult> GetDoctorAsync(int doctorId)
+        public async Task<IActionResult> GetDoctorAsync(int id)
         {
-            var doctor = await _doctorService.GetDoctorByIdAsync(doctorId);
+            var getDoctorByIdQuery = new GetDoctorByIdQuery() { Id = id };
+            var doctor = await Mediator.Send(getDoctorByIdQuery);
 
-            if (doctor != null) return Ok(doctor);
-            return NotFound(doctorId);
+            if (doctor == null)
+            {
+                return NotFound(id);
+            }
+            return Ok(doctor);
         }
     }
 }

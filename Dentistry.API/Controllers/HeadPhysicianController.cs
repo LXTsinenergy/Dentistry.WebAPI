@@ -1,7 +1,6 @@
 ﻿using AutoMapper;
 using Dentistry.API.Models.Doctor;
 using Dentistry.API.Models.Speciality;
-using Dentistry.BLL.CommandsAndQueries.Days.Queries.GetAllDays;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.CreateDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.DeleteDoctor;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Commands.UpdateDoctor;
@@ -14,9 +13,6 @@ using Dentistry.BLL.CommandsAndQueries.Specialties.Commands.CreateSpeciality;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Queries.GetSpecialties;
 using Dentistry.BLL.Models.Doctor.DoctorById;
 using Dentistry.BLL.Models.Note.CreateNote;
-using Dentistry.BLL.Services.DoctorService;
-using Dentistry.BLL.Services.DoctorsNoteService;
-using Dentistry.BLL.Services.ScheduleService;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,22 +22,9 @@ namespace Dentistry.API.Controllers
     [Authorize(Roles = "admin, head")]
     public class HeadPhysicianController : BaseController
     {
-        private readonly IDoctorService _doctorService;
-        private readonly IDayService _dayService;
-        private readonly INoteService _noteService;
         private readonly IMapper _mapper;
 
-        public HeadPhysicianController(
-            IDoctorService doctorService,
-            IDayService dayService,
-            INoteService noteService,
-            IMapper mapper)
-        {
-            _doctorService = doctorService;
-            _dayService = dayService;
-            _noteService = noteService;
-            _mapper = mapper;
-        }
+        public HeadPhysicianController(IMapper mapper) => _mapper = mapper;
 
         #region Doctor
         [HttpGet]
@@ -135,9 +118,7 @@ namespace Dentistry.API.Controllers
         [HttpGet]
         public async Task<IActionResult> GetGeneralScheduleAsync()
         {
-            var getAllDaysQuery = new GetAllDaysQuery();
-            var schedule = await Mediator.Send(getAllDaysQuery);
-            return Ok(schedule);
+            throw new NotImplementedException();
         }
         #endregion
 

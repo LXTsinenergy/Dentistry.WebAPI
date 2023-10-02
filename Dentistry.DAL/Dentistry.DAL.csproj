@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Dentistry.Domain\Dentistry.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="EntityTypeConfigurations\" />
-  </ItemGroup>
-
 </Project>

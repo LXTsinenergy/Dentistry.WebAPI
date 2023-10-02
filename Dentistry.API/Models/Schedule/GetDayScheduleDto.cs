@@ -2,7 +2,7 @@
 {
     public class GetDayScheduleDto
     {
-        public int DayId { get; set; }
+        public DateOnly Date { get; set; }
         public int DoctorId { get; set; }
     }
 }

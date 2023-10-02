@@ -22,9 +22,5 @@ namespace Dentistry.Domain.Models
         public int DoctorId { get; set; }
         [JsonIgnore]
         public Doctor? Doctor { get; set; }
-
-        public int WorkdayId { get; set; }
-        [JsonIgnore]
-        public Workday? Workday { get; set; }
     }
 }

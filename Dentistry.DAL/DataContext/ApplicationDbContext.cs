@@ -10,7 +10,6 @@ namespace Dentistry.DAL.DataContext
         public DbSet<Doctor> Doctors { get; set; }
         public DbSet<Note> Notes { get; set; }
         public DbSet<Speciality> Specialities { get; set; }
-        public DbSet<Workday> Days { get; set; }
         public DbSet<Achievement> Achievements { get; set; }
         public DbSet<Certificate> Certificates { get; set; }
         public DbSet<Education> Educations { get; set; }
