@@ -2,8 +2,11 @@
 {
     public class AllNotesListVM
     {
-        public List<NoteForAllDto> Notes;
+        public IList<NoteForAllDto> Notes { get; set; }
 
-        public AllNotesListVM() => Notes = new();
+        public AllNotesListVM()
+        {
+            Notes = new List<NoteForAllDto>();
+        }
     }
 }

@@ -3,6 +3,7 @@ using Dentistry.BLL.Exceptions;
 using Dentistry.BLL.Models.Note.AllNotesLIst;
 using Dentistry.DAL.Repositories.DoctorRepository;
 using Dentistry.DAL.Repositories.NoteRepository;
+using Dentistry.Domain.Models;
 using MediatR;
 
 namespace Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetAllNotes
@@ -23,7 +24,7 @@ namespace Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetAllNotes
             try
             {
                 var notes = await _notesRepository.GetAllAsync();
-                var notesVM = new AllNotesListVM();
+                var notesVM = new AllNotesListVM() ;
 
                 if (notes != null)
                 {

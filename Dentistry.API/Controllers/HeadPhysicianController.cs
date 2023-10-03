@@ -8,6 +8,7 @@ using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetAllDoctors;
 using Dentistry.BLL.CommandsAndQueries.Doctors.Queries.GetDoctorById;
 using Dentistry.BLL.CommandsAndQueries.Notes.Commands.CreateNote;
 using Dentistry.BLL.CommandsAndQueries.Notes.Commands.DeleteNote;
+using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetAllNotes;
 using Dentistry.BLL.CommandsAndQueries.Notes.Queries.GetNoteById;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Commands.CreateSpeciality;
 using Dentistry.BLL.CommandsAndQueries.Specialties.Queries.GetSpecialties;
@@ -113,16 +114,17 @@ namespace Dentistry.API.Controllers
             return Ok(result);
         }
 
-        #region Workdays
+        #region Notes
         [Route("schedule")]
         [HttpGet]
-        public async Task<IActionResult> GetGeneralScheduleAsync()
+        public async Task<IActionResult> GetAllNotesAsync()
         {
-            throw new NotImplementedException();
+            // Not working
+            var getAllNotesQuery = new GetAllNotesQuery();
+            var notes = await Mediator.Send(getAllNotesQuery);
+            return Ok(notes);
         }
-        #endregion
 
-        #region Notes
         [Route("newnote")]
         [HttpPost]
         public async Task<IActionResult> CreateNoteAsync([FromBody] CreateNoteDto createNoteDto)
